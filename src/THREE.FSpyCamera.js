@@ -5,6 +5,8 @@
 class FSpyCamera {
   constructor( jsonPathOrjsonData , canvas , callback = null , options = {} ) {
 
+    console.log(canvas);
+
     /**
      * 第一引数で取得したjson or jsonへのパス or jsonから生成したオブジェクトを格納する 
      * @param {string|object}
@@ -71,8 +73,17 @@ class FSpyCamera {
      */
     this.jsonType = this._getType(this.inputData);
 
-    /** */
+    /**
+     * 初期状態のカメラのアスペクト比
+     * @type {numer}
+     */
     this.initCameraAspect = null;
+
+    /**
+     * カメラのFOVを格納する変数
+     * @type {number}
+     */
+    this.fov = null;
 
     this._init();
 
@@ -115,7 +126,6 @@ class FSpyCamera {
     this.fspyRatio = this._getFSpyRatio();
     this._setMatrix();
     this._createCamera();
-    this._setRendererSettings();
     window.addEventListener('resize',this.onResize.bind(this));
     this._runCallback.bind(this)();
 
@@ -170,9 +180,11 @@ class FSpyCamera {
 
   }
 
-  _setRendererSettings() {
+  _getVFovDegFromRad( radians ) {
 
+    const rad = THREE.Math.radToDeg( radians );
 
+    return rad;
 
   }
 
@@ -188,7 +200,9 @@ class FSpyCamera {
      */
       const mtxArray = this.cameraTransforms;
 
-    this.camera = new THREE.PerspectiveCamera(62.881853609561645158, this.winWidth / this.winHeight , 0.01 , 10000 );
+      this.fov = this._getVFovDegFromRad( this.cameraData.verticalFieldOfView );
+
+    this.camera = new THREE.PerspectiveCamera( this.fov , this.winWidth / this.winHeight , 0.01 , 10000 );
     // this.camera = new THREE.PerspectiveCamera(35, this.winWidth / this.winHeight , 0.01 , 10000 );
     this.camera.position.set( mtxArray[0][3] , mtxArray[1][3] , mtxArray[2][3] );
     this.camera.setRotationFromMatrix( this.matrix );
