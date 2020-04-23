@@ -5,7 +5,7 @@
 class FSpyCamera {
   constructor( jsonPathOrjsonData , canvas , callback = null , options = {} ) {
 
-    console.log(canvas);
+    console.dir(canvas);
 
     /**
      * 第一引数で取得したjson or jsonへのパス or jsonから生成したオブジェクトを格納する 
@@ -55,6 +55,10 @@ class FSpyCamera {
      */
     this.camera = null;
 
+    this.width = null;
+
+    this.height = null;
+
     /**
      * fSpyから取得したデータのうちのcameraTransform.rowsが入ります
      * @type {array}
@@ -84,6 +88,9 @@ class FSpyCamera {
      * @type {number}
      */
     this.fov = null;
+
+    this.width = window.innerWidth;
+    this.height = 500;
 
     this._init();
 
@@ -123,7 +130,7 @@ class FSpyCamera {
   _onLoadJson() {
 
     this.cameraTransforms = this.cameraData.cameraTransform.rows;
-    this.fspyRatio = this._getFSpyRatio();
+    this.fspyImageRatio = this._getFSpyImageRatio();
     this._setMatrix();
     this._createCamera();
     window.addEventListener('resize',this.onResize.bind(this));
@@ -171,7 +178,7 @@ class FSpyCamera {
    * fSpyのJSONから取得したもともとの画像のアスペクト比を返す
    * @return {number}
    */ 
-  _getFSpyRatio() {
+  _getFSpyImageRatio() {
 
     const w = this.cameraData.imageWidth;
     const h = this.cameraData.imageHeight;
@@ -202,13 +209,11 @@ class FSpyCamera {
 
       this.fov = this._getVFovDegFromRad( this.cameraData.verticalFieldOfView );
 
-    this.camera = new THREE.PerspectiveCamera( this.fov , this.winWidth / this.winHeight , 0.01 , 10000 );
+    this.camera = new THREE.PerspectiveCamera( this.fov , this.width / this.height , 0.01 , 10000 );
     // this.camera = new THREE.PerspectiveCamera(35, this.winWidth / this.winHeight , 0.01 , 10000 );
     this.camera.position.set( mtxArray[0][3] , mtxArray[1][3] , mtxArray[2][3] );
     this.camera.setRotationFromMatrix( this.matrix );
     this.initCameraAspect = this.camera.aspect;
-    console.log(`aspect : ${this.camera.aspect}`);
-    console.log(this.winWidth / this.winHeight);
     
   }
 
@@ -218,21 +223,22 @@ class FSpyCamera {
    */
   onResize() {
 
-    this.winWidth = window.innerWidth;
-    this.winHeight = window.innerHeight;
-    if( this.winWidth/ this.winHeight <= this.initCameraAspect  ){
-        // this.renderer.setSize( this.winWidth ,  this.winHeight );
-        this.camera.aspect = this.winWidth /  this.winHeight;
+    // this.width = window.innerWidth;
+    // this.height = window.innerHeight;
+    this.width = window.innerWidth;
+    this.height = 500
+    // if( this.width / this.height <= this.initCameraAspect  ){
+    if( this.width / this.height <= this._getFSpyImageRatio()  ){
+        this.camera.aspect = this.width /  this.height;
         this.camera.zoom = 1;
     }else{
-        // this.renderer.setSize( this.winWidth ,  this.winHeight );
-        this.camera.aspect = this.winWidth /  this.winHeight;
-        this.camera.zoom = this.winWidth /  this.winHeight / this.initCameraAspect ;
+        this.camera.aspect = this.width /  this.height;
+        // this.camera.zoom = this.width /  this.height / this.initCameraAspect;
+        this.camera.zoom = this.width /  this.height / this._getFSpyImageRatio();
+        console.log(this.camera.zoom);
     }
     // this.renderer.render( scene , camera );
     this.camera.updateProjectionMatrix();
-    console.log('!!');
-
   }
 
   /**
