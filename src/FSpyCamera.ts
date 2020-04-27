@@ -1,9 +1,11 @@
 import * as THREE from "three";
-import axios from 'axios';
+// import axios from 'axios';
 
 import {
   FSpyCameraJson, FourElemArray,
 } from './type';
+
+import AsyncFunctions from './AsyncFunctions';
 
 import { getType } from './utils/getType';
 import { getExt } from './utils/getExt';
@@ -28,6 +30,10 @@ export class FSpyCamera{
   protected winWidth: number;
   protected winHeight: number;
   protected winRatio: number;
+
+  /**
+   * 行列オブジェクト
+   */
   protected rotationMatrix: THREE.Matrix4;
   public camera: THREE.PerspectiveCamera;
   protected canvasWidth: number;
@@ -36,23 +42,23 @@ export class FSpyCamera{
   protected cameraFov: number;
   public options: object;
   public targetCanvas : any;
-  protected cameraTransforms: [FourElemArray<number>,FourElemArray<number>,FourElemArray<number>,FourElemArray<number>];
+  protected cameraTransforms: [
+    FourElemArray<number>,
+    FourElemArray<number>,
+    FourElemArray<number>,
+    FourElemArray<number>
+  ];
   public canvas: any;
   protected jsonType: string;
   protected initCameraAspect: number;
   
 
-  constructor( jsonPathOrjsonData: string | FSpyCameraJson , canvasElement: any , callback : ( thisObject : object ) => any , options: object = {} ) {
+  constructor( canvasElement: any , options: object = {} ) {
 
 
-    this.inputData = jsonPathOrjsonData;
+    this.inputData = "";
     this.fspyImageRatio = 0;
     this.fSpyCameraData = null;
-
-    /**
-     * 行列オブジェクト
-     * @type {THREE.Matrix4}
-     */
     this.rotationMatrix = new THREE.Matrix4();
 
     this.canvas = canvasElement;
@@ -97,11 +103,7 @@ export class FSpyCamera{
 
     this.options = options;
 
-    /**
-     * カメラ取得後のコールバック関数
-     * @type {object|null}
-     */
-    this.callback = callback;
+    this.callback = () => {};
 
     /**
      * 引数でもらった jsonPathOrjsonData の型を収納
@@ -126,7 +128,10 @@ export class FSpyCamera{
 
   }
 
-  load(): void {
+  load(  jsonPathOrjsonData: string | FSpyCameraJson , callback : ( thisObject : object ) => any  ): void {
+
+    this.inputData = jsonPathOrjsonData;
+    this.callback = callback;
 
     if( this.jsonType === "string" && typeof this.inputData === "string" ){
       const ext = getExt( this.inputData );
@@ -137,7 +142,7 @@ export class FSpyCamera{
       }
     }else if( this.jsonType === "object" && typeof this.inputData === "object" ){
       this.fSpyCameraData = this.inputData;
-      this._onLoadJson();
+      // this._onLoadJson();
     }else {
       console.error("Please put fSpy's json path or parsed json in the first argument");
     }
@@ -149,11 +154,14 @@ export class FSpyCamera{
    * @param {string} name カメラデータのパス
    * @return {void}
    */
-  _loadJson( name: string ): void {
-    axios.get(name).then( (res: any) => {
-      this.fSpyCameraData = res.data;
-      this._onLoadJson()
-    })
+  _loadJson( path: string ): void {
+    // axios.get(path).then( (res: any) => {
+    //   this.fSpyCameraData = res.data;
+    //   this._onLoadJson()
+    // })
+    console.log(path);
+    const asyncFunctions = new AsyncFunctions();
+    asyncFunctions.open( path ,  this._onLoadJson.bind(this) );
   }
 
   /**
@@ -178,7 +186,9 @@ export class FSpyCamera{
    * fSpyのjsonデータを読み込んだあとに実行される関数
    * @return {void}
    */
-  _onLoadJson(): void {
+  _onLoadJson( result: FSpyCameraJson ): void {
+
+    this.fSpyCameraData = result;
 
     if( this.fSpyCameraData != null ){
       this.cameraTransforms = this.fSpyCameraData.cameraTransform.rows;
