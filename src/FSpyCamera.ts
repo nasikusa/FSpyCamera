@@ -163,11 +163,6 @@ export class FSpyCamera{
    * @return {void}
    */
   _loadJson( path: string ): void {
-    // axios.get(path).then( (res: any) => {
-    //   this.fSpyCameraData = res.data;
-    //   this._onLoadJson()
-    // })
-    console.log(path);
     const asyncFunctions = new AsyncFunctions();
     asyncFunctions.open( path ,  this._onLoadJson.bind(this) );
   }
@@ -337,7 +332,6 @@ export class FSpyCamera{
         this.camera.aspect = this.canvasWidth /  this.canvasHeight;
         // this.camera.zoom = this.canvasWidth /  this.canvasHeight / this.initCameraAspect;
         this.camera.zoom = this.canvasWidth /  this.canvasHeight / this._getFSpyImageRatio();
-        console.log(this.camera.zoom);
     }
     this.camera.updateProjectionMatrix();
   }
