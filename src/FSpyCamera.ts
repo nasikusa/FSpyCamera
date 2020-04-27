@@ -88,12 +88,7 @@ export class FSpyCamera {
     /**
      * fSpyから取得したデータのうちのcameraTransform.rowsが入ります
      */
-    this.cameraTransforms = [
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-    ];
+    this.cameraTransforms = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
 
     this.options = options;
 

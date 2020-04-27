@@ -1,6 +1,3 @@
-export default class FSpyDataManager{
-  constructor() {
-
-  }
+export default class FSpyDataManager {
+  constructor() {}
 }
-

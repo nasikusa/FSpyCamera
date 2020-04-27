@@ -1,5 +1,3 @@
-export default class BinaryFunctions{
-  constructor() {
-    
-  }
+export default class BinaryFunctions {
+  constructor() {}
 }
