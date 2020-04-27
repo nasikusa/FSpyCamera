@@ -11,9 +11,9 @@
 	    }
 	    AsyncFunctions.prototype.open = function (path, callback) {
 	        this.xhr.open("GET", path);
-	        this.xhr.addEventListener('load', function (result) {
-	            console.log(result);
-	            callback();
+	        this.xhr.addEventListener('load', function () {
+	            var result = this.response;
+	            callback(result);
 	        });
 	        this.xhr.send();
 	    };
@@ -33,9 +33,9 @@
 	}
 
 	var FSpyCamera = (function () {
-	    function FSpyCamera(jsonPathOrjsonData, canvasElement, callback, options) {
+	    function FSpyCamera(canvasElement, options) {
 	        if (options === void 0) { options = {}; }
-	        this.inputData = jsonPathOrjsonData;
+	        this.inputData = "";
 	        this.fspyImageRatio = 0;
 	        this.fSpyCameraData = null;
 	        this.rotationMatrix = new THREE.Matrix4();
@@ -53,14 +53,16 @@
 	            [0, 0, 0, 0]
 	        ];
 	        this.options = options;
-	        this.callback = callback;
+	        this.callback = function () { };
 	        this.jsonType = getType(this.inputData);
 	        this.initCameraAspect = 0;
 	        this.cameraFov = 0;
 	        this.canvasWidth = window.innerWidth;
 	        this.canvasHeight = 500;
 	    }
-	    FSpyCamera.prototype.load = function () {
+	    FSpyCamera.prototype.load = function (jsonPathOrjsonData, callback) {
+	        this.inputData = jsonPathOrjsonData;
+	        this.callback = callback;
 	        if (this.jsonType === "string" && typeof this.inputData === "string") {
 	            var ext = getExt(this.inputData);
 	            if (ext.toLowerCase() === "json") {
@@ -72,7 +74,6 @@
 	        }
 	        else if (this.jsonType === "object" && typeof this.inputData === "object") {
 	            this.fSpyCameraData = this.inputData;
-	            this._onLoadJson();
 	        }
 	        else {
 	            console.error("Please put fSpy's json path or parsed json in the first argument");
@@ -85,13 +86,13 @@
 	        return filename.slice(dotPosition + 1);
 	    };
 	    FSpyCamera.prototype._loadJson = function (path) {
-	        console.log(path);
 	        var asyncFunctions = new AsyncFunctions();
-	        asyncFunctions.open(path, this._onLoadJson);
+	        asyncFunctions.open(path, this._onLoadJson.bind(this));
 	    };
 	    FSpyCamera.prototype._loadBinary = function () {
 	    };
-	    FSpyCamera.prototype._onLoadJson = function () {
+	    FSpyCamera.prototype._onLoadJson = function (result) {
+	        this.fSpyCameraData = result;
 	        if (this.fSpyCameraData != null) {
 	            this.cameraTransforms = this.fSpyCameraData.cameraTransform.rows;
 	        }
