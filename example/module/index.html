@@ -46,7 +46,9 @@ window.addEventListener('resize',function(){
   renderer.setSize(window.innerWidth,500);
 })
 
-const camera = new FSpyCamera("camera.json" , document.querySelector('#myCanvas') , (ts) => {
+const camera = new FSpyCamera( document.querySelector('#myCanvas'));
+
+camera.load("camera.json" , (ts) => {
 
   console.log(ts);
 
