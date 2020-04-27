@@ -143,15 +143,7 @@ export class FSpyCamera{
     }
 
   }
-
-  _getEXT( filename: string ): string {
-
-      const dotPosition = filename.lastIndexOf('.');
-      if (dotPosition === -1) return '';
-      return filename.slice( dotPosition + 1);
-
-  }
-
+  
   /**
    * fSpyのjsonデータを取得する関数
    * @param {string} name カメラデータのパス
@@ -338,23 +330,9 @@ export class FSpyCamera{
    */
   _runCallback(): void {
 
-    if( this._getType( this.callback ) === "function" ){
+    if( getType( this.callback ) === "function" ){
       this.callback(this);
     }
 
   }
-
-  /**
-   * 型情報を取得すための関数
-   * @param {any} 型を調べたいもの
-   * @return {string} 型情報
-   * 
-   */
-  _getType(obj: any): string {
-
-    const toString = Object.prototype.toString;
-    return toString.call(obj).slice(8, -1).toLowerCase();
-
-  }
-
 }
