@@ -1,7 +1,3 @@
-export default class EventManager{
-  constructor() {
-
-  }
-
-  
+export default class EventManager {
+  constructor() {}
 }
