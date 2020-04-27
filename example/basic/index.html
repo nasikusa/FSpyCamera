@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>fSpy2three.js demo</title>
+  <style>
+    html,body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+    #myCanvas {
+      width: 100%;
+      height: 100%;
+      background-image: url(./image4.jpg);
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="myCanvas"></canvas>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+  <script src="../../src/THREE.FSpyCamera.js"></script>
+  <!-- <script src="../../src/temp.js"></script> -->
+  <script>
+
+    
+const renderer = new THREE.WebGLRenderer({
+    canvas: document.querySelector('#myCanvas'),
+    alpha: true,
+});
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.setClearColor( 0x000000 , 0 );
+renderer.alpha = true;
+// this.renderer.setSize(this.winWidth, this.winWidth / this.fspyRatio);
+// renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setSize(window.innerWidth,500);
+renderer.setClearColor( 0x000000 , 0 );
+
+window.addEventListener('resize',function(){
+  renderer.setSize(window.innerWidth,500);
+})
+
+const camera = new FSpyCamera("camera4.json" , document.querySelector('#myCanvas') , (ts) => {
+
+  console.log(ts);
+
+
+  const scene = new THREE.Scene();
+  const camera = ts.camera;
+
+  console.log(2.5);
+  
+  const geometry = new THREE.BoxGeometry(3,3,3);
+  const material = new THREE.MeshNormalMaterial();
+  const box = new THREE.Mesh(geometry, material);
+  box.position.set(-2 , 0 , 0);
+  scene.add(box);
+
+  const geometry2 = new THREE.BoxGeometry(1,3,1);
+  const material2 = new THREE.MeshNormalMaterial();
+  const box2 = new THREE.Mesh(geometry2, material2);
+  box2.position.set(0 , 0 , -2);
+  scene.add(box2);
+
+  const geometry3 = new THREE.BoxGeometry(4,2,2);
+  const material3 = new THREE.MeshNormalMaterial();
+  const box3 = new THREE.Mesh(geometry3, material3);
+  box3.position.set(4 , 0 , 4);
+  scene.add(box3);
+
+  console.log(box);
+
+  var size = 100;
+var divisions = 10;
+
+var gridHelper = new THREE.GridHelper( size, divisions );
+scene.add( gridHelper );
+
+  console.log(renderer);
+  // camera.lookAt(0,0,0);
+
+  anim();
+
+  function anim() {
+    requestAnimationFrame(anim);
+    renderer.render( scene , camera );
+    box.rotation.y += 0.01;
+    // box.position.x += 0.035
+    // box2.position.z += 0.035
+    // box3.position.z -= 0.035
+    // console.log(box);
+    // console.log("a");
+  }
+
+});
+
+
+
+
+// function init(){
+//   const width = 1013 * 0.25;
+//   const height = 756 * 0.25;
+
+//   const m = new THREE.Matrix4();
+
+//   m.set(
+//     -0.9734138207025481,
+//     0.04196681158657723,
+//     -0.22517619854355045,
+//     -0.6959172306086093,
+
+//     0.0965054651828195,
+//     -0.8164170790874036,
+//     -0.5693415918095569,
+//     -4.4653045032151235,
+
+//     -0.2077311456068041,
+//     -0.5759357079567556,
+//     0.7906616415668815,
+//     9.234054171727681,
+
+//     0,
+//     0,
+//     0,
+//     1,
+
+//   );
+
+//   const renderer = new THREE.WebGLRenderer({
+//     canvas: document.querySelector('#myCanvas'),
+//     alpha: true,
+//   });
+//   renderer.setPixelRatio(window.devicePixelRatio);
+//   renderer.setSize(width, height);
+//   renderer.setClearColor( 0x000000 , 0 );
+//   const scene = new THREE.Scene();
+//   const camera = new THREE.PerspectiveCamera(45, width / height);
+//   camera.position.set( -0.6959172306086093 , -4.4653045032151235 , 9.234054171727681 );
+//   camera.setRotationFromMatrix( m );
+
+//   const geometry = new THREE.BoxGeometry(3,3,3);
+//   const material = new THREE.MeshNormalMaterial();
+//   const box = new THREE.Mesh(geometry, material);
+//   scene.add(box);
+
+//   anim();
+
+//   function anim() {
+//     requestAnimationFrame(anim);
+//     renderer.render( scene , camera );
+//     box.rotation.y += 0.01;
+//   }
+// }
+
+  </script>
+</body>
+</html>
