@@ -34,12 +34,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nasikusa/THREE.FSpyCamera.git"
+    "url": "git+https://github.com/nasikusa/FSpyCamera.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nasikusa/THREE.FSpyCamera/issues"
+    "url": "https://github.com/nasikusa/FSpyCamera/issues"
   },
-  "homepage": "https://github.com/nasikusa/THREE.FSpyCamera#readme"
+  "homepage": "https://github.com/nasikusa/FSpyCamera#readme"
 }
