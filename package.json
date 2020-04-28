@@ -26,9 +26,7 @@
     "typescript": "^3.8.3"
   },
   "scripts": {
-    "lint": "eslint src/index.ts",
-    "lint:fix": "eslint --fix src/index.ts",
-    "build": "rollup -c",
+    "build": "rollup --config ./rollup-build.config.js",
     "develop": "rollup --config --watch",
     "clean": "prettier **/*.ts --write"
   },
