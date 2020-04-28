@@ -2,9 +2,7 @@ import * as THREE from 'three';
 // import axios from 'axios';
 
 import { FSpyCameraJson, FourElemArray } from './type';
-
 import AsyncFunctions from './AsyncFunctions';
-
 import { getType } from './utils/getType';
 import { getExt } from './utils/getExt';
 
@@ -24,94 +22,99 @@ export class FSpyCamera {
    */
   protected fspyImageRatio: number;
 
+  /**
+   * windowの幅を格納
+   */
   protected winWidth: number;
+
+  /**
+   * windowの高さを格納
+   */
   protected winHeight: number;
+
+  /**
+   * windowのアスペクトを格納
+   */
   protected winRatio: number;
 
   /**
    * 行列オブジェクト
    */
   protected rotationMatrix: THREE.Matrix4;
+
+  /**
+   * three.jsのカメラ
+   */
   public camera: THREE.PerspectiveCamera;
+
+  /**
+   * ターゲットとなるcanvas要素の幅
+   */
   protected canvasWidth: number;
+
+  /**
+   * ターゲットとなるcanvas要素の高さ
+   */
   protected canvasHeight: number;
+
+  /**
+   * fSpyデータ取得後に実行されるコールバックを格納
+   */
   public callback: (thisObject: this) => any;
+
+  /**
+   * カメラのFOVを格納
+   */
   protected cameraFov: number;
+
+  /**
+   * 引数にて入れられたオプションを格納
+   */
   public options: object;
-  public targetCanvas: any;
+
+  /**
+   * ターゲットとなるcanvasを指定
+   */
+  public targetCanvas: HTMLCanvasElement;
+
+  /**
+   * カメラの行列データを格納
+   */
   protected cameraTransforms: [
     FourElemArray<number>,
     FourElemArray<number>,
     FourElemArray<number>,
     FourElemArray<number>
   ];
-  public canvas: any;
+
+  /**
+   * 入力されたjsonの形式を格納
+   */
   protected jsonType: string;
+
+  /**
+   * 初期状態でのカメラのアスペクトを格納
+   */
   protected initCameraAspect: number;
 
-  constructor(canvasElement: any, options: object = {}) {
+  constructor(canvasElement: HTMLCanvasElement, options: object = {}) {
     this.inputData = '';
     this.fspyImageRatio = 0;
     this.fSpyCameraData = null;
     this.rotationMatrix = new THREE.Matrix4();
-
-    this.canvas = canvasElement;
-
-    /**
-     * ウィンドウの幅
-     * @type {number}
-     */
+    this.targetCanvas = canvasElement;
     this.winWidth = window.innerWidth;
-
-    /**
-     * ウィンドウの高さ
-     * @type {number}
-     */
     this.winHeight = window.innerHeight;
-
-    /**
-     * windowの幅と高さの比率をここに収納
-     * @type {number}
-     */
     this.winRatio = this.winWidth / this.winHeight;
-
-    /**
-     * three.jsのカメラ
-     * @type {THREE.PerspectiveCamera}
-     */
     this.camera = new THREE.PerspectiveCamera();
-
     this.canvasWidth = 0;
-
     this.canvasHeight = 0;
-
-    /**
-     * fSpyから取得したデータのうちのcameraTransform.rowsが入ります
-     */
     this.cameraTransforms = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
-
     this.options = options;
-
     this.callback = () => {};
-
-    /**
-     * 引数でもらった jsonPathOrjsonData の型を収納
-     * @type {string}
-     */
     this.jsonType = getType(this.inputData);
-
-    /**
-     * 初期状態のカメラのアスペクト比
-     * @type {numer}
-     */
     this.initCameraAspect = 0;
-
-    /**
-     * カメラのFOVを格納する変数
-     * @type {number}
-     */
     this.cameraFov = 0;
-
     this.canvasWidth = window.innerWidth;
     this.canvasHeight = 500;
   }
