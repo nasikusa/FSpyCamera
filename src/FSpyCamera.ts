@@ -6,7 +6,7 @@ import AsyncFunctions from './AsyncFunctions';
 import { getType } from './utils/getType';
 import { getExt } from './utils/getExt';
 
-export class FSpyCamera {
+export default class FSpyCamera {
   /**
    * fSpyから取得したjsonオブジェクトを格納
    */
@@ -109,7 +109,12 @@ export class FSpyCamera {
     this.camera = new THREE.PerspectiveCamera();
     this.canvasWidth = 0;
     this.canvasHeight = 0;
-    this.cameraTransforms = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+    this.cameraTransforms = [
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+    ];
     this.options = options;
     this.callback = () => {};
     this.jsonType = getType(this.inputData);
@@ -124,15 +129,15 @@ export class FSpyCamera {
     this.callback = callback;
 
     if (this.jsonType === 'string' && typeof this.inputData === 'string') {
-      const ext = getExt(this.inputData);
+      const ext: string = getExt(this.inputData);
       if (ext.toLowerCase() === 'json') {
-        this._loadJson(this.inputData);
+        this.loadJson(this.inputData);
       } else if (ext.toLowerCase() === 'fspy') {
-        this._loadBinary();
+        FSpyCamera.loadBinary();
       }
     } else if (this.jsonType === 'object' && typeof this.inputData === 'object') {
       this.fSpyCameraData = this.inputData;
-      // this._onLoadJson();
+      // this.onLoadJson();
     } else {
       console.error("Please put fSpy's json path or parsed json in the first argument");
     }
@@ -143,9 +148,9 @@ export class FSpyCamera {
    * @param {string} name カメラデータのパス
    * @return {void}
    */
-  _loadJson(path: string): void {
+  loadJson(path: string): void {
     const asyncFunctions = new AsyncFunctions();
-    asyncFunctions.open(path, this._onLoadJson.bind(this));
+    asyncFunctions.open(path, this.onLoadJson.bind(this));
   }
 
   /**
@@ -153,46 +158,33 @@ export class FSpyCamera {
    * @param {string} name カメラデータのパス
    * @return {void}
    */
-  _loadBinary(): void {
-    // axios.get(name, {
-    //   responseType:'blob',
-    //   dataType:'binary',
-    // }).then( res => {
-    //   console.log(res.data);
-    //   this.fSpyCameraData = new Blob([res.data]);
-    //   console.log(this.fSpyCameraData);
-    //   this._onLoadBinary()
-    // })
+  static loadBinary(): void {
+    console.log('temp');
   }
 
   /**
    * fSpyのjsonデータを読み込んだあとに実行される関数
    * @return {void}
    */
-  _onLoadJson(result: FSpyCameraJson): void {
+  onLoadJson(result: FSpyCameraJson): void {
     this.fSpyCameraData = result;
 
     if (this.fSpyCameraData != null) {
       this.cameraTransforms = this.fSpyCameraData.cameraTransform.rows;
     }
-    this.fspyImageRatio = this._getFSpyImageRatio();
-    this._setMatrix();
-    this._createCamera();
+    this.fspyImageRatio = this.getFSpyImageRatio();
+    this.setMatrix();
+    this.createCamera();
     window.addEventListener('resize', this.onResize.bind(this));
-    this._runCallback.bind(this)();
+    this.runCallback.bind(this)();
   }
 
   /**
    * fSpyのjsonデータを読み込んだあとに実行される関数
    * @return {void}
    */
-  _onLoadBinary(): void {
-    // this.cameraTransforms = this.fSpyCameraData.cameraTransform.rows;
-    // this.fspyImageRatio = this._getFSpyImageRatio();
-    // this._setMatrix();
-    // this._createCamera();
-    // window.addEventListener('resize',this.onResize.bind(this));
-    // this._runCallback.bind(this)();
+  static onLoadBinary(): void {
+    console.log('temp');
   }
 
   /**
@@ -200,7 +192,7 @@ export class FSpyCamera {
    * @return {THREE.Matrix4} パラメータがセットされたMatrix4を返す
    */
 
-  _setMatrix(): THREE.Matrix4 {
+  setMatrix(): THREE.Matrix4 {
     /**
      * fSpyのカメラのtransformの配列データ
      * @type {Array}
@@ -227,7 +219,7 @@ export class FSpyCamera {
    * windowのアスペクト比を取得する関数
    * @return {number}
    */
-  _getWinRatio(): number {
+  static getWinRatio(): number {
     const w = window.innerWidth;
     const h = window.innerHeight;
 
@@ -239,7 +231,7 @@ export class FSpyCamera {
    * @return {number}
    */
 
-  _getFSpyImageRatio(): number {
+  getFSpyImageRatio(): number {
     if (this.fSpyCameraData != null) {
       const w = this.fSpyCameraData.imageWidth;
       const h = this.fSpyCameraData.imageHeight;
@@ -249,7 +241,7 @@ export class FSpyCamera {
     return 0;
   }
 
-  _getVFovDegFromRad(radians: number): number {
+  static getVFovDegFromRad(radians: number): number {
     const rad = THREE.MathUtils.radToDeg(radians);
 
     return rad;
@@ -259,7 +251,7 @@ export class FSpyCamera {
    * three.jsのカメラを作成する関数
    * @return {void}
    */
-  _createCamera(): void {
+  createCamera(): void {
     if (this.cameraTransforms != null && this.fSpyCameraData != null) {
       /**
        * fSpyのカメラのtransformの配列データ
@@ -267,7 +259,7 @@ export class FSpyCamera {
        */
       const mtxArray = this.cameraTransforms;
 
-      this.cameraFov = this._getVFovDegFromRad(this.fSpyCameraData.verticalFieldOfView);
+      this.cameraFov = FSpyCamera.getVFovDegFromRad(this.fSpyCameraData.verticalFieldOfView);
 
       // this.camera = new THREE.PerspectiveCamera( this.cameraFov , this.canvasWidth / this.canvasHeight , 0.01 , 10000 );
 
@@ -291,13 +283,13 @@ export class FSpyCamera {
     this.canvasWidth = window.innerWidth;
     this.canvasHeight = 500;
     // if( this.canvasWidth / this.canvasHeight <= this.initCameraAspect  ){
-    if (this.canvasWidth / this.canvasHeight <= this._getFSpyImageRatio()) {
+    if (this.canvasWidth / this.canvasHeight <= this.getFSpyImageRatio()) {
       this.camera.aspect = this.canvasWidth / this.canvasHeight;
       this.camera.zoom = 1;
     } else {
       this.camera.aspect = this.canvasWidth / this.canvasHeight;
       // this.camera.zoom = this.canvasWidth /  this.canvasHeight / this.initCameraAspect;
-      this.camera.zoom = this.canvasWidth / this.canvasHeight / this._getFSpyImageRatio();
+      this.camera.zoom = this.canvasWidth / this.canvasHeight / this.getFSpyImageRatio();
     }
     this.camera.updateProjectionMatrix();
   }
@@ -306,7 +298,7 @@ export class FSpyCamera {
    * コールバックを実行する関数
    * @return {void}
    */
-  _runCallback(): void {
+  runCallback(): void {
     if (getType(this.callback) === 'function') {
       this.callback(this);
     }
