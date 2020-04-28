@@ -29,7 +29,8 @@
     "lint": "eslint src/index.ts",
     "lint:fix": "eslint --fix src/index.ts",
     "build": "rollup -c",
-    "develop": "rollup --config --watch"
+    "develop": "rollup --config --watch",
+    "clean": "prettier **/*.ts --write"
   },
   "repository": {
     "type": "git",
