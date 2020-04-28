@@ -1,2 +1,3 @@
-import { FSpyCamera } from './FSpyCamera';
+import FSpyCamera from './FSpyCamera';
+
 export default FSpyCamera;

@@ -10,7 +10,7 @@ export default class AsyncFunctions {
 
   open(path: string, callback: (result: FSpyCameraJson) => void): void {
     this.xhr.open('GET', path);
-    this.xhr.addEventListener('load', function() {
+    this.xhr.addEventListener('load', function () {
       const result = this.response;
       callback(result);
     });
