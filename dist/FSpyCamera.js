@@ -10,7 +10,7 @@
 	        this.xhr.responseType = 'json';
 	    }
 	    AsyncFunctions.prototype.open = function (path, callback) {
-	        this.xhr.open("GET", path);
+	        this.xhr.open('GET', path);
 	        this.xhr.addEventListener('load', function () {
 	            var result = this.response;
 	            callback(result);
@@ -35,11 +35,11 @@
 	var FSpyCamera = (function () {
 	    function FSpyCamera(canvasElement, options) {
 	        if (options === void 0) { options = {}; }
-	        this.inputData = "";
+	        this.inputData = '';
 	        this.fspyImageRatio = 0;
 	        this.fSpyCameraData = null;
 	        this.rotationMatrix = new THREE.Matrix4();
-	        this.canvas = canvasElement;
+	        this.targetCanvas = canvasElement;
 	        this.winWidth = window.innerWidth;
 	        this.winHeight = window.innerHeight;
 	        this.winRatio = this.winWidth / this.winHeight;
@@ -50,7 +50,7 @@
 	            [0, 0, 0, 0],
 	            [0, 0, 0, 0],
 	            [0, 0, 0, 0],
-	            [0, 0, 0, 0]
+	            [0, 0, 0, 0],
 	        ];
 	        this.options = options;
 	        this.callback = function () { };
@@ -63,48 +63,44 @@
 	    FSpyCamera.prototype.load = function (jsonPathOrjsonData, callback) {
 	        this.inputData = jsonPathOrjsonData;
 	        this.callback = callback;
-	        if (this.jsonType === "string" && typeof this.inputData === "string") {
+	        if (this.jsonType === 'string' && typeof this.inputData === 'string') {
 	            var ext = getExt(this.inputData);
-	            if (ext.toLowerCase() === "json") {
-	                this._loadJson(this.inputData);
+	            if (ext.toLowerCase() === 'json') {
+	                this.loadJson(this.inputData);
 	            }
 	            else if (ext.toLowerCase() === 'fspy') {
-	                this._loadBinary();
+	                FSpyCamera.loadBinary();
 	            }
 	        }
-	        else if (this.jsonType === "object" && typeof this.inputData === "object") {
+	        else if (this.jsonType === 'object' && typeof this.inputData === 'object') {
 	            this.fSpyCameraData = this.inputData;
 	        }
 	        else {
 	            console.error("Please put fSpy's json path or parsed json in the first argument");
 	        }
 	    };
-	    FSpyCamera.prototype._getEXT = function (filename) {
-	        var dotPosition = filename.lastIndexOf('.');
-	        if (dotPosition === -1)
-	            return '';
-	        return filename.slice(dotPosition + 1);
-	    };
-	    FSpyCamera.prototype._loadJson = function (path) {
+	    FSpyCamera.prototype.loadJson = function (path) {
 	        var asyncFunctions = new AsyncFunctions();
-	        asyncFunctions.open(path, this._onLoadJson.bind(this));
+	        asyncFunctions.open(path, this.onLoadJson.bind(this));
 	    };
-	    FSpyCamera.prototype._loadBinary = function () {
+	    FSpyCamera.loadBinary = function () {
+	        console.log('temp');
 	    };
-	    FSpyCamera.prototype._onLoadJson = function (result) {
+	    FSpyCamera.prototype.onLoadJson = function (result) {
 	        this.fSpyCameraData = result;
 	        if (this.fSpyCameraData != null) {
 	            this.cameraTransforms = this.fSpyCameraData.cameraTransform.rows;
 	        }
-	        this.fspyImageRatio = this._getFSpyImageRatio();
-	        this._setMatrix();
-	        this._createCamera();
+	        this.fspyImageRatio = this.getFSpyImageRatio();
+	        this.setMatrix();
+	        this.createCamera();
 	        window.addEventListener('resize', this.onResize.bind(this));
-	        this._runCallback.bind(this)();
+	        this.runCallback.bind(this)();
 	    };
-	    FSpyCamera.prototype._onLoadBinary = function () {
+	    FSpyCamera.onLoadBinary = function () {
+	        console.log('temp');
 	    };
-	    FSpyCamera.prototype._setMatrix = function () {
+	    FSpyCamera.prototype.setMatrix = function () {
 	        var mtxArray = this.cameraTransforms;
 	        var preArray = [];
 	        var matrixArray = mtxArray.reduce(function (pre, curernt) {
@@ -114,12 +110,12 @@
 	        this.rotationMatrix.elements = matrixArray;
 	        return this.rotationMatrix;
 	    };
-	    FSpyCamera.prototype._getWinRatio = function () {
+	    FSpyCamera.getWinRatio = function () {
 	        var w = window.innerWidth;
 	        var h = window.innerHeight;
 	        return w / h;
 	    };
-	    FSpyCamera.prototype._getFSpyImageRatio = function () {
+	    FSpyCamera.prototype.getFSpyImageRatio = function () {
 	        if (this.fSpyCameraData != null) {
 	            var w = this.fSpyCameraData.imageWidth;
 	            var h = this.fSpyCameraData.imageHeight;
@@ -127,14 +123,14 @@
 	        }
 	        return 0;
 	    };
-	    FSpyCamera.prototype._getVFovDegFromRad = function (radians) {
+	    FSpyCamera.getVFovDegFromRad = function (radians) {
 	        var rad = THREE.MathUtils.radToDeg(radians);
 	        return rad;
 	    };
-	    FSpyCamera.prototype._createCamera = function () {
+	    FSpyCamera.prototype.createCamera = function () {
 	        if (this.cameraTransforms != null && this.fSpyCameraData != null) {
 	            var mtxArray = this.cameraTransforms;
-	            this.cameraFov = this._getVFovDegFromRad(this.fSpyCameraData.verticalFieldOfView);
+	            this.cameraFov = FSpyCamera.getVFovDegFromRad(this.fSpyCameraData.verticalFieldOfView);
 	            this.camera.fov = this.cameraFov;
 	            this.camera.aspect = this.canvasWidth / this.canvasHeight;
 	            this.camera.near = 0.01;
@@ -147,25 +143,20 @@
 	    FSpyCamera.prototype.onResize = function () {
 	        this.canvasWidth = window.innerWidth;
 	        this.canvasHeight = 500;
-	        if (this.canvasWidth / this.canvasHeight <= this._getFSpyImageRatio()) {
+	        if (this.canvasWidth / this.canvasHeight <= this.getFSpyImageRatio()) {
 	            this.camera.aspect = this.canvasWidth / this.canvasHeight;
 	            this.camera.zoom = 1;
 	        }
 	        else {
 	            this.camera.aspect = this.canvasWidth / this.canvasHeight;
-	            this.camera.zoom = this.canvasWidth / this.canvasHeight / this._getFSpyImageRatio();
-	            console.log(this.camera.zoom);
+	            this.camera.zoom = this.canvasWidth / this.canvasHeight / this.getFSpyImageRatio();
 	        }
 	        this.camera.updateProjectionMatrix();
 	    };
-	    FSpyCamera.prototype._runCallback = function () {
-	        if (this._getType(this.callback) === "function") {
+	    FSpyCamera.prototype.runCallback = function () {
+	        if (getType(this.callback) === 'function') {
 	            this.callback(this);
 	        }
-	    };
-	    FSpyCamera.prototype._getType = function (obj) {
-	        var toString = Object.prototype.toString;
-	        return toString.call(obj).slice(8, -1).toLowerCase();
 	    };
 	    return FSpyCamera;
 	}());
