@@ -4,15 +4,43 @@
 	(global = global || self, global.FSpyCamera = factory(global.THREE));
 }(this, (function (THREE) { 'use strict';
 
+	function getBrowserName () {
+	    var browser = '';
+	    var userAgent = window.navigator.userAgent.toLowerCase();
+	    if (userAgent.indexOf('msie') !== -1 || userAgent.indexOf('trident') !== -1) {
+	        browser = 'ie';
+	    }
+	    else if (userAgent.indexOf('edge') !== -1) {
+	        browser = 'edge';
+	    }
+	    else if (userAgent.indexOf('chrome') !== -1) {
+	        browser = 'chrome';
+	    }
+	    else if (userAgent.indexOf('safari') !== -1) {
+	        browser = 'safari';
+	    }
+	    else if (userAgent.indexOf('firefox') !== -1) {
+	        browser = 'firefox';
+	    }
+	    else if (userAgent.indexOf('opera') !== -1) {
+	        browser = 'opera';
+	    }
+	    else {
+	        browser = 'other';
+	    }
+	    return browser;
+	}
+
 	var AsyncFunctions = (function () {
 	    function AsyncFunctions() {
 	        this.xhr = new XMLHttpRequest();
-	        this.xhr.responseType = 'json';
 	    }
 	    AsyncFunctions.prototype.open = function (path, callback) {
 	        this.xhr.open('GET', path);
+	        this.xhr.responseType = 'json';
 	        this.xhr.addEventListener('load', function () {
-	            var result = this.response;
+	            var browserName = getBrowserName();
+	            var result = browserName === 'ie' ? JSON.parse(this.response) : this.response;
 	            callback(result);
 	        });
 	        this.xhr.send();
@@ -40,12 +68,13 @@
 	        this.fSpyCameraData = null;
 	        this.rotationMatrix = new THREE.Matrix4();
 	        this.targetCanvas = canvasElement;
+	        this.targetCanvasRect = this.targetCanvas.getBoundingClientRect();
 	        this.winWidth = window.innerWidth;
 	        this.winHeight = window.innerHeight;
 	        this.winRatio = this.winWidth / this.winHeight;
 	        this.camera = new THREE.PerspectiveCamera();
-	        this.canvasWidth = 0;
-	        this.canvasHeight = 0;
+	        this.canvasWidth = this.targetCanvasRect.width;
+	        this.canvasHeight = this.targetCanvasRect.height;
 	        this.cameraTransforms = [
 	            [0, 0, 0, 0],
 	            [0, 0, 0, 0],
@@ -57,8 +86,6 @@
 	        this.jsonType = getType(this.inputData);
 	        this.initCameraAspect = 0;
 	        this.cameraFov = 0;
-	        this.canvasWidth = window.innerWidth;
-	        this.canvasHeight = 500;
 	    }
 	    FSpyCamera.prototype.load = function (jsonPathOrjsonData, callback) {
 	        this.inputData = jsonPathOrjsonData;
@@ -72,8 +99,8 @@
 	                FSpyCamera.loadBinary();
 	            }
 	        }
-	        else if (this.jsonType === 'object' && typeof this.inputData === 'object') {
-	            this.fSpyCameraData = this.inputData;
+	        else if (typeof this.inputData === 'object') {
+	            this.onLoadJson(this.inputData);
 	        }
 	        else {
 	            console.error("Please put fSpy's json path or parsed json in the first argument");
@@ -137,25 +164,28 @@
 	            this.camera.far = 10000;
 	            this.camera.position.set(mtxArray[0][3], mtxArray[1][3], mtxArray[2][3]);
 	            this.camera.setRotationFromMatrix(this.rotationMatrix);
-	            this.initCameraAspect = this.camera.aspect;
+	            this.initCameraAspect = this.getFSpyImageRatio();
+	            this.onResize();
 	        }
 	    };
 	    FSpyCamera.prototype.onResize = function () {
-	        this.canvasWidth = window.innerWidth;
-	        this.canvasHeight = 500;
-	        if (this.canvasWidth / this.canvasHeight <= this.getFSpyImageRatio()) {
+	        this.targetCanvasRect = this.targetCanvas.getBoundingClientRect();
+	        this.canvasWidth = this.targetCanvasRect.width;
+	        this.canvasHeight = this.targetCanvas.height;
+	        var fSpyImageRatio = this.initCameraAspect;
+	        if (this.canvasWidth / this.canvasHeight <= fSpyImageRatio) {
 	            this.camera.aspect = this.canvasWidth / this.canvasHeight;
 	            this.camera.zoom = 1;
 	        }
 	        else {
 	            this.camera.aspect = this.canvasWidth / this.canvasHeight;
-	            this.camera.zoom = this.canvasWidth / this.canvasHeight / this.getFSpyImageRatio();
+	            this.camera.zoom = this.canvasWidth / this.canvasHeight / fSpyImageRatio;
 	        }
 	        this.camera.updateProjectionMatrix();
 	    };
 	    FSpyCamera.prototype.runCallback = function () {
 	        if (getType(this.callback) === 'function') {
-	            this.callback(this);
+	            this.callback();
 	        }
 	    };
 	    return FSpyCamera;
