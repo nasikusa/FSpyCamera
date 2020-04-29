@@ -60,7 +60,7 @@ export default class FSpyCamera {
   /**
    * fSpyデータ取得後に実行されるコールバックを格納
    */
-  public callback: (thisObject: this) => any;
+  public callback: () => any;
 
   /**
    * カメラのFOVを格納
@@ -299,7 +299,7 @@ export default class FSpyCamera {
    */
   runCallback(): void {
     if (getType(this.callback) === 'function') {
-      this.callback(this);
+      this.callback();
     }
   }
 }
