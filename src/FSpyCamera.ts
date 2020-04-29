@@ -92,6 +92,8 @@ export default class FSpyCamera {
    */
   protected jsonType: string;
 
+  protected targetCanvasRect: any;
+
   /**
    * 初期状態でのカメラのアスペクトを格納
    */
@@ -103,12 +105,13 @@ export default class FSpyCamera {
     this.fSpyCameraData = null;
     this.rotationMatrix = new THREE.Matrix4();
     this.targetCanvas = canvasElement;
+    this.targetCanvasRect = this.targetCanvas.getBoundingClientRect();
     this.winWidth = window.innerWidth;
     this.winHeight = window.innerHeight;
     this.winRatio = this.winWidth / this.winHeight;
     this.camera = new THREE.PerspectiveCamera();
-    this.canvasWidth = 0;
-    this.canvasHeight = 0;
+    this.canvasWidth = this.targetCanvasRect.width;
+    this.canvasHeight = this.targetCanvasRect.height;
     this.cameraTransforms = [
       [0, 0, 0, 0],
       [0, 0, 0, 0],
@@ -120,8 +123,6 @@ export default class FSpyCamera {
     this.jsonType = getType(this.inputData);
     this.initCameraAspect = 0;
     this.cameraFov = 0;
-    this.canvasWidth = window.innerWidth;
-    this.canvasHeight = 500;
   }
 
   load(jsonPathOrjsonData: string | FSpyCameraJson, callback: (thisObject: object) => any): void {
@@ -278,6 +279,9 @@ export default class FSpyCamera {
    * @return {void}
    */
   onResize(): void {
+    this.targetCanvasRect = this.targetCanvas.getBoundingClientRect();
+    this.canvasWidth = this.targetCanvasRect.width;
+    this.canvasHeight = this.targetCanvas.height;
     const fSpyImageRatio = this.initCameraAspect;
     if (this.canvasWidth / this.canvasHeight <= fSpyImageRatio) {
       this.camera.aspect = this.canvasWidth / this.canvasHeight;
