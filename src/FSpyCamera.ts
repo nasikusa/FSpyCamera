@@ -271,6 +271,7 @@ export default class FSpyCamera {
       this.camera.position.set(mtxArray[0][3], mtxArray[1][3], mtxArray[2][3]);
       this.camera.setRotationFromMatrix(this.rotationMatrix);
       this.initCameraAspect = this.getFSpyImageRatio();
+      this.onResize();
     }
   }
 
