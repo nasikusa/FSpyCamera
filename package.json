@@ -42,5 +42,10 @@
   "bugs": {
     "url": "https://github.com/nasikusa/FSpyCamera/issues"
   },
-  "homepage": "https://github.com/nasikusa/FSpyCamera#readme"
+  "homepage": "https://github.com/nasikusa/FSpyCamera#readme",
+  "keywords": [
+    "three.js",
+    "fSpy",
+    "image camera matching"
+  ]
 }
