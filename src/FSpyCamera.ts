@@ -269,7 +269,7 @@ export default class FSpyCamera {
       this.camera.far = 10000;
       this.camera.position.set(mtxArray[0][3], mtxArray[1][3], mtxArray[2][3]);
       this.camera.setRotationFromMatrix(this.rotationMatrix);
-      this.initCameraAspect = this.camera.aspect;
+      this.initCameraAspect = this.getFSpyImageRatio();
     }
   }
 
@@ -278,18 +278,13 @@ export default class FSpyCamera {
    * @return {void}
    */
   onResize(): void {
-    // this.canvasWidth = window.innerWidth;
-    // this.canvasHeight = window.innerHeight;
-    this.canvasWidth = window.innerWidth;
-    this.canvasHeight = 500;
-    // if( this.canvasWidth / this.canvasHeight <= this.initCameraAspect  ){
-    if (this.canvasWidth / this.canvasHeight <= this.getFSpyImageRatio()) {
+    const fSpyImageRatio = this.initCameraAspect;
+    if (this.canvasWidth / this.canvasHeight <= fSpyImageRatio) {
       this.camera.aspect = this.canvasWidth / this.canvasHeight;
       this.camera.zoom = 1;
     } else {
       this.camera.aspect = this.canvasWidth / this.canvasHeight;
-      // this.camera.zoom = this.canvasWidth /  this.canvasHeight / this.initCameraAspect;
-      this.camera.zoom = this.canvasWidth / this.canvasHeight / this.getFSpyImageRatio();
+      this.camera.zoom = this.canvasWidth / this.canvasHeight / fSpyImageRatio;
     }
     this.camera.updateProjectionMatrix();
   }
