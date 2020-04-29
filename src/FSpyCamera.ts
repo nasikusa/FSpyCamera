@@ -125,7 +125,12 @@ export default class FSpyCamera {
     this.cameraFov = 0;
   }
 
-  load(jsonPathOrjsonData: string | FSpyCameraJson, callback: (thisObject: object) => any): void {
+  /**
+   * 非同期でfSpyのデータを取りに行く関数
+   * @param jsonPathOrjsonData
+   * @param callback
+   */
+  public load(jsonPathOrjsonData: string | FSpyCameraJson, callback: () => any): void {
     this.inputData = jsonPathOrjsonData;
     this.callback = callback;
 
@@ -136,9 +141,8 @@ export default class FSpyCamera {
       } else if (ext.toLowerCase() === 'fspy') {
         FSpyCamera.loadBinary();
       }
-    } else if (this.jsonType === 'object' && typeof this.inputData === 'object') {
-      this.fSpyCameraData = this.inputData;
-      // this.onLoadJson();
+    } else if (typeof this.inputData === 'object') {
+      this.onLoadJson(this.inputData);
     } else {
       console.error("Please put fSpy's json path or parsed json in the first argument");
     }
@@ -261,9 +265,6 @@ export default class FSpyCamera {
       const mtxArray = this.cameraTransforms;
 
       this.cameraFov = FSpyCamera.getVFovDegFromRad(this.fSpyCameraData.verticalFieldOfView);
-
-      // this.camera = new THREE.PerspectiveCamera( this.cameraFov , this.canvasWidth / this.canvasHeight , 0.01 , 10000 );
-
       this.camera.fov = this.cameraFov;
       this.camera.aspect = this.canvasWidth / this.canvasHeight;
       this.camera.near = 0.01;
