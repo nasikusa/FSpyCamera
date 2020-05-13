@@ -10,7 +10,7 @@
     "example": "example"
   },
   "dependencies": {
-    "three": "^0.115.0"
+    "three": "^0.116.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.29.0",
