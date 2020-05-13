@@ -1,9 +1,1 @@
-.prettierrc
-.eslintrc.json
-tsconfig.json
-rollup.config.js
-rollup-build.config.js
-TODO
-test/
-src/
 example/
