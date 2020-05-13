@@ -42,3 +42,10 @@ export interface FSpyCameraJson {
   imageWidth: number;
   imageHeight: number;
 }
+
+
+export interface DataManager {
+  setData: (data: FSpyCameraJson) => void;
+  removeData: () => void;
+  getData: () => FSpyCameraJson | null;
+}
