@@ -17,7 +17,9 @@ window.addEventListener('resize', function() {
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
-var fSpyCamera = new FSpyCamera(options.canvasElement);
+var fSpyCamera = new FSpyCameraLoader();
+fSpyCamera.setCanvas(options.canvasElement);
+fSpyCamera.setResizeUpdate();
 
 fSpyCamera.load( options.fSpyJsonPath , function() {
   var scene = new THREE.Scene();
@@ -39,6 +41,6 @@ fSpyCamera.load( options.fSpyJsonPath , function() {
   function anim() {
     requestAnimationFrame(anim);
     renderer.render(scene, camera);
-    box.rotation.y += 0.01;
+    // box.rotation.y += 0.01;
   }
 });
