@@ -1,6 +1,6 @@
 {
   "name": "fspy-camera-loader",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "",
   "main": "dist/FSpyCameraLoader.js",
   "mainMin": "dist/FSpyCameraLoader.min.js",
