@@ -16,7 +16,7 @@ html,body {
 #myCanvas {
   width: 100%;
   height: 100%;
-  background-image: url(../assets/img/river.jpg);
+  background-image: url(path/to/image);
   background-size: cover;
   background-position: 50% 50%;
   background-repeat: no-repeat;
@@ -26,7 +26,7 @@ html,body {
 ```javascript
 var options = {
   canvasElement: document.querySelector('#myCanvas'),
-  fSpyJsonPath: '../assets/json/river.json',
+  fSpyJsonPath: 'path/to/fSpyJson',
 };
 
 var scene, camera, box;
