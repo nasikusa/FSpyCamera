@@ -1,5 +1,5 @@
 var options = {
-  canvasElement : document.querySelector('#myCanvas'),
+  canvasElement: document.querySelector('#myCanvas'),
 };
 
 var jsonData = JSON.parse(`
@@ -101,7 +101,7 @@ renderer.setClearColor(0x000000, 0);
 renderer.alpha = true;
 renderer.setSize(window.innerWidth, window.innerHeight);
 
-window.addEventListener('resize', function() {
+window.addEventListener('resize', function () {
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
@@ -109,7 +109,7 @@ var fSpyCameraLoader = new FSpyCameraLoader(options.canvasElement);
 fSpyCameraLoader.setCanvas(options.canvasElement);
 fSpyCameraLoader.setResizeUpdate();
 
-fSpyCameraLoader.parse( jsonData );
+fSpyCameraLoader.parse(jsonData);
 
 var scene = new THREE.Scene();
 var camera = fSpyCameraLoader.camera;

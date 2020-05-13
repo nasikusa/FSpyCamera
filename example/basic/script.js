@@ -1,9 +1,9 @@
 var options = {
-  canvasElement : document.querySelector('#myCanvas'),
+  canvasElement: document.querySelector('#myCanvas'),
   fSpyJsonPath: '../assets/json/river.json',
 };
 
-var scene , camera , box;
+var scene, camera, box;
 
 var renderer = new THREE.WebGLRenderer({
   canvas: options.canvasElement,
@@ -15,7 +15,7 @@ renderer.setClearColor(0x000000, 0);
 renderer.alpha = true;
 renderer.setSize(window.innerWidth, window.innerHeight);
 
-window.addEventListener('resize', function() {
+window.addEventListener('resize', function () {
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
@@ -23,7 +23,7 @@ var fSpyCameraLoader = new FSpyCameraLoader();
 fSpyCameraLoader.setCanvas(options.canvasElement);
 fSpyCameraLoader.setResizeUpdate();
 
-fSpyCameraLoader.load( options.fSpyJsonPath , function() {
+fSpyCameraLoader.load(options.fSpyJsonPath, function () {
   scene = new THREE.Scene();
   camera = fSpyCameraLoader.camera;
   var geometry = new THREE.BoxGeometry(3, 3, 3);
@@ -33,7 +33,6 @@ fSpyCameraLoader.load( options.fSpyJsonPath , function() {
   scene.add(box);
 
   anim();
-
 });
 
 function anim() {

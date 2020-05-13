@@ -104,8 +104,8 @@ export default class FSpyCamerLoader extends Loader {
   onResize(): void {
     if (this.targetCanvas != null) {
       this.targetCanvasRect = this.targetCanvas.getBoundingClientRect();
-      this.targetCanvasSize.setX( this.targetCanvasRect.width );
-      this.targetCanvasSize.setY( this.targetCanvasRect.height );
+      this.targetCanvasSize.setX(this.targetCanvasRect.width);
+      this.targetCanvasSize.setY(this.targetCanvasRect.height);
       const fSpyImageRatio = this.dataManager.imageRatio;
       if (this.targetCanvasSize.x / this.targetCanvasSize.y <= fSpyImageRatio) {
         this.camera.aspect = this.targetCanvasSize.x / this.targetCanvasSize.y;
