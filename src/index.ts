@@ -1,3 +1,3 @@
-import FSpyCamera from './FSpyCamera';
+import FSpyCameraLoader from './FSpyCameraLoader';
 
-export default FSpyCamera;
+export default FSpyCameraLoader;
