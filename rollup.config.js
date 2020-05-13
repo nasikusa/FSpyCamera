@@ -3,20 +3,28 @@ import pkg from './package.json';
 
 export default {
   input: 'src/index.ts',
-  
+  external: [
+		'three',
+	],
 	output: [
 		{
 			format: 'umd',
-			name: 'FSpyCamera',
+			name: 'FSpyCameraLoader',
 			file: pkg.main,
 			// banner: license,
 			indent: '\t',
+			globals: {
+				three: 'THREE',
+			}
 		},
 		{
 			format: 'es',
 			file: pkg.module,
 			// banner: license,
 			indent: '\t',
+			globals: {
+				three: 'THREE',
+			}
 		}
 	],
 	plugins: [
