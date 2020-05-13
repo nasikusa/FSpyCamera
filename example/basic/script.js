@@ -1,7 +1,9 @@
 var options = {
   canvasElement : document.querySelector('#myCanvas'),
-  fSpyJsonPath: './camera.json',
+  fSpyJsonPath: '../assets/json/river.json',
 };
+
+var scene , camera , box;
 
 var renderer = new THREE.WebGLRenderer({
   canvas: options.canvasElement,
@@ -17,30 +19,25 @@ window.addEventListener('resize', function() {
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
-var fSpyCamera = new FSpyCameraLoader();
-fSpyCamera.setCanvas(options.canvasElement);
-fSpyCamera.setResizeUpdate();
+var fSpyCameraLoader = new FSpyCameraLoader();
+fSpyCameraLoader.setCanvas(options.canvasElement);
+fSpyCameraLoader.setResizeUpdate();
 
-fSpyCamera.load( options.fSpyJsonPath , function() {
-  var scene = new THREE.Scene();
-  var camera = fSpyCamera.camera;
+fSpyCameraLoader.load( options.fSpyJsonPath , function() {
+  scene = new THREE.Scene();
+  camera = fSpyCameraLoader.camera;
   var geometry = new THREE.BoxGeometry(3, 3, 3);
   var material = new THREE.MeshNormalMaterial();
-  var box = new THREE.Mesh(geometry, material);
+  box = new THREE.Mesh(geometry, material);
   box.position.set(0, 0, 0);
   scene.add(box);
 
-  var size = 100;
-  var divisions = 10;
-
-  var gridHelper = new THREE.GridHelper(size, divisions);
-  scene.add(gridHelper);
-
   anim();
 
-  function anim() {
-    requestAnimationFrame(anim);
-    renderer.render(scene, camera);
-    // box.rotation.y += 0.01;
-  }
 });
+
+function anim() {
+  requestAnimationFrame(anim);
+  renderer.render(scene, camera);
+  box.rotation.y += 0.01;
+}
