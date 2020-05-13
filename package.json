@@ -30,7 +30,8 @@
   "scripts": {
     "build": "rollup --config ./rollup-build.config.js",
     "develop": "rollup --config --watch",
-    "clean": "prettier **/*.ts --write"
+    "clean": "prettier src/**/*.ts --write",
+    "clean-example": "prettier ./example/**/*.js --write"
   },
   "repository": {
     "type": "git",
