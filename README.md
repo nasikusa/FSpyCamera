@@ -23,17 +23,17 @@ var camera;
 loader.load(
   'path/to/fSpyJsonFile',
   // onload
-	function ( result ) {
+  function ( result ) {
     camera = result;
   },
   // onprogress
-	function ( xhr ) {
-		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+  function ( xhr ) {
+    console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
   },
   // onerror
-	function ( error ) {
-		console.log( 'ERROR' );
-	}
+  function ( error ) {
+    console.log( 'ERROR' );
+  }
 );
 ```
 
