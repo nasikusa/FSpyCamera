@@ -35,14 +35,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nasikusa/FSpyCamera.git"
+    "url": "git+https://github.com/nasikusa/FSpyCameraLoader.git"
   },
   "author": "nasikusa",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nasikusa/FSpyCamera/issues"
+    "url": "https://github.com/nasikusa/FSpyCameraLoader/issues"
   },
-  "homepage": "https://github.com/nasikusa/FSpyCamera#readme",
+  "homepage": "https://github.com/nasikusa/FSpyCameraLoader#readme",
   "keywords": [
     "three.js",
     "fSpy",
