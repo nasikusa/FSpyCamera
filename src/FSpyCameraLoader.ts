@@ -1,6 +1,7 @@
 import { Loader, FileLoader, PerspectiveCamera, Vector2 } from 'three';
 
 import FSpyDataManager from 'FSpyDataManager';
+import { defaultCameraParams } from 'const';
 
 export default class FSpyCamerLoader extends Loader {
   /**
@@ -88,7 +89,7 @@ export default class FSpyCamerLoader extends Loader {
       if (this.targetCanvasSize != null) {
         this.camera.aspect = this.targetCanvasSize.x / this.targetCanvasSize.y;
       } else {
-        this.camera.aspect = 0;
+        this.camera.aspect = defaultCameraParams.aspect;
       }
       this.camera.position.set(
         this.dataManager.cameraPosition.x,
@@ -107,12 +108,14 @@ export default class FSpyCamerLoader extends Loader {
   onResize(): void {
     if (this.targetCanvas != null) {
       this.targetCanvasRect = this.targetCanvas.getBoundingClientRect();
+      const fSpyImageRatio: number = this.dataManager.imageRatio;
+
       this.targetCanvasSize.setX(this.targetCanvasRect.width);
       this.targetCanvasSize.setY(this.targetCanvasRect.height);
-      const fSpyImageRatio = this.dataManager.imageRatio;
+
       if (this.targetCanvasSize.x / this.targetCanvasSize.y <= fSpyImageRatio) {
         this.camera.aspect = this.targetCanvasSize.x / this.targetCanvasSize.y;
-        this.camera.zoom = 1;
+        this.camera.zoom = defaultCameraParams.zoom;
       } else {
         this.camera.aspect = this.targetCanvasSize.x / this.targetCanvasSize.y;
         this.camera.zoom = this.targetCanvasSize.x / this.targetCanvasSize.y / fSpyImageRatio;

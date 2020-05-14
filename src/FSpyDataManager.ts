@@ -19,8 +19,8 @@ export default class FSpyDataManager implements DataManager {
 
   constructor() {
     this.data = null;
-    this.internalImageRatio = 0;
-    this.internalCameraFov = 0;
+    this.internalImageRatio = defaultCameraParams.aspect;
+    this.internalCameraFov = defaultCameraParams.fov;
     this.radian = 0;
     this.internalRotationMatrix = new Matrix4();
     this.internalCameraPosition = new Vector3(0.0);
@@ -62,8 +62,8 @@ export default class FSpyDataManager implements DataManager {
   }
 
   protected onRemoveData(): void {
-    this.internalImageRatio = 0;
-    this.internalCameraFov = 0;
+    this.internalImageRatio = defaultCameraParams.aspect;
+    this.internalCameraFov = defaultCameraParams.fov;
     this.internalRotationMatrix = new Matrix4();
     this.internalCameraPosition = new Vector3(0.0);
   }
@@ -74,7 +74,7 @@ export default class FSpyDataManager implements DataManager {
       const h: number = this.data.imageHeight;
       return w / h;
     }
-    return 0;
+    return defaultCameraParams.aspect;
   }
 
   protected getVFovDegFromRad(radians: number): number {
