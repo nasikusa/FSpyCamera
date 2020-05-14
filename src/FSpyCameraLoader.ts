@@ -30,27 +30,30 @@ export default class FSpyCamerLoader extends Loader {
     this.dataManager = new FSpyDataManager();
   }
 
-  public load(url: string, onLoad: () => any, onProgress: () => any, onError: () => any): void {
-    const scope = this;
+  public load(
+    url: string,
+    onLoad: (camera: PerspectiveCamera) => void,
+    onProgress: () => void,
+    onError: () => void
+  ): void {
     const loader = new FileLoader(this.manager);
     loader.setPath(this.path);
     loader.setResponseType('json');
     loader.load(
       url,
-      function (text) {
-        // @ts-ignore
-        onLoad(scope.parse(text));
+      (resultJson) => {
+        const json: unknown = resultJson;
+        onLoad(this.parse(json as FSpyCameraJson));
       },
       onProgress,
       onError
     );
   }
 
-  public parse(text: any): void {
-    if ('object' === typeof text) {
-      this.dataManager.setData(text);
+  public parse(fSpyJson: FSpyCameraJson): PerspectiveCamera {
+    this.dataManager.setData(fSpyJson);
       this.createCamera();
-    }
+    return this.camera;
   }
 
   public setCanvas(canvas: HTMLCanvasElement) {
