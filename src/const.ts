@@ -1,4 +1,6 @@
 export const ErrorTexts: { [key: string]: string } = {
+  load: "Please put fSpy's json path or parsed json in the first argument",
+};
 
 export const defaultCameraParams: { [key: string]: number } = {
   aspect: 1,

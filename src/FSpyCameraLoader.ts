@@ -1,23 +1,14 @@
 import { Loader, FileLoader, PerspectiveCamera, Vector2 } from 'three';
 
 import FSpyDataManager from 'FSpyDataManager';
+import { FSpyCameraJson } from 'type';
 import { defaultCameraParams } from 'const';
 
 export default class FSpyCamerLoader extends Loader {
-  /**
-   * three.jsのカメラ
-   */
   public camera: PerspectiveCamera;
-
   public targetCanvasSize: Vector2;
-
-  /**
-   * ターゲットとなるcanvasを指定
-   */
   public targetCanvas: HTMLCanvasElement | null;
-
   protected targetCanvasRect: ClientRect | null;
-
   protected dataManager: FSpyDataManager;
 
   constructor(manager?: any) {
@@ -53,7 +44,7 @@ export default class FSpyCamerLoader extends Loader {
 
   public parse(fSpyJson: FSpyCameraJson): PerspectiveCamera {
     this.dataManager.setData(fSpyJson);
-      this.createCamera();
+    this.createCamera();
     return this.camera;
   }
 

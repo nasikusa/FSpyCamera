@@ -43,7 +43,6 @@ export interface FSpyCameraJson {
   imageHeight: number;
 }
 
-
 export interface DataManager {
   setData: (data: FSpyCameraJson) => void;
   removeData: () => void;

@@ -1,20 +1,14 @@
 import { Matrix4, Vector3, MathUtils } from 'three';
-
 import { FSpyCameraJson, DataManager } from './type';
+import { defaultCameraParams } from './const';
 
 export default class FSpyDataManager implements DataManager {
   private data: FSpyCameraJson | null;
-
   private internalImageRatio: number;
-
   private internalCameraFov: number;
-
   private radian: number;
-
   private internalRotationMatrix: Matrix4;
-
   private internalCameraPosition: Vector3;
-
   private internalIsSetData: boolean;
 
   constructor() {
@@ -23,25 +17,16 @@ export default class FSpyDataManager implements DataManager {
     this.internalCameraFov = defaultCameraParams.fov;
     this.radian = 0;
     this.internalRotationMatrix = new Matrix4();
-    this.internalCameraPosition = new Vector3(0.0);
+    this.internalCameraPosition = new Vector3();
     this.internalIsSetData = false;
   }
 
-  /**
-   * fSpyのjsonデータを受け取り内部データとして設定する
-   * @param data
-   * @return
-   */
   public setData(data: FSpyCameraJson): void {
     this.internalIsSetData = true;
     this.data = data;
     this.onSetData();
   }
 
-  /**
-   * 内部fSpyデータを削除する
-   *  @return {void}
-   */
   public removeData(): void {
     this.internalIsSetData = false;
     this.data = null;
@@ -65,7 +50,7 @@ export default class FSpyDataManager implements DataManager {
     this.internalImageRatio = defaultCameraParams.aspect;
     this.internalCameraFov = defaultCameraParams.fov;
     this.internalRotationMatrix = new Matrix4();
-    this.internalCameraPosition = new Vector3(0.0);
+    this.internalCameraPosition = new Vector3();
   }
 
   protected calcImageRatio(): number {
@@ -86,20 +71,10 @@ export default class FSpyDataManager implements DataManager {
    * マトリックスオブジェクトに数字をセットする
    * @return {THREE.Matrix4} パラメータがセットされたMatrix4を返す
    */
-  protected setMatrix(): THREE.Matrix4 {
+  protected setMatrix(): Matrix4 {
     if (this.data != null) {
-      /**
-       * fSpyのカメラのtransformの配列データ
-       * @type {Array}
-       */
       const mtxArray = this.data.cameraTransform.rows;
-
       const preArray: number[] = [];
-
-      /**
-       * fSpyの多次元配列を一次元配列に変換
-       * @type {Array}
-       */
       const matrixArray = mtxArray.reduce((pre, curernt) => {
         pre.push(...curernt);
         return pre;
