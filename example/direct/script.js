@@ -95,20 +95,13 @@ var renderer = new THREE.WebGLRenderer({
   canvas: options.canvasElement,
   alpha: true,
 });
-
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setClearColor(0x000000, 0);
-renderer.alpha = true;
 renderer.setSize(window.innerWidth, window.innerHeight);
 
-window.addEventListener('resize', function () {
-  renderer.setSize(window.innerWidth, window.innerHeight);
-});
-
-var fSpyCameraLoader = new FSpyCameraLoader(options.canvasElement);
+var fSpyCameraLoader = new FSpyCameraLoader();
 fSpyCameraLoader.setCanvas(options.canvasElement);
 fSpyCameraLoader.setResizeUpdate();
-
 fSpyCameraLoader.parse(jsonData);
 
 var scene = new THREE.Scene();
@@ -119,10 +112,14 @@ var box = new THREE.Mesh(geometry, material);
 box.position.set(0, 0, 0);
 scene.add(box);
 
-anim();
+window.addEventListener('resize', function () {
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
 
-function anim() {
-  requestAnimationFrame(anim);
+rnederLoop();
+
+function rnederLoop() {
+  requestAnimationFrame(rnederLoop);
   renderer.render(scene, camera);
   box.rotation.y += 0.01;
 }
