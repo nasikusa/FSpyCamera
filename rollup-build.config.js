@@ -4,7 +4,9 @@ import { terser } from "rollup-plugin-terser";
 
 export default {
   input: 'src/index.ts',
-  
+	external: [
+		'three',
+	],
 	output: [
 		{
 			format: 'umd',
@@ -12,12 +14,18 @@ export default {
 			file: pkg.mainMin,
 			// banner: license,
 			indent: '\t',
+			globals: {
+				three: 'THREE',
+			}
 		},
 		{
 			format: 'es',
 			file: pkg.moduleMin,
 			// banner: license,
 			indent: '\t',
+			globals: {
+				three: 'THREE',
+			}
 		}
 	],
 	plugins: [
