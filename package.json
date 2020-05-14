@@ -1,6 +1,6 @@
 {
   "name": "fspy-camera-loader",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Script to import camera matching data in fSpy into three.js",
   "main": "dist/FSpyCameraLoader.js",
   "mainMin": "dist/FSpyCameraLoader.min.js",
