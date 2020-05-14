@@ -29,14 +29,24 @@ function __extends(d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
 
+var defaultCameraParams = {
+    aspect: 1,
+    far: 2000,
+    filmGauge: 35,
+    filmOffset: 0,
+    fov: 50,
+    near: 0.1,
+    zoom: 1,
+};
+
 var FSpyDataManager = (function () {
     function FSpyDataManager() {
         this.data = null;
-        this.internalImageRatio = 0;
-        this.internalCameraFov = 0;
+        this.internalImageRatio = defaultCameraParams.aspect;
+        this.internalCameraFov = defaultCameraParams.fov;
         this.radian = 0;
         this.internalRotationMatrix = new Matrix4();
-        this.internalCameraPosition = new Vector3(0.0);
+        this.internalCameraPosition = new Vector3();
         this.internalIsSetData = false;
     }
     FSpyDataManager.prototype.setData = function (data) {
@@ -61,10 +71,10 @@ var FSpyDataManager = (function () {
         }
     };
     FSpyDataManager.prototype.onRemoveData = function () {
-        this.internalImageRatio = 0;
-        this.internalCameraFov = 0;
+        this.internalImageRatio = defaultCameraParams.aspect;
+        this.internalCameraFov = defaultCameraParams.fov;
         this.internalRotationMatrix = new Matrix4();
-        this.internalCameraPosition = new Vector3(0.0);
+        this.internalCameraPosition = new Vector3();
     };
     FSpyDataManager.prototype.calcImageRatio = function () {
         if (this.data != null) {
@@ -72,7 +82,7 @@ var FSpyDataManager = (function () {
             var h = this.data.imageHeight;
             return w / h;
         }
-        return 0;
+        return defaultCameraParams.aspect;
     };
     FSpyDataManager.prototype.getVFovDegFromRad = function (radians) {
         this.radian = MathUtils.radToDeg(radians);
@@ -148,19 +158,19 @@ var FSpyCamerLoader = (function (_super) {
         return _this;
     }
     FSpyCamerLoader.prototype.load = function (url, onLoad, onProgress, onError) {
-        var scope = this;
+        var _this = this;
         var loader = new FileLoader(this.manager);
         loader.setPath(this.path);
         loader.setResponseType('json');
-        loader.load(url, function (text) {
-            onLoad(scope.parse(text));
+        loader.load(url, function (resultJson) {
+            var json = resultJson;
+            onLoad(_this.parse(json));
         }, onProgress, onError);
     };
-    FSpyCamerLoader.prototype.parse = function (text) {
-        if ('object' === typeof text) {
-            this.dataManager.setData(text);
-            this.createCamera();
-        }
+    FSpyCamerLoader.prototype.parse = function (fSpyJson) {
+        this.dataManager.setData(fSpyJson);
+        this.createCamera();
+        return this.camera;
     };
     FSpyCamerLoader.prototype.setCanvas = function (canvas) {
         this.targetCanvas = canvas;
@@ -187,7 +197,7 @@ var FSpyCamerLoader = (function (_super) {
                 this.camera.aspect = this.targetCanvasSize.x / this.targetCanvasSize.y;
             }
             else {
-                this.camera.aspect = 0;
+                this.camera.aspect = defaultCameraParams.aspect;
             }
             this.camera.position.set(this.dataManager.cameraPosition.x, this.dataManager.cameraPosition.y, this.dataManager.cameraPosition.z);
             this.camera.setRotationFromMatrix(this.dataManager.rotationMatrix);
@@ -197,12 +207,12 @@ var FSpyCamerLoader = (function (_super) {
     FSpyCamerLoader.prototype.onResize = function () {
         if (this.targetCanvas != null) {
             this.targetCanvasRect = this.targetCanvas.getBoundingClientRect();
+            var fSpyImageRatio = this.dataManager.imageRatio;
             this.targetCanvasSize.setX(this.targetCanvasRect.width);
             this.targetCanvasSize.setY(this.targetCanvasRect.height);
-            var fSpyImageRatio = this.dataManager.imageRatio;
             if (this.targetCanvasSize.x / this.targetCanvasSize.y <= fSpyImageRatio) {
                 this.camera.aspect = this.targetCanvasSize.x / this.targetCanvasSize.y;
-                this.camera.zoom = 1;
+                this.camera.zoom = defaultCameraParams.zoom;
             }
             else {
                 this.camera.aspect = this.targetCanvasSize.x / this.targetCanvasSize.y;
