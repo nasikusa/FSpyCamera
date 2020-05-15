@@ -43,8 +43,7 @@ export default class FSpyCamerLoader extends Loader {
 
   public parse(fSpyJson: FSpyCameraJson): PerspectiveCamera {
     this.dataManager.setData(fSpyJson);
-    this.createCamera();
-    return this.camera;
+    return this.createCamera();
   }
 
   public setCanvas(canvas: HTMLCanvasElement) {
@@ -69,11 +68,7 @@ export default class FSpyCamerLoader extends Loader {
     window.removeEventListener('resize', this.onResize.bind(this));
   }
 
-  /**
-   * three.jsのカメラを作成する関数
-   * @return {void}
-   */
-  createCamera(): void {
+  protected createCamera(): PerspectiveCamera {
     if (this.dataManager.isSetData) {
       this.camera.fov = this.dataManager.cameraFov;
       if (this.targetCanvasSize != null) {
@@ -89,6 +84,7 @@ export default class FSpyCamerLoader extends Loader {
       this.camera.setRotationFromMatrix(this.dataManager.rotationMatrix);
       this.onResize();
     }
+    return this.camera;
   }
 
   /**
