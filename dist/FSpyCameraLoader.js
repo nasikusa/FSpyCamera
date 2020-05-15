@@ -45,69 +45,107 @@
 
 	var FSpyDataManager = (function () {
 	    function FSpyDataManager() {
+	        this.rawData = null;
 	        this.data = null;
 	        this.internalImageRatio = defaultCameraParams.aspect;
 	        this.internalCameraFov = defaultCameraParams.fov;
-	        this.radian = 0;
-	        this.internalRotationMatrix = new three.Matrix4();
+	        this.internalOriginalImageSize = new three.Vector2();
+	        this.internalCameraTransformMatrix = new three.Matrix4();
+	        this.internalViewTransformMatrix = new three.Matrix4();
 	        this.internalCameraPosition = new three.Vector3();
 	        this.internalIsSetData = false;
 	    }
-	    FSpyDataManager.prototype.setData = function (data) {
+	    FSpyDataManager.prototype.setData = function (rawData) {
 	        this.internalIsSetData = true;
-	        this.data = data;
+	        this.rawData = rawData;
 	        this.onSetData();
 	    };
 	    FSpyDataManager.prototype.removeData = function () {
 	        this.internalIsSetData = false;
-	        this.data = null;
+	        this.rawData = null;
 	        this.onRemoveData();
 	    };
 	    FSpyDataManager.prototype.getData = function () {
+	        return this.rawData;
+	    };
+	    FSpyDataManager.prototype.getComputedData = function () {
 	        return this.data;
+	    };
+	    FSpyDataManager.prototype.setComputedData = function () {
+	        if (this.rawData != null) {
+	            this.data = {};
+	            this.data.principalPoint = new three.Vector2(this.rawData.principalPoint.x, this.rawData.principalPoint.y);
+	            this.data.viewTransform = this.internalViewTransformMatrix;
+	            this.data.cameraTransform = this.internalCameraTransformMatrix;
+	            this.data.horizontalFieldOfView = this.rawData.horizontalFieldOfView;
+	            this.data.verticalFieldOfView = this.rawData.verticalFieldOfView;
+	            this.data.vanishingPoints = [
+	                new three.Vector2(this.rawData.vanishingPoints[0].x, this.rawData.vanishingPoints[0].y),
+	                new three.Vector2(this.rawData.vanishingPoints[1].x, this.rawData.vanishingPoints[1].y),
+	                new three.Vector2(this.rawData.vanishingPoints[2].x, this.rawData.vanishingPoints[2].y),
+	            ];
+	            (this.data.vanishingPointAxes = [
+	                this.rawData.vanishingPointAxes[0],
+	                this.rawData.vanishingPointAxes[1],
+	                this.rawData.vanishingPointAxes[2],
+	            ]),
+	                (this.data.relativeFocalLength = this.rawData.relativeFocalLength);
+	            this.data.imageWidth = this.rawData.imageWidth;
+	            this.data.imageHeight = this.rawData.imageHeight;
+	            this.data.imageSize = this.internalOriginalImageSize;
+	            this.data.imageRatio = this.internalImageRatio;
+	            this.data.cameraPosition = this.internalCameraPosition;
+	            this.data.cameraFov = this.internalCameraFov;
+	        }
 	    };
 	    FSpyDataManager.prototype.onSetData = function () {
 	        this.internalImageRatio = this.calcImageRatio();
-	        if (this.data != null) {
-	            this.internalCameraFov = this.getVFovDegFromRad(this.data.verticalFieldOfView);
-	            this.setMatrix();
+	        if (this.rawData != null) {
+	            this.internalOriginalImageSize = new three.Vector2(this.rawData.imageWidth, this.rawData.imageHeight);
+	            this.internalCameraFov = this.getVFovDegFromRad(this.rawData.verticalFieldOfView);
+	            this.setTransformMatrix(this.rawData.cameraTransform.rows, this.internalCameraTransformMatrix);
+	            this.setTransformMatrix(this.rawData.viewTransform.rows, this.internalViewTransformMatrix);
 	            this.setCameraPosition();
+	            this.setComputedData();
 	        }
 	    };
 	    FSpyDataManager.prototype.onRemoveData = function () {
 	        this.internalImageRatio = defaultCameraParams.aspect;
 	        this.internalCameraFov = defaultCameraParams.fov;
-	        this.internalRotationMatrix = new three.Matrix4();
+	        this.internalOriginalImageSize = new three.Vector2();
+	        this.internalCameraTransformMatrix = new three.Matrix4();
+	        this.internalViewTransformMatrix = new three.Matrix4();
 	        this.internalCameraPosition = new three.Vector3();
+	        this.data = null;
 	    };
 	    FSpyDataManager.prototype.calcImageRatio = function () {
-	        if (this.data != null) {
-	            var w = this.data.imageWidth;
-	            var h = this.data.imageHeight;
+	        if (this.rawData != null) {
+	            var w = this.rawData.imageWidth;
+	            var h = this.rawData.imageHeight;
 	            return w / h;
 	        }
 	        return defaultCameraParams.aspect;
 	    };
 	    FSpyDataManager.prototype.getVFovDegFromRad = function (radians) {
-	        this.radian = three.MathUtils.radToDeg(radians);
-	        return this.radian;
+	        var radian = three.MathUtils.radToDeg(radians);
+	        return radian;
 	    };
-	    FSpyDataManager.prototype.setMatrix = function () {
-	        if (this.data != null) {
-	            var mtxArray = this.data.cameraTransform.rows;
+	    FSpyDataManager.prototype.setTransformMatrix = function (transformArray, matrix) {
+	        if (this.rawData != null) {
+	            var mtxArray = transformArray;
 	            var preArray = [];
 	            var matrixArray = mtxArray.reduce(function (pre, curernt) {
 	                pre.push.apply(pre, curernt);
 	                return pre;
 	            }, preArray);
-	            this.internalRotationMatrix.elements = matrixArray;
-	            return this.internalRotationMatrix;
+	            matrix.elements = matrixArray;
+	            return matrix;
 	        }
 	        return new three.Matrix4();
 	    };
 	    FSpyDataManager.prototype.setCameraPosition = function () {
-	        if (this.data != null) {
-	            var mtxArray = this.data.cameraTransform.rows;
+	        if (this.rawData != null) {
+	            var mtxArray = this.rawData.cameraTransform.rows;
 	            this.internalCameraPosition = new three.Vector3(mtxArray[0][3], mtxArray[1][3], mtxArray[2][3]);
 	        }
 	    };
@@ -120,7 +158,21 @@
 	    });
 	    Object.defineProperty(FSpyDataManager.prototype, "rotationMatrix", {
 	        get: function () {
-	            return this.internalRotationMatrix;
+	            return this.cameraMatrix;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(FSpyDataManager.prototype, "cameraMatrix", {
+	        get: function () {
+	            return this.internalCameraTransformMatrix;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(FSpyDataManager.prototype, "viewMatrix", {
+	        get: function () {
+	            return this.internalViewTransformMatrix;
 	        },
 	        enumerable: true,
 	        configurable: true
@@ -146,6 +198,27 @@
 	        enumerable: true,
 	        configurable: true
 	    });
+	    Object.defineProperty(FSpyDataManager.prototype, "imageSize", {
+	        get: function () {
+	            return this.internalOriginalImageSize;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(FSpyDataManager.prototype, "imageWidth", {
+	        get: function () {
+	            return this.internalOriginalImageSize.width;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(FSpyDataManager.prototype, "imageHeight", {
+	        get: function () {
+	            return this.internalOriginalImageSize.height;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    return FSpyDataManager;
 	}());
 
@@ -155,7 +228,6 @@
 	        var _this = _super.call(this) || this;
 	        three.Loader.call(_this, manager);
 	        _this.targetCanvas = null;
-	        _this.targetCanvasRect = null;
 	        _this.targetCanvasSize = new three.Vector2();
 	        _this.camera = new three.PerspectiveCamera();
 	        _this.dataManager = new FSpyDataManager();
@@ -167,14 +239,12 @@
 	        loader.setPath(this.path);
 	        loader.setResponseType('json');
 	        loader.load(url, function (resultJson) {
-	            var json = resultJson;
-	            onLoad(_this.parse(json));
+	            onLoad(_this.parse(resultJson));
 	        }, onProgress, onError);
 	    };
 	    FSpyCamerLoader.prototype.parse = function (fSpyJson) {
 	        this.dataManager.setData(fSpyJson);
-	        this.createCamera();
-	        return this.camera;
+	        return this.createCamera();
 	    };
 	    FSpyCamerLoader.prototype.setCanvas = function (canvas) {
 	        this.targetCanvas = canvas;
@@ -182,16 +252,10 @@
 	    FSpyCamerLoader.prototype.removeCanvas = function () {
 	        this.targetCanvas = null;
 	    };
-	    FSpyCamerLoader.prototype.setResizeUpdate = function (canvas) {
-	        if (canvas) {
-	            this.setCanvas(canvas);
-	        }
+	    FSpyCamerLoader.prototype.setResizeUpdate = function () {
 	        window.addEventListener('resize', this.onResize.bind(this));
 	    };
-	    FSpyCamerLoader.prototype.removeResizeupdate = function (canvas) {
-	        if (canvas) {
-	            this.removeCanvas();
-	        }
+	    FSpyCamerLoader.prototype.removeResizeupdate = function () {
 	        window.removeEventListener('resize', this.onResize.bind(this));
 	    };
 	    FSpyCamerLoader.prototype.createCamera = function () {
@@ -201,19 +265,20 @@
 	                this.camera.aspect = this.targetCanvasSize.x / this.targetCanvasSize.y;
 	            }
 	            else {
-	                this.camera.aspect = defaultCameraParams.aspect;
+	                this.camera.aspect = this.dataManager.imageRatio;
 	            }
 	            this.camera.position.set(this.dataManager.cameraPosition.x, this.dataManager.cameraPosition.y, this.dataManager.cameraPosition.z);
 	            this.camera.setRotationFromMatrix(this.dataManager.rotationMatrix);
 	            this.onResize();
 	        }
+	        return this.camera;
 	    };
 	    FSpyCamerLoader.prototype.onResize = function () {
 	        if (this.targetCanvas != null) {
-	            this.targetCanvasRect = this.targetCanvas.getBoundingClientRect();
+	            var rect = this.targetCanvas.getBoundingClientRect();
 	            var fSpyImageRatio = this.dataManager.imageRatio;
-	            this.targetCanvasSize.setX(this.targetCanvasRect.width);
-	            this.targetCanvasSize.setY(this.targetCanvasRect.height);
+	            this.targetCanvasSize.setX(rect.width);
+	            this.targetCanvasSize.setY(rect.height);
 	            if (this.targetCanvasSize.x / this.targetCanvasSize.y <= fSpyImageRatio) {
 	                this.camera.aspect = this.targetCanvasSize.x / this.targetCanvasSize.y;
 	                this.camera.zoom = defaultCameraParams.zoom;
