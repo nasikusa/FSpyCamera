@@ -58,7 +58,7 @@ html,body {
 
 ```javascript
 
-var camera
+var camera;
 
 var renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector('#myCanvas'),
