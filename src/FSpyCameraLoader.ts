@@ -10,7 +10,7 @@ export default class FSpyCamerLoader extends Loader {
   public targetCanvas: HTMLCanvasElement | null;
   protected dataManager: FSpyDataManager;
 
-  constructor(manager?: any) {
+  constructor(manager?: LoadingManager) {
     super();
 
     Loader.call(this, manager);
@@ -44,7 +44,7 @@ export default class FSpyCamerLoader extends Loader {
     return this.createCamera();
   }
 
-  public setCanvas(canvas: HTMLCanvasElement) {
+  public setCanvas(canvas: HTMLCanvasElement): void {
     this.targetCanvas = canvas;
   }
 
@@ -52,17 +52,11 @@ export default class FSpyCamerLoader extends Loader {
     this.targetCanvas = null;
   }
 
-  public setResizeUpdate(canvas?: HTMLCanvasElement) {
-    if (canvas) {
-      this.setCanvas(canvas);
-    }
+  public setResizeUpdate(): void {
     window.addEventListener('resize', this.onResize.bind(this));
   }
 
-  public removeResizeupdate(canvas?: HTMLCanvasElement) {
-    if (canvas) {
-      this.removeCanvas();
-    }
+  public removeResizeupdate(): void {
     window.removeEventListener('resize', this.onResize.bind(this));
   }
 
@@ -85,11 +79,7 @@ export default class FSpyCamerLoader extends Loader {
     return this.camera;
   }
 
-  /**
-   * リサイズした際に発火する関数
-   * @return {void}
-   */
-  onResize(): void {
+  public onResize(): void {
     if (this.targetCanvas != null) {
       const rect: DOMRect = this.targetCanvas.getBoundingClientRect();
       const fSpyImageRatio: number = this.dataManager.imageRatio;
@@ -104,6 +94,7 @@ export default class FSpyCamerLoader extends Loader {
         this.camera.aspect = this.targetCanvasSize.x / this.targetCanvasSize.y;
         this.camera.zoom = this.targetCanvasSize.x / this.targetCanvasSize.y / fSpyImageRatio;
       }
+
       this.camera.updateProjectionMatrix();
     }
   }
