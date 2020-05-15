@@ -10,9 +10,9 @@ It takes in the json format camera data output by fSpy and converts it into the 
 
 FSpyCameraLoader inherits the [Loader](https://threejs.org/docs/#api/en/loaders/Loader) object of three.js and can be used in the same way as other loaders (that is, there are load function and parse function etc.).
 
-## Install
+## Installing from npm
 
-`npm i fspy-camera-loader`
+`$ npm install --save fspy-camera-loader`
 
 ## Getting Started
 
