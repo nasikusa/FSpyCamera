@@ -1,4 +1,4 @@
-import { Loader, FileLoader, PerspectiveCamera, Vector2 } from 'three';
+import { Loader, FileLoader, PerspectiveCamera, Vector2, LoadingManager } from 'three';
 
 import FSpyDataManager from 'FSpyDataManager';
 import { FSpyCameraJson } from 'type';
