@@ -6,9 +6,6 @@
   "mainMin": "dist/FSpyCameraLoader.min.js",
   "module": "dist/FSpyCameraLoader.module.js",
   "moduleMin": "dist/FSpyCameraLoader.module.min.js",
-  "directories": {
-    "example": "example"
-  },
   "dependencies": {
     "three": "^0.116.0"
   },
