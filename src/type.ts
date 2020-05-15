@@ -1,3 +1,9 @@
+import {
+  Vector2,
+  Vector3,
+  Matrix4,
+} from 'three';
+
 export type FourElemArray<T> = [T, T, T, T];
 export type vanishingPointAxesStrings =
   | 'xPositive'
@@ -23,10 +29,10 @@ export interface FSpyCameraJson {
     y: number;
   };
   viewTransform: {
-    rows: [FourElemArray<number>, FourElemArray<number>, FourElemArray<number>, FourElemArray<number>];
+    rows: FSpyJsonTransformRows;
   };
   cameraTransform: {
-    rows: [FourElemArray<number>, FourElemArray<number>, FourElemArray<number>, FourElemArray<number>];
+    rows: FSpyJsonTransformRows;
   };
   horizontalFieldOfView: number;
   verticalFieldOfView: number;
