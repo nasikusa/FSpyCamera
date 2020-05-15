@@ -72,7 +72,7 @@ export default class FSpyCamerLoader extends Loader {
       if (this.targetCanvasSize != null) {
         this.camera.aspect = this.targetCanvasSize.x / this.targetCanvasSize.y;
       } else {
-        this.camera.aspect = defaultCameraParams.aspect;
+        this.camera.aspect = this.dataManager.imageRatio;
       }
       this.camera.position.set(
         this.dataManager.cameraPosition.x,
