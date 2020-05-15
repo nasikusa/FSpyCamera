@@ -1,95 +1,132 @@
-import { Matrix4, Vector3, MathUtils } from 'three';
-import { FSpyCameraJson, DataManager } from './type';
+import { Matrix4, Vector3, MathUtils, Vector2 } from 'three';
+import { FSpyCameraJson, DataManager, FSpyJsonTransformRows, FSpyCameraData } from './type';
 import { defaultCameraParams } from './const';
 
 export default class FSpyDataManager implements DataManager {
-  private data: FSpyCameraJson | null;
+  private rawData: FSpyCameraJson | null;
+  private data: FSpyCameraData | null;
   private internalImageRatio: number;
   private internalCameraFov: number;
-  private radian: number;
-  private internalRotationMatrix: Matrix4;
+  private internalOriginalImageSize: Vector2;
+  private internalCameraTransformMatrix: Matrix4;
+  private internalViewTransformMatrix: Matrix4;
   private internalCameraPosition: Vector3;
   private internalIsSetData: boolean;
 
   constructor() {
+    this.rawData = null;
     this.data = null;
     this.internalImageRatio = defaultCameraParams.aspect;
     this.internalCameraFov = defaultCameraParams.fov;
-    this.radian = 0;
-    this.internalRotationMatrix = new Matrix4();
+    this.internalOriginalImageSize = new Vector2();
+    this.internalCameraTransformMatrix = new Matrix4();
+    this.internalViewTransformMatrix = new Matrix4();
     this.internalCameraPosition = new Vector3();
     this.internalIsSetData = false;
   }
 
-  public setData(data: FSpyCameraJson): void {
+  public setData(rawData: FSpyCameraJson): void {
     this.internalIsSetData = true;
-    this.data = data;
+    this.rawData = rawData;
     this.onSetData();
   }
 
   public removeData(): void {
     this.internalIsSetData = false;
-    this.data = null;
+    this.rawData = null;
     this.onRemoveData();
   }
 
   public getData(): FSpyCameraJson | null {
+    return this.rawData;
+  }
+
+  public getComputedData(): FSpyCameraData | null {
     return this.data;
+  }
+
+  public setComputedData(): void {
+    if (this.rawData != null) {
+      this.data = ({} as unknown) as FSpyCameraData;
+      this.data.principalPoint = new Vector2(this.rawData.principalPoint.x, this.rawData.principalPoint.y);
+      this.data.viewTransform = this.internalViewTransformMatrix;
+      this.data.cameraTransform = this.internalCameraTransformMatrix;
+      this.data.horizontalFieldOfView = this.rawData.horizontalFieldOfView;
+      this.data.verticalFieldOfView = this.rawData.verticalFieldOfView;
+      this.data.vanishingPoints = [
+        new Vector2(this.rawData.vanishingPoints[0].x, this.rawData.vanishingPoints[0].y),
+        new Vector2(this.rawData.vanishingPoints[1].x, this.rawData.vanishingPoints[1].y),
+        new Vector2(this.rawData.vanishingPoints[2].x, this.rawData.vanishingPoints[2].y),
+      ];
+      (this.data.vanishingPointAxes = [
+        this.rawData.vanishingPointAxes[0],
+        this.rawData.vanishingPointAxes[1],
+        this.rawData.vanishingPointAxes[2],
+      ]),
+        (this.data.relativeFocalLength = this.rawData.relativeFocalLength);
+      this.data.imageWidth = this.rawData.imageWidth;
+      this.data.imageHeight = this.rawData.imageHeight;
+      this.data.imageSize = this.internalOriginalImageSize;
+      this.data.imageRatio = this.internalImageRatio;
+      this.data.cameraPosition = this.internalCameraPosition;
+      this.data.cameraFov = this.internalCameraFov;
+    }
   }
 
   protected onSetData(): void {
     this.internalImageRatio = this.calcImageRatio();
-    if (this.data != null) {
-      this.internalCameraFov = this.getVFovDegFromRad(this.data.verticalFieldOfView);
-      this.setMatrix();
+    if (this.rawData != null) {
+      this.internalOriginalImageSize = new Vector2(this.rawData.imageWidth, this.rawData.imageHeight);
+      this.internalCameraFov = this.getVFovDegFromRad(this.rawData.verticalFieldOfView);
+      this.setTransformMatrix(this.rawData.cameraTransform.rows, this.internalCameraTransformMatrix);
+      this.setTransformMatrix(this.rawData.viewTransform.rows, this.internalViewTransformMatrix);
       this.setCameraPosition();
+      this.setComputedData();
     }
   }
 
   protected onRemoveData(): void {
     this.internalImageRatio = defaultCameraParams.aspect;
     this.internalCameraFov = defaultCameraParams.fov;
-    this.internalRotationMatrix = new Matrix4();
+    this.internalOriginalImageSize = new Vector2();
+    this.internalCameraTransformMatrix = new Matrix4();
+    this.internalViewTransformMatrix = new Matrix4();
     this.internalCameraPosition = new Vector3();
+    this.data = null;
   }
 
   protected calcImageRatio(): number {
-    if (this.data != null) {
-      const w: number = this.data.imageWidth;
-      const h: number = this.data.imageHeight;
+    if (this.rawData != null) {
+      const w: number = this.rawData.imageWidth;
+      const h: number = this.rawData.imageHeight;
       return w / h;
     }
     return defaultCameraParams.aspect;
   }
 
   protected getVFovDegFromRad(radians: number): number {
-    this.radian = MathUtils.radToDeg(radians);
-    return this.radian;
+    const radian = MathUtils.radToDeg(radians);
+    return radian;
   }
 
-  /**
-   * マトリックスオブジェクトに数字をセットする
-   * @return {THREE.Matrix4} パラメータがセットされたMatrix4を返す
-   */
-  protected setMatrix(): Matrix4 {
-    if (this.data != null) {
-      const mtxArray = this.data.cameraTransform.rows;
+  protected setTransformMatrix(transformArray: FSpyJsonTransformRows, matrix: Matrix4): Matrix4 {
+    if (this.rawData != null) {
+      const mtxArray: FSpyJsonTransformRows = transformArray;
       const preArray: number[] = [];
-      const matrixArray = mtxArray.reduce((pre, curernt) => {
+      const matrixArray = mtxArray.reduce((pre: number[], curernt: number[]) => {
         pre.push(...curernt);
         return pre;
       }, preArray);
-      this.internalRotationMatrix.elements = matrixArray;
+      matrix.elements = matrixArray;
 
-      return this.internalRotationMatrix;
+      return matrix;
     }
-
     return new Matrix4();
   }
 
   protected setCameraPosition(): void {
-    if (this.data != null) {
-      const mtxArray = this.data.cameraTransform.rows;
+    if (this.rawData != null) {
+      const mtxArray = this.rawData.cameraTransform.rows;
       this.internalCameraPosition = new Vector3(mtxArray[0][3], mtxArray[1][3], mtxArray[2][3]);
     }
   }
@@ -99,7 +136,15 @@ export default class FSpyDataManager implements DataManager {
   }
 
   public get rotationMatrix(): Matrix4 {
-    return this.internalRotationMatrix;
+    return this.cameraMatrix;
+  }
+
+  public get cameraMatrix(): Matrix4 {
+    return this.internalCameraTransformMatrix;
+  }
+
+  public get viewMatrix(): Matrix4 {
+    return this.internalViewTransformMatrix;
   }
 
   public get cameraFov(): number {
@@ -112,5 +157,17 @@ export default class FSpyDataManager implements DataManager {
 
   public get isSetData(): boolean {
     return this.internalIsSetData;
+  }
+
+  public get imageSize(): Vector2 {
+    return this.internalOriginalImageSize;
+  }
+
+  public get imageWidth(): number {
+    return this.internalOriginalImageSize.width;
+  }
+
+  public get imageHeight(): number {
+    return this.internalOriginalImageSize.height;
   }
 }
