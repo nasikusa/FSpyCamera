@@ -55,3 +55,28 @@ export interface DataManager {
   removeData: () => void;
   getData: () => FSpyCameraJson | null;
 }
+
+export interface FSpyCameraData {
+  principalPoint: Vector2,
+  viewTransform: Matrix4,
+  cameraTransform: Matrix4,
+  horizontalFieldOfView: number,
+  verticalFieldOfView: number,
+  vanishingPoints: [
+    Vector2,
+    Vector2,
+    Vector2,
+  ],
+  vanishingPointAxes: [
+    vanishingPointAxesStrings,
+    vanishingPointAxesStrings,
+    vanishingPointAxesStrings,
+  ],
+  relativeFocalLength: number,
+  imageWidth: number,
+  imageHeight: number,
+  imageRatio: number,
+  imageSize: Vector2,
+  cameraPosition: Vector3,
+  cameraFov: number,
+};
