@@ -34,8 +34,7 @@ export default class FSpyCamerLoader extends Loader {
     loader.load(
       url,
       (resultJson) => {
-        const json: unknown = resultJson;
-        onLoad(this.parse(json as FSpyCameraJson));
+        onLoad(this.parse((resultJson as unknown) as FSpyCameraJson));
       },
       onProgress,
       onError
