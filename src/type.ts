@@ -7,6 +7,13 @@ export type vanishingPointAxesStrings =
   | 'zPositive'
   | 'zNegative';
 
+export type FSpyJsonTransformRows = [
+  [number, number, number, number],
+  [number, number, number, number],
+  [number, number, number, number],
+  [number, number, number, number]
+];
+
 /**
  * fSpyから吐き出されるjson形式のカメラデータ
  */
