@@ -1,3 +1,9 @@
+/*!
+ * three-fspy-camera-loader
+ * https://github.com/nasikusa/three-fspy-camera-loader
+ * (c) 2020 @nasikusa
+ * Released under the MIT License.
+ */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('three')) :
 	typeof define === 'function' && define.amd ? define(['three'], factory) :

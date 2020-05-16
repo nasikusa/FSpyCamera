@@ -1,3 +1,9 @@
+/*!
+ * three-fspy-camera-loader
+ * https://github.com/nasikusa/three-fspy-camera-loader
+ * (c) 2020 @nasikusa
+ * Released under the MIT License.
+ */
 import { Vector2, Matrix4, Vector3, MathUtils, FileLoader, Loader, PerspectiveCamera } from 'three';
 
 /*! *****************************************************************************
