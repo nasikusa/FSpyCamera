@@ -1,11 +1,10 @@
 {
-  "name": "fspy-camera-loader",
+  "name": "three-fspy-camera-loader",
   "version": "2.2.0",
   "description": "Script to import camera matching data in fSpy into three.js",
   "main": "dist/FSpyCameraLoader.js",
   "mainMin": "dist/FSpyCameraLoader.min.js",
   "module": "dist/FSpyCameraLoader.module.js",
-  "moduleMin": "dist/FSpyCameraLoader.module.min.js",
   "dependencies": {
     "three": "^0.116.0"
   },
@@ -35,17 +34,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nasikusa/FSpyCameraLoader.git"
+    "url": "git+https://github.com/nasikusa/three-fspy-camera-loader.git"
   },
   "author": "nasikusa",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nasikusa/FSpyCameraLoader/issues"
+    "url": "https://github.com/nasikusa/three-fspy-camera-loader/issues"
   },
-  "homepage": "https://github.com/nasikusa/FSpyCameraLoader#readme",
+  "homepage": "https://github.com/nasikusa/three-fspy-camera-loader#readme",
   "keywords": [
-    "three.js",
+    "three-js",
     "fSpy",
-    "image camera matching"
+    "loader",
+    "image-camera-matching",
+    "3dcg"
   ]
 }
