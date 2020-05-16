@@ -97,6 +97,10 @@ function renderLoop() {
 
 ```
 
+## API documentation
+
+Please see [here](./docs/globals.md).
+
 ## LISENCE
 
 MIT
