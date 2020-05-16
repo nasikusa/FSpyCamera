@@ -45,7 +45,7 @@ export default class FSpyDataManager implements DataManager {
     return this.data;
   }
 
-  public setComputedData(): void {
+  private setComputedData(): void {
     if (this.rawData != null) {
       this.data = ({} as unknown) as FSpyCameraData;
       this.data.principalPoint = new Vector2(this.rawData.principalPoint.x, this.rawData.principalPoint.y);
@@ -73,7 +73,7 @@ export default class FSpyDataManager implements DataManager {
     }
   }
 
-  protected onSetData(): void {
+  private onSetData(): void {
     this.internalImageRatio = this.calcImageRatio();
     if (this.rawData != null) {
       this.internalOriginalImageSize = new Vector2(this.rawData.imageWidth, this.rawData.imageHeight);
@@ -85,7 +85,7 @@ export default class FSpyDataManager implements DataManager {
     }
   }
 
-  protected onRemoveData(): void {
+  private onRemoveData(): void {
     this.internalImageRatio = defaultCameraParams.aspect;
     this.internalCameraFov = defaultCameraParams.fov;
     this.internalOriginalImageSize = new Vector2();
@@ -95,7 +95,7 @@ export default class FSpyDataManager implements DataManager {
     this.data = null;
   }
 
-  protected calcImageRatio(): number {
+  private calcImageRatio(): number {
     if (this.rawData != null) {
       const w: number = this.rawData.imageWidth;
       const h: number = this.rawData.imageHeight;
@@ -104,12 +104,12 @@ export default class FSpyDataManager implements DataManager {
     return defaultCameraParams.aspect;
   }
 
-  protected getVFovDegFromRad(radians: number): number {
+  private getVFovDegFromRad(radians: number): number {
     const radian = MathUtils.radToDeg(radians);
     return radian;
   }
 
-  protected setTransformMatrix(transformArray: FSpyJsonTransformRows, matrix: Matrix4): Matrix4 {
+  private setTransformMatrix(transformArray: FSpyJsonTransformRows, matrix: Matrix4): Matrix4 {
     if (this.rawData != null) {
       const mtxArray: FSpyJsonTransformRows = transformArray;
       const preArray: number[] = [];
@@ -124,7 +124,7 @@ export default class FSpyDataManager implements DataManager {
     return new Matrix4();
   }
 
-  protected setCameraPosition(): void {
+  private setCameraPosition(): void {
     if (this.rawData != null) {
       const mtxArray = this.rawData.cameraTransform.rows;
       this.internalCameraPosition = new Vector3(mtxArray[0][3], mtxArray[1][3], mtxArray[2][3]);
