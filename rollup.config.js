@@ -2,7 +2,14 @@ import typescript from 'rollup-plugin-typescript2';
 import pkg from './package.json';
 import { terser } from "rollup-plugin-terser";
 
-export default {
+const license = `/*!
+ * three-fspy-camera-loader
+ * https://github.com/nasikusa/three-fspy-camera-loader
+ * (c) 2020 @nasikusa
+ * Released under the MIT License.
+ */`;
+
+const develop = {
   input: 'src/index.ts',
   external: [
 		'three',
@@ -12,16 +19,18 @@ export default {
 			format: 'umd',
 			name: 'FSpyCameraLoader',
 			file: pkg.main,
-			// banner: license,
+			banner: license,
 			indent: '\t',
 			globals: {
 				three: 'THREE',
-			}
+			},
+			// exports: 'named',
+			// extend: true,
 		},
 		{
 			format: 'es',
 			file: pkg.module,
-			// banner: license,
+			banner: license,
 			indent: '\t',
 			globals: {
 				three: 'THREE',
