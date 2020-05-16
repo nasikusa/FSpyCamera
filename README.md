@@ -4,7 +4,7 @@
 
 Script for importing [fSpy](https://fspy.io/) camera data into [three.js](https://threejs.org/).
 
-You can also create a pseudo AR expression like this [tweet](https://twitter.com/nakanasinokusa/status/1071129661239787520).
+You can create a pseudo AR expression like this [tweet](https://twitter.com/nakanasinokusa/status/1071129661239787520).
 
 It takes in the json format camera data output by fSpy and converts it into the [PerspetiveCamera](https://threejs.org/docs/#api/en/cameras/PerspectiveCamera) of three.js.
 
