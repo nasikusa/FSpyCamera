@@ -12,7 +12,7 @@ FSpyCameraLoader inherits the [Loader](https://threejs.org/docs/#api/en/loaders/
 
 ## Installing from npm
 
-`$ npm install --save fspy-camera-loader`
+`$ npm install --save three-fspy-camera-loader`
 
 ## Getting Started
 
