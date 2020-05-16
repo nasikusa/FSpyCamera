@@ -3,4 +3,3 @@ dist/**/*.ts
 .DS_Store
 *.log
 .idea
-docs/
