@@ -1,4 +1,4 @@
-# FSpyCameraLoader
+# three-fspy-camera-loader
 
 ## What is this?
 
