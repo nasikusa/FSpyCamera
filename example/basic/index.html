@@ -5,26 +5,142 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>FSpyCameraLoader basic demo</title>
+  <link rel="stylesheet" href="../assets/css/reset.css">
   <style>
+    * {
+      box-sizing: border-box;
+    }
     html,body {
       margin: 0;
       padding: 0;
       height: 100%;
       overflow: hidden;
     }
+    .main {
+      position: relative;
+      width: calc( 100% - 300px );
+      height: 100vh;
+    }
     #myCanvas {
-      width: 100%;
-      height: 100%;
-      background-image: url(../assets/img/river.jpg);
+      width: 100% !important;
+      height: 100% !important;
+      background-image: url(../assets/img/stair.jpg);
       background-size: cover;
       background-position: 50% 50%;
       background-repeat: no-repeat;
     }
+    .wrapper {
+      display: flex;
+
+    }
+    .side {
+      position: relative;
+      width: 300px;
+      height: 100vh;
+    }
+
+    .side__list {
+      width: 100%;
+      height: 100%;
+    }
+
+    .side__title {
+      padding: 10px;
+    }
+
+    .side__title__text {
+
+    }
+
+    .side__item {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      cursor: pointer;
+      height: 40px;
+      padding: 10px;
+      font-family: sans-serif;
+      border-bottom: 1px solid #cccccc;
+      transition: background-color 0.5s ease;
+      background-color: #ffffff;
+    }
+
+    .side__Item:hover {
+      background-color: #dddddd !important;
+      opacity: 0.5;
+    }
+
+    .side__item__text {
+      font-size: 16px;
+    }
+
+    .side__item__text--local {
+      display: inline-block;
+      color: #0000ff;
+      padding: 0 10px;
+    }
+    .side__item__text--world {
+      display: inline-block;
+      color: #cccccc;
+      padding: 0 10px;
+    }
+
+    @media screen and ( max-width: 768px ){
+      .wrapper {
+        flex-wrap: wrap;
+      }
+      .side {
+        width: 100%;
+        height: auto;
+      }
+      .side__item {
+        height: 30px;
+      }
+      .main {
+        width: 100%;
+      }
+    }
+
   </style>
 </head>
 <body>
-  <canvas id="myCanvas"></canvas>
+  <div class="wrapper">
+    <aside class="side">
+      <div class="side__title">
+        <span class="side__title__text">
+          three-fspy-camera-loader demo
+        </span>
+      </div>
+      <ul class="side__list">
+        <li class="side__item side__item--translate js-button" data-action="translate">
+          <span class="side__item__text">
+            translate mode
+          </span>
+        </li>
+        <li class="side__item side__item--rotate js-button" data-action="rotate">
+          <span class="side__item__text">
+            rotate mode
+          </span>
+        </li>
+        <li class="side__item side__item--scale js-button" data-action="scale">
+          <span class="side__item__text">
+            scale mode
+          </span>
+        </li>
+        <li class="side__item side__item--toggle-bg js-button" data-action="toggle-world-local">
+          <span class="side__item__text">
+            toggle <span class="side__item__text--world js-world">world</span> / <span class="side__item__text--local js-local">local</span>
+          </span>
+        </li>
+      </ul>
+    </aside>
+    <main class="main">
+      <canvas id="myCanvas"></canvas>
+    </main>
+  </div>
   <script src="../../node_modules/three/build/three.js"></script>
+  <script src="../../node_modules/three/examples/js/controls/TransformControls.js"></script>
+  <script src="../../node_modules/three/examples/js/loaders/OBJLoader.js"></script>
   <script src="../../dist/FSpyCameraLoader.js"></script>
   <script src="./script.js"></script>
 </body>
