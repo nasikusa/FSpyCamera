@@ -85,7 +85,7 @@ export default class FSpyDataManager implements DataManager {
     this.internalImageRatio = this.calcImageRatio();
     if (this.rawData != null) {
       this.internalOriginalImageSize = new Vector2(this.rawData.imageWidth, this.rawData.imageHeight);
-      this.internalCameraFov = this.getVFovDegFromRad(this.rawData.verticalFieldOfView);
+      this.internalCameraFov = FSpyDataManager.getVFovDegFromRad(this.rawData.verticalFieldOfView);
       this.setTransformMatrix(this.rawData.cameraTransform.rows, this.internalCameraTransformMatrix);
       this.setTransformMatrix(this.rawData.viewTransform.rows, this.internalViewTransformMatrix);
       this.setCameraPosition();
@@ -112,9 +112,8 @@ export default class FSpyDataManager implements DataManager {
     return defaultCameraParams.aspect;
   }
 
-  private getVFovDegFromRad(radians: number): number {
-    const radian = MathUtils.radToDeg(radians);
-    return radian;
+  private static getVFovDegFromRad(radians: number): number {
+    return MathUtils.radToDeg(radians);
   }
 
   private setTransformMatrix(transformArray: FSpyJsonTransformRows, matrix: Matrix4): Matrix4 {
