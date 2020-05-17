@@ -30,7 +30,8 @@
     "develop": "rollup --config --watch",
     "clean": "prettier src/**/*.ts --write",
     "clean-example": "prettier ./example/**/*.js --write",
-    "gendoc": "typedoc --out ./docs/ ./src/ --plugin typedoc-plugin-markdown"
+    "gendoc": "typedoc --out ./docs/ ./src/ --plugin typedoc-plugin-markdown",
+    "lint": "eslint ./src/**/*.ts"
   },
   "repository": {
     "type": "git",
