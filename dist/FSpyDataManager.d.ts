@@ -1,0 +1,35 @@
+import { Matrix4, Vector3, Vector2 } from 'three';
+import { FSpyCameraJson, DataManager, FSpyCameraData } from './type';
+export default class FSpyDataManager implements DataManager {
+    private rawData;
+    private data;
+    private internalImageRatio;
+    private internalCameraFov;
+    private internalOriginalImageSize;
+    private internalCameraTransformMatrix;
+    private internalViewTransformMatrix;
+    private internalCameraPosition;
+    private internalIsSetData;
+    constructor();
+    setData(rawData: FSpyCameraJson): void;
+    removeData(): void;
+    getData(): FSpyCameraJson | null;
+    getComputedData(): FSpyCameraData | null;
+    private setComputedData;
+    private onSetData;
+    private onRemoveData;
+    private calcImageRatio;
+    private getVFovDegFromRad;
+    private setTransformMatrix;
+    private setCameraPosition;
+    get imageRatio(): number;
+    get rotationMatrix(): Matrix4;
+    get cameraMatrix(): Matrix4;
+    get viewMatrix(): Matrix4;
+    get cameraFov(): number;
+    get cameraPosition(): Vector3;
+    get isSetData(): boolean;
+    get imageSize(): Vector2;
+    get imageWidth(): number;
+    get imageHeight(): number;
+}
