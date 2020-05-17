@@ -1,8 +1,4 @@
-import {
-  Vector2,
-  Vector3,
-  Matrix4,
-} from 'three';
+import { Vector2, Vector3, Matrix4 } from 'three';
 
 export type FourElemArray<T> = [T, T, T, T];
 export type vanishingPointAxesStrings =
@@ -63,26 +59,18 @@ export interface DataManager {
 }
 
 export interface FSpyCameraData {
-  principalPoint: Vector2,
-  viewTransform: Matrix4,
-  cameraTransform: Matrix4,
-  horizontalFieldOfView: number,
-  verticalFieldOfView: number,
-  vanishingPoints: [
-    Vector2,
-    Vector2,
-    Vector2,
-  ],
-  vanishingPointAxes: [
-    vanishingPointAxesStrings,
-    vanishingPointAxesStrings,
-    vanishingPointAxesStrings,
-  ],
-  relativeFocalLength: number,
-  imageWidth: number,
-  imageHeight: number,
-  imageRatio: number,
-  imageSize: Vector2,
-  cameraPosition: Vector3,
-  cameraFov: number,
-};
+  principalPoint: Vector2;
+  viewTransform: Matrix4;
+  cameraTransform: Matrix4;
+  horizontalFieldOfView: number;
+  verticalFieldOfView: number;
+  vanishingPoints: [Vector2, Vector2, Vector2];
+  vanishingPointAxes: [vanishingPointAxesStrings, vanishingPointAxesStrings, vanishingPointAxesStrings];
+  relativeFocalLength: number;
+  imageWidth: number;
+  imageHeight: number;
+  imageRatio: number;
+  imageSize: Vector2;
+  cameraPosition: Vector3;
+  cameraFov: number;
+}

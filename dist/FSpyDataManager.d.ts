@@ -19,7 +19,7 @@ export default class FSpyDataManager implements DataManager {
     private onSetData;
     private onRemoveData;
     private calcImageRatio;
-    private getVFovDegFromRad;
+    private static getVFovDegFromRad;
     private setTransformMatrix;
     private setCameraPosition;
     get imageRatio(): number;

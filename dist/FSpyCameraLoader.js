@@ -90,12 +90,12 @@
 	                new three.Vector2(this.rawData.vanishingPoints[1].x, this.rawData.vanishingPoints[1].y),
 	                new three.Vector2(this.rawData.vanishingPoints[2].x, this.rawData.vanishingPoints[2].y),
 	            ];
-	            (this.data.vanishingPointAxes = [
+	            this.data.vanishingPointAxes = [
 	                this.rawData.vanishingPointAxes[0],
 	                this.rawData.vanishingPointAxes[1],
 	                this.rawData.vanishingPointAxes[2],
-	            ]),
-	                (this.data.relativeFocalLength = this.rawData.relativeFocalLength);
+	            ];
+	            this.data.relativeFocalLength = this.rawData.relativeFocalLength;
 	            this.data.imageWidth = this.rawData.imageWidth;
 	            this.data.imageHeight = this.rawData.imageHeight;
 	            this.data.imageSize = this.internalOriginalImageSize;
@@ -108,7 +108,7 @@
 	        this.internalImageRatio = this.calcImageRatio();
 	        if (this.rawData != null) {
 	            this.internalOriginalImageSize = new three.Vector2(this.rawData.imageWidth, this.rawData.imageHeight);
-	            this.internalCameraFov = this.getVFovDegFromRad(this.rawData.verticalFieldOfView);
+	            this.internalCameraFov = FSpyDataManager.getVFovDegFromRad(this.rawData.verticalFieldOfView);
 	            this.setTransformMatrix(this.rawData.cameraTransform.rows, this.internalCameraTransformMatrix);
 	            this.setTransformMatrix(this.rawData.viewTransform.rows, this.internalViewTransformMatrix);
 	            this.setCameraPosition();
@@ -132,20 +132,20 @@
 	        }
 	        return defaultCameraParams.aspect;
 	    };
-	    FSpyDataManager.prototype.getVFovDegFromRad = function (radians) {
-	        var radian = three.MathUtils.radToDeg(radians);
-	        return radian;
+	    FSpyDataManager.getVFovDegFromRad = function (radians) {
+	        return three.MathUtils.radToDeg(radians);
 	    };
 	    FSpyDataManager.prototype.setTransformMatrix = function (transformArray, matrix) {
 	        if (this.rawData != null) {
+	            var matrixData = matrix;
 	            var mtxArray = transformArray;
 	            var preArray = [];
 	            var matrixArray = mtxArray.reduce(function (pre, curernt) {
 	                pre.push.apply(pre, curernt);
 	                return pre;
 	            }, preArray);
-	            matrix.elements = matrixArray;
-	            return matrix;
+	            matrixData.elements = matrixArray;
+	            return matrixData;
 	        }
 	        return new three.Matrix4();
 	    };
