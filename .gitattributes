@@ -1,2 +1,3 @@
 example/* text
-docs/* text
+docs/* linguist-documentation
+* text=auto
