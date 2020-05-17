@@ -26,7 +26,7 @@
     "typescript": "^3.8.3"
   },
   "scripts": {
-    "build": "rollup --config ./rollup-build.config.js",
+    "build": "rollup --config",
     "develop": "rollup --config --watch",
     "clean": "prettier src/**/*.ts --write",
     "clean-example": "prettier ./example/**/*.js --write",
