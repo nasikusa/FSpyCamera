@@ -8,17 +8,29 @@
 
 Script for importing [fSpy](https://fspy.io/) camera data into [three.js](https://threejs.org/).
 
-You can create a pseudo AR expression like this [tweet](https://twitter.com/nakanasinokusa/status/1071129661239787520).
+You can create a pseudo AR-like visual representation.
 
 I made [a demo on this page](https://embed.nasikusa.net/fspy-three-demo/).
 
 It takes in the json format camera data output by fSpy and converts it into the [PerspetiveCamera](https://threejs.org/docs/#api/en/cameras/PerspectiveCamera) of three.js.
 
-FSpyCameraLoader inherits the [Loader](https://threejs.org/docs/#api/en/loaders/Loader) object of three.js and can be used in the same way as other loaders (that is, there are load function and parse function etc.).
+three-fspy-camera-loader inherits the [Loader](https://threejs.org/docs/#api/en/loaders/Loader) object of three.js and can be used in the same way as other loaders.
+
+I'm Japanese so I'm not good at English. So I'm sorry if I used the wrong English.
 
 ## Installing from npm
 
 `$ npm install --save three-fspy-camera-loader`
+
+## Link Collection
+
+[fSpy official website](https://fspy.io/)
+
+[fspy repository](https://github.com/stuffmatic/fSpy)
+
+[fSpy video](https://vimeo.com/300690108)
+
+[fSpy importer addon for Blender](https://github.com/stuffmatic/fSpy-Blender)
 
 ## Getting Started
 
@@ -102,6 +114,20 @@ function renderLoop() {
 }
 
 ```
+
+## Notice
+
+### json export
+
+You can export json using fSpy from here.
+
+![export](./export.jpg)
+
+### Axis setting
+
+When using with three.js, it is recommended that the Y-axis be up.
+
+![note](./note.jpg)
 
 ## API documentation
 
