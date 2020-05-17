@@ -16,16 +16,5 @@
     "project": "./tsconfig.json"
   },
   "rules": {
-  },
-  "import/resolver": {
-    "node": {
-      "extensions": [
-        ".js",
-        ".jsx",
-        ".json",
-        ".ts",
-        ".tsx"
-      ]
-    }
-  },
+  }
 }
