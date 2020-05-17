@@ -2,6 +2,8 @@
 
 ![demo](./demo.gif)
 
+[demo page](https://embed.nasikusa.net/fspy-three-demo/)
+
 ## What is this?
 
 Script for importing [fSpy](https://fspy.io/) camera data into [three.js](https://threejs.org/).
