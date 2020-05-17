@@ -6,6 +6,8 @@ Script for importing [fSpy](https://fspy.io/) camera data into [three.js](https:
 
 You can create a pseudo AR expression like this [tweet](https://twitter.com/nakanasinokusa/status/1071129661239787520).
 
+I made [a demo on this page](https://embed.nasikusa.net/fspy-three-demo/).
+
 It takes in the json format camera data output by fSpy and converts it into the [PerspetiveCamera](https://threejs.org/docs/#api/en/cameras/PerspectiveCamera) of three.js.
 
 FSpyCameraLoader inherits the [Loader](https://threejs.org/docs/#api/en/loaders/Loader) object of three.js and can be used in the same way as other loaders (that is, there are load function and parse function etc.).
