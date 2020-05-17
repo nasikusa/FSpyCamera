@@ -6,8 +6,11 @@ import { defaultCameraParams } from 'const';
 
 export default class FSpyCamerLoader extends Loader {
   public camera: PerspectiveCamera;
+
   public targetCanvasSize: Vector2;
+
   public targetCanvas: HTMLCanvasElement | null;
+
   protected dataManager: FSpyDataManager;
 
   constructor(manager?: LoadingManager) {

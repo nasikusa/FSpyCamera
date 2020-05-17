@@ -4,13 +4,21 @@ import { defaultCameraParams } from './const';
 
 export default class FSpyDataManager implements DataManager {
   private rawData: FSpyCameraJson | null;
+
   private data: FSpyCameraData | null;
+
   private internalImageRatio: number;
+
   private internalCameraFov: number;
+
   private internalOriginalImageSize: Vector2;
+
   private internalCameraTransformMatrix: Matrix4;
+
   private internalViewTransformMatrix: Matrix4;
+
   private internalCameraPosition: Vector3;
+
   private internalIsSetData: boolean;
 
   constructor() {
