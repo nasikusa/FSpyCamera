@@ -66,12 +66,12 @@ export default class FSpyDataManager implements DataManager {
         new Vector2(this.rawData.vanishingPoints[1].x, this.rawData.vanishingPoints[1].y),
         new Vector2(this.rawData.vanishingPoints[2].x, this.rawData.vanishingPoints[2].y),
       ];
-      (this.data.vanishingPointAxes = [
+      this.data.vanishingPointAxes = [
         this.rawData.vanishingPointAxes[0],
         this.rawData.vanishingPointAxes[1],
         this.rawData.vanishingPointAxes[2],
-      ]),
-        (this.data.relativeFocalLength = this.rawData.relativeFocalLength);
+      ];
+      this.data.relativeFocalLength = this.rawData.relativeFocalLength;
       this.data.imageWidth = this.rawData.imageWidth;
       this.data.imageHeight = this.rawData.imageHeight;
       this.data.imageSize = this.internalOriginalImageSize;
@@ -118,15 +118,16 @@ export default class FSpyDataManager implements DataManager {
 
   private setTransformMatrix(transformArray: FSpyJsonTransformRows, matrix: Matrix4): Matrix4 {
     if (this.rawData != null) {
+      const matrixData = matrix;
       const mtxArray: FSpyJsonTransformRows = transformArray;
       const preArray: number[] = [];
       const matrixArray = mtxArray.reduce((pre: number[], curernt: number[]) => {
         pre.push(...curernt);
         return pre;
       }, preArray);
-      matrix.elements = matrixArray;
+      matrixData.elements = matrixArray;
 
-      return matrix;
+      return matrixData;
     }
     return new Matrix4();
   }
