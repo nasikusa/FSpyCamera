@@ -1,5 +1,7 @@
 # three-fspy-camera-loader
 
+![demo](./demo.gif)
+
 ## What is this?
 
 Script for importing [fSpy](https://fspy.io/) camera data into [three.js](https://threejs.org/).
