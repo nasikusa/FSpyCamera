@@ -140,7 +140,7 @@ var FSpyDataManager = (function () {
                 pre.push.apply(pre, curernt);
                 return pre;
             }, preArray);
-            matrixData.elements = matrixArray;
+            matrixData.set(matrixArray[0], matrixArray[1], matrixArray[2], matrixArray[3], matrixArray[4], matrixArray[5], matrixArray[6], matrixArray[7], matrixArray[8], matrixArray[9], matrixArray[10], matrixArray[11], matrixArray[12], matrixArray[13], matrixArray[14], matrixArray[15]);
             return matrixData;
         }
         return new Matrix4();
