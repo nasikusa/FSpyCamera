@@ -21,7 +21,7 @@ export default class FSpyCamerLoader extends Loader {
   /**
    * Class that manages camera data of fSpy
    */
-  protected dataManager: FSpyDataManager;
+  public dataManager: FSpyDataManager;
 
   constructor(manager?: LoadingManager) {
     super();
