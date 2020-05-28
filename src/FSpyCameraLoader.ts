@@ -1,11 +1,10 @@
 import { Loader, FileLoader, PerspectiveCamera, Vector2, LoadingManager } from 'three';
 
 import FSpyDataManager from 'FSpyDataManager';
-import { FSpyCameraJson } from 'type';
+import { FSpyCameraJson, FSpyCameraData } from 'type';
 import { defaultCameraParams } from 'const';
 
 export default class FSpyCamerLoader extends Loader {
-
   /**
    * PerspectiveCamera of three.js. The final result is stored on this camera.
    */
@@ -142,5 +141,19 @@ export default class FSpyCamerLoader extends Loader {
 
       this.camera.updateProjectionMatrix();
     }
+  }
+
+  /**
+   * Get unprocessed internal camera data
+   */
+  public getData(): FSpyCameraJson | null {
+    return this.dataManager.getData();
+  }
+
+  /**
+   * Get camera data processed for three.js
+   */
+  public getComputedData(): FSpyCameraData | null {
+    return this.dataManager.getComputedData();
   }
 }
