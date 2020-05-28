@@ -1,6 +1,8 @@
-[fspy-camera-loader](../README.md) › [Globals](../globals.md) › ["FSpyDataManager"](../modules/_fspydatamanager_.md) › [FSpyDataManager](_fspydatamanager_.fspydatamanager.md)
+[three-fspy-camera-loader](../README.md) › [Globals](../globals.md) › ["FSpyDataManager"](../modules/_fspydatamanager_.md) › [FSpyDataManager](_fspydatamanager_.fspydatamanager.md)
 
 # Class: FSpyDataManager
+
+A class that stores the camera data of fSpy and processes it for three.js
 
 ## Hierarchy
 
@@ -43,17 +45,17 @@
 
 ### Methods
 
-* [calcImageRatio](_fspydatamanager_.fspydatamanager.md#protected-calcimageratio)
+* [calcImageRatio](_fspydatamanager_.fspydatamanager.md#private-calcimageratio)
 * [getComputedData](_fspydatamanager_.fspydatamanager.md#getcomputeddata)
 * [getData](_fspydatamanager_.fspydatamanager.md#getdata)
-* [getVFovDegFromRad](_fspydatamanager_.fspydatamanager.md#protected-getvfovdegfromrad)
-* [onRemoveData](_fspydatamanager_.fspydatamanager.md#protected-onremovedata)
-* [onSetData](_fspydatamanager_.fspydatamanager.md#protected-onsetdata)
+* [onRemoveData](_fspydatamanager_.fspydatamanager.md#private-onremovedata)
+* [onSetData](_fspydatamanager_.fspydatamanager.md#private-onsetdata)
 * [removeData](_fspydatamanager_.fspydatamanager.md#removedata)
-* [setCameraPosition](_fspydatamanager_.fspydatamanager.md#protected-setcameraposition)
-* [setComputedData](_fspydatamanager_.fspydatamanager.md#setcomputeddata)
+* [setCameraPosition](_fspydatamanager_.fspydatamanager.md#private-setcameraposition)
+* [setComputedData](_fspydatamanager_.fspydatamanager.md#private-setcomputeddata)
 * [setData](_fspydatamanager_.fspydatamanager.md#setdata)
-* [setTransformMatrix](_fspydatamanager_.fspydatamanager.md#protected-settransformmatrix)
+* [setTransformMatrix](_fspydatamanager_.fspydatamanager.md#private-settransformmatrix)
+* [getVFovDegFromRad](_fspydatamanager_.fspydatamanager.md#static-private-getvfovdegfromrad)
 
 ## Constructors
 
@@ -61,7 +63,7 @@
 
 \+ **new FSpyDataManager**(): *[FSpyDataManager](_fspydatamanager_.fspydatamanager.md)*
 
-*Defined in [src/FSpyDataManager.ts:14](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/FSpyDataManager.ts#L14)*
+*Defined in [src/FSpyDataManager.ts:52](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/FSpyDataManager.ts#L52)*
 
 **Returns:** *[FSpyDataManager](_fspydatamanager_.fspydatamanager.md)*
 
@@ -71,7 +73,9 @@
 
 • **data**: *[FSpyCameraData](../interfaces/_type_.fspycameradata.md) | null*
 
-*Defined in [src/FSpyDataManager.ts:7](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/FSpyDataManager.ts#L7)*
+*Defined in [src/FSpyDataManager.ts:17](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/FSpyDataManager.ts#L17)*
+
+json data from fSpy converted to data for three.js
 
 ___
 
@@ -79,7 +83,9 @@ ___
 
 • **internalCameraFov**: *number*
 
-*Defined in [src/FSpyDataManager.ts:9](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/FSpyDataManager.ts#L9)*
+*Defined in [src/FSpyDataManager.ts:27](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/FSpyDataManager.ts#L27)*
+
+Camera viewing angle
 
 ___
 
@@ -87,7 +93,9 @@ ___
 
 • **internalCameraPosition**: *Vector3*
 
-*Defined in [src/FSpyDataManager.ts:13](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/FSpyDataManager.ts#L13)*
+*Defined in [src/FSpyDataManager.ts:47](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/FSpyDataManager.ts#L47)*
+
+Camera position
 
 ___
 
@@ -95,7 +103,9 @@ ___
 
 • **internalCameraTransformMatrix**: *Matrix4*
 
-*Defined in [src/FSpyDataManager.ts:11](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/FSpyDataManager.ts#L11)*
+*Defined in [src/FSpyDataManager.ts:37](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/FSpyDataManager.ts#L37)*
+
+Camera matrix
 
 ___
 
@@ -103,7 +113,9 @@ ___
 
 • **internalImageRatio**: *number*
 
-*Defined in [src/FSpyDataManager.ts:8](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/FSpyDataManager.ts#L8)*
+*Defined in [src/FSpyDataManager.ts:22](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/FSpyDataManager.ts#L22)*
+
+Image ratio
 
 ___
 
@@ -111,7 +123,9 @@ ___
 
 • **internalIsSetData**: *boolean*
 
-*Defined in [src/FSpyDataManager.ts:14](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/FSpyDataManager.ts#L14)*
+*Defined in [src/FSpyDataManager.ts:52](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/FSpyDataManager.ts#L52)*
+
+bool value indicating whether fSpy data was stored
 
 ___
 
@@ -119,7 +133,9 @@ ___
 
 • **internalOriginalImageSize**: *Vector2*
 
-*Defined in [src/FSpyDataManager.ts:10](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/FSpyDataManager.ts#L10)*
+*Defined in [src/FSpyDataManager.ts:32](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/FSpyDataManager.ts#L32)*
+
+Image size
 
 ___
 
@@ -127,7 +143,9 @@ ___
 
 • **internalViewTransformMatrix**: *Matrix4*
 
-*Defined in [src/FSpyDataManager.ts:12](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/FSpyDataManager.ts#L12)*
+*Defined in [src/FSpyDataManager.ts:42](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/FSpyDataManager.ts#L42)*
+
+View matrix
 
 ___
 
@@ -135,7 +153,9 @@ ___
 
 • **rawData**: *[FSpyCameraJson](../interfaces/_type_.fspycamerajson.md) | null*
 
-*Defined in [src/FSpyDataManager.ts:6](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/FSpyDataManager.ts#L6)*
+*Defined in [src/FSpyDataManager.ts:12](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/FSpyDataManager.ts#L12)*
+
+json data output from fSpy
 
 ## Accessors
 
@@ -143,7 +163,7 @@ ___
 
 • **get cameraFov**(): *number*
 
-*Defined in [src/FSpyDataManager.ts:150](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/FSpyDataManager.ts#L150)*
+*Defined in [src/FSpyDataManager.ts:246](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/FSpyDataManager.ts#L246)*
 
 **Returns:** *number*
 
@@ -153,7 +173,7 @@ ___
 
 • **get cameraMatrix**(): *Matrix4*
 
-*Defined in [src/FSpyDataManager.ts:142](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/FSpyDataManager.ts#L142)*
+*Defined in [src/FSpyDataManager.ts:238](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/FSpyDataManager.ts#L238)*
 
 **Returns:** *Matrix4*
 
@@ -163,7 +183,7 @@ ___
 
 • **get cameraPosition**(): *Vector3*
 
-*Defined in [src/FSpyDataManager.ts:154](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/FSpyDataManager.ts#L154)*
+*Defined in [src/FSpyDataManager.ts:250](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/FSpyDataManager.ts#L250)*
 
 **Returns:** *Vector3*
 
@@ -173,7 +193,7 @@ ___
 
 • **get imageHeight**(): *number*
 
-*Defined in [src/FSpyDataManager.ts:170](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/FSpyDataManager.ts#L170)*
+*Defined in [src/FSpyDataManager.ts:266](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/FSpyDataManager.ts#L266)*
 
 **Returns:** *number*
 
@@ -183,7 +203,9 @@ ___
 
 • **get imageRatio**(): *number*
 
-*Defined in [src/FSpyDataManager.ts:134](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/FSpyDataManager.ts#L134)*
+*Defined in [src/FSpyDataManager.ts:227](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/FSpyDataManager.ts#L227)*
+
+get image rato data
 
 **Returns:** *number*
 
@@ -193,7 +215,7 @@ ___
 
 • **get imageSize**(): *Vector2*
 
-*Defined in [src/FSpyDataManager.ts:162](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/FSpyDataManager.ts#L162)*
+*Defined in [src/FSpyDataManager.ts:258](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/FSpyDataManager.ts#L258)*
 
 **Returns:** *Vector2*
 
@@ -203,7 +225,7 @@ ___
 
 • **get imageWidth**(): *number*
 
-*Defined in [src/FSpyDataManager.ts:166](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/FSpyDataManager.ts#L166)*
+*Defined in [src/FSpyDataManager.ts:262](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/FSpyDataManager.ts#L262)*
 
 **Returns:** *number*
 
@@ -213,7 +235,7 @@ ___
 
 • **get isSetData**(): *boolean*
 
-*Defined in [src/FSpyDataManager.ts:158](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/FSpyDataManager.ts#L158)*
+*Defined in [src/FSpyDataManager.ts:254](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/FSpyDataManager.ts#L254)*
 
 **Returns:** *boolean*
 
@@ -223,7 +245,9 @@ ___
 
 • **get rotationMatrix**(): *Matrix4*
 
-*Defined in [src/FSpyDataManager.ts:138](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/FSpyDataManager.ts#L138)*
+*Defined in [src/FSpyDataManager.ts:234](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/FSpyDataManager.ts#L234)*
+
+**`deprecated`** 
 
 **Returns:** *Matrix4*
 
@@ -233,19 +257,23 @@ ___
 
 • **get viewMatrix**(): *Matrix4*
 
-*Defined in [src/FSpyDataManager.ts:146](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/FSpyDataManager.ts#L146)*
+*Defined in [src/FSpyDataManager.ts:242](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/FSpyDataManager.ts#L242)*
 
 **Returns:** *Matrix4*
 
 ## Methods
 
-### `Protected` calcImageRatio
+### `Private` calcImageRatio
 
 ▸ **calcImageRatio**(): *number*
 
-*Defined in [src/FSpyDataManager.ts:98](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/FSpyDataManager.ts#L98)*
+*Defined in [src/FSpyDataManager.ts:162](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/FSpyDataManager.ts#L162)*
+
+Calculate image ratio
 
 **Returns:** *number*
+
+image ratio
 
 ___
 
@@ -253,7 +281,9 @@ ___
 
 ▸ **getComputedData**(): *[FSpyCameraData](../interfaces/_type_.fspycameradata.md) | null*
 
-*Defined in [src/FSpyDataManager.ts:44](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/FSpyDataManager.ts#L44)*
+*Defined in [src/FSpyDataManager.ts:95](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/FSpyDataManager.ts#L95)*
+
+Get camera data processed for three.js
 
 **Returns:** *[FSpyCameraData](../interfaces/_type_.fspycameradata.md) | null*
 
@@ -263,43 +293,33 @@ ___
 
 ▸ **getData**(): *[FSpyCameraJson](../interfaces/_type_.fspycamerajson.md) | null*
 
-*Defined in [src/FSpyDataManager.ts:40](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/FSpyDataManager.ts#L40)*
+*Defined in [src/FSpyDataManager.ts:88](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/FSpyDataManager.ts#L88)*
+
+Get unprocessed internal camera data
 
 **Returns:** *[FSpyCameraJson](../interfaces/_type_.fspycamerajson.md) | null*
 
 ___
 
-### `Protected` getVFovDegFromRad
-
-▸ **getVFovDegFromRad**(`radians`: number): *number*
-
-*Defined in [src/FSpyDataManager.ts:107](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/FSpyDataManager.ts#L107)*
-
-**Parameters:**
-
-Name | Type |
------- | ------ |
-`radians` | number |
-
-**Returns:** *number*
-
-___
-
-### `Protected` onRemoveData
+### `Private` onRemoveData
 
 ▸ **onRemoveData**(): *void*
 
-*Defined in [src/FSpyDataManager.ts:88](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/FSpyDataManager.ts#L88)*
+*Defined in [src/FSpyDataManager.ts:148](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/FSpyDataManager.ts#L148)*
+
+Function that works when data from fSpy is removed
 
 **Returns:** *void*
 
 ___
 
-### `Protected` onSetData
+### `Private` onSetData
 
 ▸ **onSetData**(): *void*
 
-*Defined in [src/FSpyDataManager.ts:76](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/FSpyDataManager.ts#L76)*
+*Defined in [src/FSpyDataManager.ts:133](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/FSpyDataManager.ts#L133)*
+
+Function that works when data from fSpy is set
 
 **Returns:** *void*
 
@@ -309,27 +329,33 @@ ___
 
 ▸ **removeData**(): *void*
 
-*Defined in [src/FSpyDataManager.ts:34](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/FSpyDataManager.ts#L34)*
+*Defined in [src/FSpyDataManager.ts:79](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/FSpyDataManager.ts#L79)*
+
+Remove json data from fSpy
 
 **Returns:** *void*
 
 ___
 
-### `Protected` setCameraPosition
+### `Private` setCameraPosition
 
 ▸ **setCameraPosition**(): *void*
 
-*Defined in [src/FSpyDataManager.ts:127](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/FSpyDataManager.ts#L127)*
+*Defined in [src/FSpyDataManager.ts:217](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/FSpyDataManager.ts#L217)*
+
+Set the camera position
 
 **Returns:** *void*
 
 ___
 
-###  setComputedData
+### `Private` setComputedData
 
 ▸ **setComputedData**(): *void*
 
-*Defined in [src/FSpyDataManager.ts:48](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/FSpyDataManager.ts#L48)*
+*Defined in [src/FSpyDataManager.ts:102](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/FSpyDataManager.ts#L102)*
+
+Get camera data processed for three.js
 
 **Returns:** *void*
 
@@ -339,29 +365,51 @@ ___
 
 ▸ **setData**(`rawData`: [FSpyCameraJson](../interfaces/_type_.fspycamerajson.md)): *void*
 
-*Defined in [src/FSpyDataManager.ts:28](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/FSpyDataManager.ts#L28)*
+*Defined in [src/FSpyDataManager.ts:70](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/FSpyDataManager.ts#L70)*
+
+Set json data from fSpy
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`rawData` | [FSpyCameraJson](../interfaces/_type_.fspycamerajson.md) |
+Name | Type | Description |
+------ | ------ | ------ |
+`rawData` | [FSpyCameraJson](../interfaces/_type_.fspycamerajson.md) | json data output from fSpy  |
 
 **Returns:** *void*
 
 ___
 
-### `Protected` setTransformMatrix
+### `Private` setTransformMatrix
 
 ▸ **setTransformMatrix**(`transformArray`: [FSpyJsonTransformRows](../modules/_type_.md#fspyjsontransformrows), `matrix`: Matrix4): *Matrix4*
 
-*Defined in [src/FSpyDataManager.ts:112](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/FSpyDataManager.ts#L112)*
+*Defined in [src/FSpyDataManager.ts:181](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/FSpyDataManager.ts#L181)*
+
+Transform matrix data of transform of fSpy into Matrix4 of three.js.
+
+**Parameters:**
+
+Name | Type | Description |
+------ | ------ | ------ |
+`transformArray` | [FSpyJsonTransformRows](../modules/_type_.md#fspyjsontransformrows) | Matrix data from the underlying fSpy |
+`matrix` | Matrix4 | Matrix data object to be set |
+
+**Returns:** *Matrix4*
+
+Returns the matrix object passed as the second argument. If it fails for any reason, it returns empty matrix data.
+
+___
+
+### `Static` `Private` getVFovDegFromRad
+
+▸ **getVFovDegFromRad**(`radians`: number): *number*
+
+*Defined in [src/FSpyDataManager.ts:171](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/FSpyDataManager.ts#L171)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`transformArray` | [FSpyJsonTransformRows](../modules/_type_.md#fspyjsontransformrows) |
-`matrix` | Matrix4 |
+`radians` | number |
 
-**Returns:** *Matrix4*
+**Returns:** *number*

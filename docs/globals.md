@@ -1,6 +1,6 @@
-[fspy-camera-loader](README.md) › [Globals](globals.md)
+[three-fspy-camera-loader](README.md) › [Globals](globals.md)
 
-# fspy-camera-loader
+# three-fspy-camera-loader
 
 ## Index
 

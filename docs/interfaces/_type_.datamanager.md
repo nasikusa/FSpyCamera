@@ -1,4 +1,4 @@
-[fspy-camera-loader](../README.md) › [Globals](../globals.md) › ["type"](../modules/_type_.md) › [DataManager](_type_.datamanager.md)
+[three-fspy-camera-loader](../README.md) › [Globals](../globals.md) › ["type"](../modules/_type_.md) › [DataManager](_type_.datamanager.md)
 
 # Interface: DataManager
 
@@ -24,7 +24,7 @@
 
 • **getData**: *function*
 
-*Defined in [src/type.ts:62](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/type.ts#L62)*
+*Defined in [src/type.ts:58](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/type.ts#L58)*
 
 #### Type declaration:
 
@@ -36,7 +36,7 @@ ___
 
 • **removeData**: *function*
 
-*Defined in [src/type.ts:61](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/type.ts#L61)*
+*Defined in [src/type.ts:57](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/type.ts#L57)*
 
 #### Type declaration:
 
@@ -48,7 +48,7 @@ ___
 
 • **setData**: *function*
 
-*Defined in [src/type.ts:60](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/type.ts#L60)*
+*Defined in [src/type.ts:56](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/type.ts#L56)*
 
 #### Type declaration:
 

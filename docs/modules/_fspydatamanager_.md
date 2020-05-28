@@ -1,4 +1,4 @@
-[fspy-camera-loader](../README.md) › [Globals](../globals.md) › ["FSpyDataManager"](_fspydatamanager_.md)
+[three-fspy-camera-loader](../README.md) › [Globals](../globals.md) › ["FSpyDataManager"](_fspydatamanager_.md)
 
 # Module: "FSpyDataManager"
 

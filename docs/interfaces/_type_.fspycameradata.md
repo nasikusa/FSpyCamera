@@ -1,4 +1,4 @@
-[fspy-camera-loader](../README.md) › [Globals](../globals.md) › ["type"](../modules/_type_.md) › [FSpyCameraData](_type_.fspycameradata.md)
+[three-fspy-camera-loader](../README.md) › [Globals](../globals.md) › ["type"](../modules/_type_.md) › [FSpyCameraData](_type_.fspycameradata.md)
 
 # Interface: FSpyCameraData
 
@@ -31,7 +31,7 @@
 
 • **cameraFov**: *number*
 
-*Defined in [src/type.ts:87](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/type.ts#L87)*
+*Defined in [src/type.ts:75](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/type.ts#L75)*
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 • **cameraPosition**: *Vector3*
 
-*Defined in [src/type.ts:86](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/type.ts#L86)*
+*Defined in [src/type.ts:74](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/type.ts#L74)*
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 • **cameraTransform**: *Matrix4*
 
-*Defined in [src/type.ts:68](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/type.ts#L68)*
+*Defined in [src/type.ts:64](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/type.ts#L64)*
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 • **horizontalFieldOfView**: *number*
 
-*Defined in [src/type.ts:69](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/type.ts#L69)*
+*Defined in [src/type.ts:65](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/type.ts#L65)*
 
 ___
 
@@ -63,7 +63,7 @@ ___
 
 • **imageHeight**: *number*
 
-*Defined in [src/type.ts:83](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/type.ts#L83)*
+*Defined in [src/type.ts:71](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/type.ts#L71)*
 
 ___
 
@@ -71,7 +71,7 @@ ___
 
 • **imageRatio**: *number*
 
-*Defined in [src/type.ts:84](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/type.ts#L84)*
+*Defined in [src/type.ts:72](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/type.ts#L72)*
 
 ___
 
@@ -79,7 +79,7 @@ ___
 
 • **imageSize**: *Vector2*
 
-*Defined in [src/type.ts:85](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/type.ts#L85)*
+*Defined in [src/type.ts:73](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/type.ts#L73)*
 
 ___
 
@@ -87,7 +87,7 @@ ___
 
 • **imageWidth**: *number*
 
-*Defined in [src/type.ts:82](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/type.ts#L82)*
+*Defined in [src/type.ts:70](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/type.ts#L70)*
 
 ___
 
@@ -95,7 +95,7 @@ ___
 
 • **principalPoint**: *Vector2*
 
-*Defined in [src/type.ts:66](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/type.ts#L66)*
+*Defined in [src/type.ts:62](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/type.ts#L62)*
 
 ___
 
@@ -103,7 +103,7 @@ ___
 
 • **relativeFocalLength**: *number*
 
-*Defined in [src/type.ts:81](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/type.ts#L81)*
+*Defined in [src/type.ts:69](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/type.ts#L69)*
 
 ___
 
@@ -111,7 +111,7 @@ ___
 
 • **vanishingPointAxes**: *[[vanishingPointAxesStrings](../modules/_type_.md#vanishingpointaxesstrings), [vanishingPointAxesStrings](../modules/_type_.md#vanishingpointaxesstrings), [vanishingPointAxesStrings](../modules/_type_.md#vanishingpointaxesstrings)]*
 
-*Defined in [src/type.ts:76](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/type.ts#L76)*
+*Defined in [src/type.ts:68](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/type.ts#L68)*
 
 ___
 
@@ -119,7 +119,7 @@ ___
 
 • **vanishingPoints**: *[Vector2, Vector2, Vector2]*
 
-*Defined in [src/type.ts:71](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/type.ts#L71)*
+*Defined in [src/type.ts:67](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/type.ts#L67)*
 
 ___
 
@@ -127,7 +127,7 @@ ___
 
 • **verticalFieldOfView**: *number*
 
-*Defined in [src/type.ts:70](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/type.ts#L70)*
+*Defined in [src/type.ts:66](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/type.ts#L66)*
 
 ___
 
@@ -135,4 +135,4 @@ ___
 
 • **viewTransform**: *Matrix4*
 
-*Defined in [src/type.ts:67](https://github.com/nasikusa/THREE.FSpyCamera/blob/f89d214/src/type.ts#L67)*
+*Defined in [src/type.ts:63](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/type.ts#L63)*
