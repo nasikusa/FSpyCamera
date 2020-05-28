@@ -2,23 +2,53 @@ import { Matrix4, Vector3, MathUtils, Vector2 } from 'three';
 import { FSpyCameraJson, DataManager, FSpyJsonTransformRows, FSpyCameraData } from './type';
 import { defaultCameraParams } from './const';
 
+/**
+ * A class that stores the camera data of fSpy and processes it for three.js
+ */
 export default class FSpyDataManager implements DataManager {
+  /**
+   * json data output from fSpy
+   */
   private rawData: FSpyCameraJson | null;
 
+  /**
+   * json data from fSpy converted to data for three.js
+   */
   private data: FSpyCameraData | null;
 
+  /**
+   * Image ratio
+   */
   private internalImageRatio: number;
 
+  /**
+   * Camera viewing angle
+   */
   private internalCameraFov: number;
 
+  /**
+   * Image size
+   */
   private internalOriginalImageSize: Vector2;
 
+  /**
+   * Camera matrix
+   */
   private internalCameraTransformMatrix: Matrix4;
 
+  /**
+   * View matrix
+   */
   private internalViewTransformMatrix: Matrix4;
 
+  /**
+   * Camera position
+   */
   private internalCameraPosition: Vector3;
 
+  /**
+   * bool value indicating whether fSpy data was stored
+   */
   private internalIsSetData: boolean;
 
   constructor() {
@@ -33,26 +63,42 @@ export default class FSpyDataManager implements DataManager {
     this.internalIsSetData = false;
   }
 
+  /**
+   * Set json data from fSpy
+   * @param rawData json data output from fSpy
+   */
   public setData(rawData: FSpyCameraJson): void {
     this.internalIsSetData = true;
     this.rawData = rawData;
     this.onSetData();
   }
 
+  /**
+   * Remove json data from fSpy
+   */
   public removeData(): void {
     this.internalIsSetData = false;
     this.rawData = null;
     this.onRemoveData();
   }
 
+  /**
+   * Get unprocessed internal camera data
+   */
   public getData(): FSpyCameraJson | null {
     return this.rawData;
   }
 
+  /**
+   * Get camera data processed for three.js
+   */
   public getComputedData(): FSpyCameraData | null {
     return this.data;
   }
 
+  /**
+   * Get camera data processed for three.js
+   */
   private setComputedData(): void {
     if (this.rawData != null) {
       this.data = ({} as unknown) as FSpyCameraData;
@@ -81,6 +127,9 @@ export default class FSpyDataManager implements DataManager {
     }
   }
 
+  /**
+   * Function that works when data from fSpy is set
+   */
   private onSetData(): void {
     this.internalImageRatio = this.calcImageRatio();
     if (this.rawData != null) {
@@ -93,6 +142,9 @@ export default class FSpyDataManager implements DataManager {
     }
   }
 
+  /**
+   * Function that works when data from fSpy is removed
+   */
   private onRemoveData(): void {
     this.internalImageRatio = defaultCameraParams.aspect;
     this.internalCameraFov = defaultCameraParams.fov;
@@ -103,6 +155,10 @@ export default class FSpyDataManager implements DataManager {
     this.data = null;
   }
 
+  /**
+   * Calculate image ratio
+   * @return image ratio
+   */
   private calcImageRatio(): number {
     if (this.rawData != null) {
       const w: number = this.rawData.imageWidth;
@@ -116,9 +172,15 @@ export default class FSpyDataManager implements DataManager {
     return MathUtils.radToDeg(radians);
   }
 
+  /**
+   * Transform matrix data of transform of fSpy into Matrix4 of three.js.
+   * @param transformArray Matrix data from the underlying fSpy
+   * @param matrix Matrix data object to be set
+   * @return Returns the matrix object passed as the second argument. If it fails for any reason, it returns empty matrix data.
+   */
   private setTransformMatrix(transformArray: FSpyJsonTransformRows, matrix: Matrix4): Matrix4 {
     if (this.rawData != null) {
-      const matrixData = matrix;
+      const matrixData: Matrix4 = matrix;
       const mtxArray: FSpyJsonTransformRows = transformArray;
       const preArray: number[] = [];
       const matrixArray = mtxArray.reduce((pre: number[], curernt: number[]) => {
@@ -149,6 +211,9 @@ export default class FSpyDataManager implements DataManager {
     return new Matrix4();
   }
 
+  /**
+   * Set the camera position
+   */
   private setCameraPosition(): void {
     if (this.rawData != null) {
       const mtxArray = this.rawData.cameraTransform.rows;
@@ -156,10 +221,16 @@ export default class FSpyDataManager implements DataManager {
     }
   }
 
+  /**
+   * get image rato data
+   */
   public get imageRatio(): number {
     return this.internalImageRatio;
   }
 
+  /**
+   * @deprecated
+   */
   public get rotationMatrix(): Matrix4 {
     return this.cameraMatrix;
   }
