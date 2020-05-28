@@ -1,6 +1,9 @@
 # three-fspy-camera-loader
 
-![demo](./demo.gif)
+![npm](https://img.shields.io/npm/v/three-fspy-camera-loader)
+![NPM](https://img.shields.io/npm/l/three-fspy-camera-loader)
+
+![demo](./resources/demo.gif)
 
 [demo page](https://embed.nasikusa.net/fspy-three-demo/)
 
@@ -121,13 +124,13 @@ function renderLoop() {
 
 You can export json using fSpy from here.
 
-![export](./export.jpg)
+![export](./resources/export.jpg)
 
 ### Axis setting
 
 When using with three.js, it is recommended that the Y-axis be up.
 
-![note](./note.jpg)
+![note](./resources/note.jpg)
 
 ## API documentation
 
