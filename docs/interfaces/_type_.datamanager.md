@@ -24,7 +24,7 @@
 
 • **getData**: *function*
 
-*Defined in [src/type.ts:58](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/type.ts#L58)*
+*Defined in [src/type.ts:58](https://github.com/nasikusa/THREE.FSpyCamera/blob/91b0a2d/src/type.ts#L58)*
 
 #### Type declaration:
 
@@ -36,7 +36,7 @@ ___
 
 • **removeData**: *function*
 
-*Defined in [src/type.ts:57](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/type.ts#L57)*
+*Defined in [src/type.ts:57](https://github.com/nasikusa/THREE.FSpyCamera/blob/91b0a2d/src/type.ts#L57)*
 
 #### Type declaration:
 
@@ -48,7 +48,7 @@ ___
 
 • **setData**: *function*
 
-*Defined in [src/type.ts:56](https://github.com/nasikusa/THREE.FSpyCamera/blob/f992a0c/src/type.ts#L56)*
+*Defined in [src/type.ts:56](https://github.com/nasikusa/THREE.FSpyCamera/blob/91b0a2d/src/type.ts#L56)*
 
 #### Type declaration:
 
