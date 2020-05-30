@@ -47,9 +47,9 @@ export default class FSpyCamerLoader extends Loader {
    */
   public load(
     url: string,
-    onLoad: (camera: PerspectiveCamera) => void,
-    onProgress: () => void,
-    onError: () => void
+    onLoad?: (camera: PerspectiveCamera) => void,
+    onProgress?: (xhr: object) => void,
+    onError?: (error: ErrorEvent) => void
   ): void {
     if (this.isIE) {
       const loader = new AsyncFunction();
@@ -59,17 +59,20 @@ export default class FSpyCamerLoader extends Loader {
         }
       });
     } else {
-    const loader = new FileLoader(this.manager);
-    loader.setPath(this.path);
-    loader.setResponseType('json');
-    loader.load(
-      url,
-      (resultJson) => {
-        onLoad(this.parse((resultJson as unknown) as FSpyCameraJson));
-      },
-      onProgress,
-      onError
-    );
+      const loader = new FileLoader(this.manager);
+      loader.setPath(this.path);
+      loader.setResponseType('json');
+      loader.load(
+        url,
+        (resultJson) => {
+          if (onLoad != null) {
+            onLoad(this.parse((resultJson as unknown) as FSpyCameraJson));
+          }
+        },
+        onProgress,
+        onError
+      );
+    }
   }
 
   /**
