@@ -316,7 +316,7 @@
 	                this.camera.aspect = this.dataManager.imageRatio;
 	            }
 	            this.camera.position.set(this.dataManager.cameraPosition.x, this.dataManager.cameraPosition.y, this.dataManager.cameraPosition.z);
-	            this.camera.setRotationFromMatrix(this.dataManager.rotationMatrix);
+	            this.camera.setRotationFromMatrix(this.dataManager.cameraMatrix);
 	            this.onResize();
 	        }
 	        return this.camera;
