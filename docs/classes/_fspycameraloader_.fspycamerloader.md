@@ -19,11 +19,17 @@
 * [camera](_fspycameraloader_.fspycamerloader.md#camera)
 * [crossOrigin](_fspycameraloader_.fspycamerloader.md#crossorigin)
 * [dataManager](_fspycameraloader_.fspycamerloader.md#datamanager)
+* [internalIsEnableResizeEvent](_fspycameraloader_.fspycamerloader.md#private-internalisenableresizeevent)
+* [isIE](_fspycameraloader_.fspycamerloader.md#private-isie)
 * [manager](_fspycameraloader_.fspycamerloader.md#manager)
 * [path](_fspycameraloader_.fspycamerloader.md#path)
 * [resourcePath](_fspycameraloader_.fspycamerloader.md#resourcepath)
 * [targetCanvas](_fspycameraloader_.fspycamerloader.md#targetcanvas)
 * [targetCanvasSize](_fspycameraloader_.fspycamerloader.md#targetcanvassize)
+
+### Accessors
+
+* [isEnableResizeEvent](_fspycameraloader_.fspycamerloader.md#isenableresizeevent)
 
 ### Methods
 
@@ -41,6 +47,7 @@
 * [setPath](_fspycameraloader_.fspycamerloader.md#setpath)
 * [setResizeUpdate](_fspycameraloader_.fspycamerloader.md#setresizeupdate)
 * [setResourcePath](_fspycameraloader_.fspycamerloader.md#setresourcepath)
+* [getIsUseIE](_fspycameraloader_.fspycamerloader.md#static-private-getisuseie)
 
 ## Constructors
 
@@ -50,7 +57,7 @@
 
 *Overrides void*
 
-*Defined in [src/FSpyCameraLoader.ts:23](https://github.com/nasikusa/THREE.FSpyCamera/blob/91b0a2d/src/FSpyCameraLoader.ts#L23)*
+*Defined in [src/FSpyCameraLoader.ts:37](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/FSpyCameraLoader.ts#L37)*
 
 **Parameters:**
 
@@ -66,7 +73,7 @@ Name | Type |
 
 • **camera**: *PerspectiveCamera*
 
-*Defined in [src/FSpyCameraLoader.ts:11](https://github.com/nasikusa/THREE.FSpyCamera/blob/91b0a2d/src/FSpyCameraLoader.ts#L11)*
+*Defined in [src/FSpyCameraLoader.ts:12](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/FSpyCameraLoader.ts#L12)*
 
 PerspectiveCamera of three.js. The final result is stored on this camera.
 
@@ -86,9 +93,29 @@ ___
 
 • **dataManager**: *[FSpyDataManager](_fspydatamanager_.fspydatamanager.md)*
 
-*Defined in [src/FSpyCameraLoader.ts:23](https://github.com/nasikusa/THREE.FSpyCamera/blob/91b0a2d/src/FSpyCameraLoader.ts#L23)*
+*Defined in [src/FSpyCameraLoader.ts:27](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/FSpyCameraLoader.ts#L27)*
 
 Class that manages camera data of fSpy
+
+___
+
+### `Private` internalIsEnableResizeEvent
+
+• **internalIsEnableResizeEvent**: *boolean*
+
+*Defined in [src/FSpyCameraLoader.ts:37](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/FSpyCameraLoader.ts#L37)*
+
+Resize event flag used internally
+
+___
+
+### `Private` isIE
+
+• **isIE**: *boolean*
+
+*Defined in [src/FSpyCameraLoader.ts:32](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/FSpyCameraLoader.ts#L32)*
+
+Flag whether the browser is IE
 
 ___
 
@@ -126,7 +153,7 @@ ___
 
 • **targetCanvas**: *HTMLCanvasElement | null*
 
-*Defined in [src/FSpyCameraLoader.ts:18](https://github.com/nasikusa/THREE.FSpyCamera/blob/91b0a2d/src/FSpyCameraLoader.ts#L18)*
+*Defined in [src/FSpyCameraLoader.ts:22](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/FSpyCameraLoader.ts#L22)*
 
 Canvas that is the target for drawing WebGL
 
@@ -136,7 +163,35 @@ ___
 
 • **targetCanvasSize**: *Vector2*
 
-*Defined in [src/FSpyCameraLoader.ts:13](https://github.com/nasikusa/THREE.FSpyCamera/blob/91b0a2d/src/FSpyCameraLoader.ts#L13)*
+*Defined in [src/FSpyCameraLoader.ts:17](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/FSpyCameraLoader.ts#L17)*
+
+The size of the target canvas
+
+## Accessors
+
+###  isEnableResizeEvent
+
+• **get isEnableResizeEvent**(): *boolean*
+
+*Defined in [src/FSpyCameraLoader.ts:54](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/FSpyCameraLoader.ts#L54)*
+
+Gets whether the resize event is set
+
+**Returns:** *boolean*
+
+• **set isEnableResizeEvent**(`resizeEventBoolean`: boolean): *void*
+
+*Defined in [src/FSpyCameraLoader.ts:61](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/FSpyCameraLoader.ts#L61)*
+
+Enable / disable resize event
+
+**Parameters:**
+
+Name | Type |
+------ | ------ |
+`resizeEventBoolean` | boolean |
+
+**Returns:** *void*
 
 ## Methods
 
@@ -144,7 +199,7 @@ ___
 
 ▸ **createCamera**(): *PerspectiveCamera*
 
-*Defined in [src/FSpyCameraLoader.ts:104](https://github.com/nasikusa/THREE.FSpyCamera/blob/91b0a2d/src/FSpyCameraLoader.ts#L104)*
+*Defined in [src/FSpyCameraLoader.ts:153](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/FSpyCameraLoader.ts#L153)*
 
 Create a PerspectiveCamera of three.js from the camera data of fSpy.
 
@@ -158,11 +213,13 @@ ___
 
 ▸ **getComputedData**(): *[FSpyCameraData](../interfaces/_type_.fspycameradata.md) | null*
 
-*Defined in [src/FSpyCameraLoader.ts:156](https://github.com/nasikusa/THREE.FSpyCamera/blob/91b0a2d/src/FSpyCameraLoader.ts#L156)*
+*Defined in [src/FSpyCameraLoader.ts:227](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/FSpyCameraLoader.ts#L227)*
 
 Get camera data processed for three.js
 
 **Returns:** *[FSpyCameraData](../interfaces/_type_.fspycameradata.md) | null*
+
+json data from fSpy converted to data for three.js
 
 ___
 
@@ -170,51 +227,32 @@ ___
 
 ▸ **getData**(): *[FSpyCameraJson](../interfaces/_type_.fspycamerajson.md) | null*
 
-*Defined in [src/FSpyCameraLoader.ts:149](https://github.com/nasikusa/THREE.FSpyCamera/blob/91b0a2d/src/FSpyCameraLoader.ts#L149)*
+*Defined in [src/FSpyCameraLoader.ts:219](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/FSpyCameraLoader.ts#L219)*
 
 Get unprocessed internal camera data
 
 **Returns:** *[FSpyCameraJson](../interfaces/_type_.fspycamerajson.md) | null*
 
+json data output from fSpy
+
 ___
 
 ###  load
 
-▸ **load**(`url`: string, `onLoad`: function, `onProgress`: function, `onError`: function): *void*
+▸ **load**(`url`: string, `onLoad?`: undefined | function, `onProgress?`: undefined | function, `onError?`: undefined | function): *void*
 
-*Defined in [src/FSpyCameraLoader.ts:42](https://github.com/nasikusa/THREE.FSpyCamera/blob/91b0a2d/src/FSpyCameraLoader.ts#L42)*
+*Defined in [src/FSpyCameraLoader.ts:80](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/FSpyCameraLoader.ts#L80)*
 
 load fSpy's camera data json
 
 **Parameters:**
 
-▪ **url**: *string*
-
-Path to camera data json to be exported by fSpy
-
-▪ **onLoad**: *function*
-
-Function after loading
-
-▸ (`camera`: PerspectiveCamera): *void*
-
-**Parameters:**
-
-Name | Type |
------- | ------ |
-`camera` | PerspectiveCamera |
-
-▪ **onProgress**: *function*
-
-Function being loaded. Probably not needed due to the small data size.
-
-▸ (): *void*
-
-▪ **onError**: *function*
-
-Function when the error occurred
-
-▸ (): *void*
+Name | Type | Description |
+------ | ------ | ------ |
+`url` | string | Path to camera data json to be exported by fSpy |
+`onLoad?` | undefined &#124; function | Function after loading |
+`onProgress?` | undefined &#124; function | Function being loaded. Probably not needed due to the small data size. |
+`onError?` | undefined &#124; function | Function when the error occurred TODO: IE  |
 
 **Returns:** *void*
 
@@ -243,7 +281,7 @@ ___
 
 ▸ **onResize**(): *void*
 
-*Defined in [src/FSpyCameraLoader.ts:126](https://github.com/nasikusa/THREE.FSpyCamera/blob/91b0a2d/src/FSpyCameraLoader.ts#L126)*
+*Defined in [src/FSpyCameraLoader.ts:195](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/FSpyCameraLoader.ts#L195)*
 
 Change the camera data according to the size of the canvas to render.
 
@@ -255,7 +293,7 @@ ___
 
 ▸ **parse**(`fSpyJson`: [FSpyCameraJson](../interfaces/_type_.fspycamerajson.md)): *PerspectiveCamera*
 
-*Defined in [src/FSpyCameraLoader.ts:66](https://github.com/nasikusa/THREE.FSpyCamera/blob/91b0a2d/src/FSpyCameraLoader.ts#L66)*
+*Defined in [src/FSpyCameraLoader.ts:115](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/FSpyCameraLoader.ts#L115)*
 
 Parses fSpy json data. This function is also called after the load function.
 
@@ -275,7 +313,7 @@ ___
 
 ▸ **removeCanvas**(): *void*
 
-*Defined in [src/FSpyCameraLoader.ts:82](https://github.com/nasikusa/THREE.FSpyCamera/blob/91b0a2d/src/FSpyCameraLoader.ts#L82)*
+*Defined in [src/FSpyCameraLoader.ts:131](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/FSpyCameraLoader.ts#L131)*
 
 Remove the data for the canvas element.
 
@@ -287,7 +325,7 @@ ___
 
 ▸ **removeResizeupdate**(): *void*
 
-*Defined in [src/FSpyCameraLoader.ts:96](https://github.com/nasikusa/THREE.FSpyCamera/blob/91b0a2d/src/FSpyCameraLoader.ts#L96)*
+*Defined in [src/FSpyCameraLoader.ts:145](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/FSpyCameraLoader.ts#L145)*
 
 Disables the ability to change camera data to fit the size of the canvas to render.
 
@@ -299,7 +337,7 @@ ___
 
 ▸ **setCanvas**(`canvas`: HTMLCanvasElement): *void*
 
-*Defined in [src/FSpyCameraLoader.ts:75](https://github.com/nasikusa/THREE.FSpyCamera/blob/91b0a2d/src/FSpyCameraLoader.ts#L75)*
+*Defined in [src/FSpyCameraLoader.ts:124](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/FSpyCameraLoader.ts#L124)*
 
 Add the data for the canvas element for the library to know.
 
@@ -353,7 +391,7 @@ ___
 
 ▸ **setResizeUpdate**(): *void*
 
-*Defined in [src/FSpyCameraLoader.ts:89](https://github.com/nasikusa/THREE.FSpyCamera/blob/91b0a2d/src/FSpyCameraLoader.ts#L89)*
+*Defined in [src/FSpyCameraLoader.ts:138](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/FSpyCameraLoader.ts#L138)*
 
 Enables the ability to change the camera data according to the size of the canvas to render.
 
@@ -376,3 +414,17 @@ Name | Type |
 `resourcePath` | string |
 
 **Returns:** *this*
+
+___
+
+### `Static` `Private` getIsUseIE
+
+▸ **getIsUseIE**(): *boolean*
+
+*Defined in [src/FSpyCameraLoader.ts:184](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/FSpyCameraLoader.ts#L184)*
+
+Get if browser is IE
+
+**Returns:** *boolean*
+
+IE bool

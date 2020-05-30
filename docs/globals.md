@@ -6,6 +6,7 @@
 
 ### Modules
 
+* ["AsyncFunction"](modules/_asyncfunction_.md)
 * ["FSpyCameraLoader"](modules/_fspycameraloader_.md)
 * ["FSpyDataManager"](modules/_fspydatamanager_.md)
 * ["const"](modules/_const_.md)
