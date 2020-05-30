@@ -228,13 +228,6 @@ export default class FSpyDataManager implements DataManager {
     return this.internalImageRatio;
   }
 
-  /**
-   * @deprecated
-   */
-  public get rotationMatrix(): Matrix4 {
-    return this.cameraMatrix;
-  }
-
   public get cameraMatrix(): Matrix4 {
     return this.internalCameraTransformMatrix;
   }
