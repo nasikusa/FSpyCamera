@@ -170,7 +170,7 @@ export default class FSpyCamerLoader extends Loader {
       );
 
       // set rotation
-      this.camera.setRotationFromMatrix(this.dataManager.rotationMatrix);
+      this.camera.setRotationFromMatrix(this.dataManager.cameraMatrix);
 
       this.onResize();
     }
