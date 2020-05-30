@@ -132,6 +132,20 @@ When using with three.js, it is recommended that the Y-axis be up.
 
 ![note](./resources/note.jpg)
 
+## Main Properties
+
+| Name         | Type              | Description                                                  |
+| ------------ | ----------------- | ------------------------------------------------------------ |
+| .camera      | PerspectiveCamera | PerspectiveCamera of three.js. The final result is stored on this camera. |
+| .dataManager |                   |                                                              |
+|              |                   |                                                              |
+
+
+
+## Main Methods
+
+
+
 ## API documentation
 
 Please see [here](./docs/globals.md).

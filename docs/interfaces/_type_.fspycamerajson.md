@@ -1,4 +1,4 @@
-[three-fspy-camera-loader](../README.md) › [Globals](../globals.md) › ["type"](../modules/_type_.md) › [FSpyCameraJson](_type_.fspycamerajson.md)
+[three-fspy-camera-loader](../README.md) › ["type"](../modules/_type_.md) › [FSpyCameraJson](_type_.fspycamerajson.md)
 
 # Interface: FSpyCameraJson
 
@@ -29,7 +29,7 @@ fSpyから吐き出されるjson形式のカメラデータ
 
 • **cameraTransform**: *object*
 
-*Defined in [src/type.ts:30](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/type.ts#L30)*
+*Defined in [src/type.ts:30](https://github.com/nasikusa/THREE.FSpyCamera/blob/9e3dc6a/src/type.ts#L30)*
 
 #### Type declaration:
 
@@ -41,7 +41,7 @@ ___
 
 • **horizontalFieldOfView**: *number*
 
-*Defined in [src/type.ts:33](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/type.ts#L33)*
+*Defined in [src/type.ts:33](https://github.com/nasikusa/THREE.FSpyCamera/blob/9e3dc6a/src/type.ts#L33)*
 
 ___
 
@@ -49,7 +49,7 @@ ___
 
 • **imageHeight**: *number*
 
-*Defined in [src/type.ts:52](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/type.ts#L52)*
+*Defined in [src/type.ts:52](https://github.com/nasikusa/THREE.FSpyCamera/blob/9e3dc6a/src/type.ts#L52)*
 
 ___
 
@@ -57,7 +57,7 @@ ___
 
 • **imageWidth**: *number*
 
-*Defined in [src/type.ts:51](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/type.ts#L51)*
+*Defined in [src/type.ts:51](https://github.com/nasikusa/THREE.FSpyCamera/blob/9e3dc6a/src/type.ts#L51)*
 
 ___
 
@@ -65,7 +65,7 @@ ___
 
 • **principalPoint**: *object*
 
-*Defined in [src/type.ts:23](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/type.ts#L23)*
+*Defined in [src/type.ts:23](https://github.com/nasikusa/THREE.FSpyCamera/blob/9e3dc6a/src/type.ts#L23)*
 
 #### Type declaration:
 
@@ -79,7 +79,7 @@ ___
 
 • **relativeFocalLength**: *number*
 
-*Defined in [src/type.ts:50](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/type.ts#L50)*
+*Defined in [src/type.ts:50](https://github.com/nasikusa/THREE.FSpyCamera/blob/9e3dc6a/src/type.ts#L50)*
 
 ___
 
@@ -87,7 +87,7 @@ ___
 
 • **vanishingPointAxes**: *[[vanishingPointAxesStrings](../modules/_type_.md#vanishingpointaxesstrings), [vanishingPointAxesStrings](../modules/_type_.md#vanishingpointaxesstrings), [vanishingPointAxesStrings](../modules/_type_.md#vanishingpointaxesstrings)]*
 
-*Defined in [src/type.ts:49](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/type.ts#L49)*
+*Defined in [src/type.ts:49](https://github.com/nasikusa/THREE.FSpyCamera/blob/9e3dc6a/src/type.ts#L49)*
 
 ___
 
@@ -95,7 +95,7 @@ ___
 
 • **vanishingPoints**: *[object, object, object]*
 
-*Defined in [src/type.ts:35](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/type.ts#L35)*
+*Defined in [src/type.ts:35](https://github.com/nasikusa/THREE.FSpyCamera/blob/9e3dc6a/src/type.ts#L35)*
 
 ___
 
@@ -103,7 +103,7 @@ ___
 
 • **verticalFieldOfView**: *number*
 
-*Defined in [src/type.ts:34](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/type.ts#L34)*
+*Defined in [src/type.ts:34](https://github.com/nasikusa/THREE.FSpyCamera/blob/9e3dc6a/src/type.ts#L34)*
 
 ___
 
@@ -111,7 +111,7 @@ ___
 
 • **viewTransform**: *object*
 
-*Defined in [src/type.ts:27](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/type.ts#L27)*
+*Defined in [src/type.ts:27](https://github.com/nasikusa/THREE.FSpyCamera/blob/9e3dc6a/src/type.ts#L27)*
 
 #### Type declaration:
 

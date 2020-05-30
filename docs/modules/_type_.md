@@ -1,4 +1,4 @@
-[three-fspy-camera-loader](../README.md) › [Globals](../globals.md) › ["type"](_type_.md)
+[three-fspy-camera-loader](../README.md) › ["type"](_type_.md)
 
 # Module: "type"
 
@@ -22,7 +22,7 @@
 
 Ƭ **FSpyJsonTransformRows**: *[[number, number, number, number], [number, number, number, number], [number, number, number, number], [number, number, number, number]]*
 
-*Defined in [src/type.ts:12](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/type.ts#L12)*
+*Defined in [src/type.ts:12](https://github.com/nasikusa/THREE.FSpyCamera/blob/9e3dc6a/src/type.ts#L12)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 Ƭ **FourElemArray**: *[T, T, T, T]*
 
-*Defined in [src/type.ts:3](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/type.ts#L3)*
+*Defined in [src/type.ts:3](https://github.com/nasikusa/THREE.FSpyCamera/blob/9e3dc6a/src/type.ts#L3)*
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 Ƭ **vanishingPointAxesStrings**: *"xPositive" | "xNegative" | "yPositive" | "yNegative" | "zPositive" | "zNegative"*
 
-*Defined in [src/type.ts:4](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/type.ts#L4)*
+*Defined in [src/type.ts:4](https://github.com/nasikusa/THREE.FSpyCamera/blob/9e3dc6a/src/type.ts#L4)*

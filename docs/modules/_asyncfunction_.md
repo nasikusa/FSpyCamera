@@ -1,4 +1,4 @@
-[three-fspy-camera-loader](../README.md) › [Globals](../globals.md) › ["AsyncFunction"](_asyncfunction_.md)
+[three-fspy-camera-loader](../README.md) › ["AsyncFunction"](_asyncfunction_.md)
 
 # Module: "AsyncFunction"
 

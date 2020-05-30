@@ -1,4 +1,4 @@
-[three-fspy-camera-loader](../README.md) › [Globals](../globals.md) › ["AsyncFunction"](../modules/_asyncfunction_.md) › [AsyncFunction](_asyncfunction_.asyncfunction.md)
+[three-fspy-camera-loader](../README.md) › ["AsyncFunction"](../modules/_asyncfunction_.md) › [AsyncFunction](_asyncfunction_.asyncfunction.md)
 
 # Class: AsyncFunction
 
@@ -26,7 +26,7 @@
 
 \+ **new AsyncFunction**(): *[AsyncFunction](_asyncfunction_.asyncfunction.md)*
 
-*Defined in [src/AsyncFunction.ts:4](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/AsyncFunction.ts#L4)*
+*Defined in [src/AsyncFunction.ts:4](https://github.com/nasikusa/THREE.FSpyCamera/blob/9e3dc6a/src/AsyncFunction.ts#L4)*
 
 **Returns:** *[AsyncFunction](_asyncfunction_.asyncfunction.md)*
 
@@ -36,7 +36,7 @@
 
 • **xhr**: *XMLHttpRequest*
 
-*Defined in [src/AsyncFunction.ts:4](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/AsyncFunction.ts#L4)*
+*Defined in [src/AsyncFunction.ts:4](https://github.com/nasikusa/THREE.FSpyCamera/blob/9e3dc6a/src/AsyncFunction.ts#L4)*
 
 ## Methods
 
@@ -44,7 +44,7 @@
 
 ▸ **load**(`path`: string, `onLoad`: function): *void*
 
-*Defined in [src/AsyncFunction.ts:10](https://github.com/nasikusa/THREE.FSpyCamera/blob/36a44a1/src/AsyncFunction.ts#L10)*
+*Defined in [src/AsyncFunction.ts:10](https://github.com/nasikusa/THREE.FSpyCamera/blob/9e3dc6a/src/AsyncFunction.ts#L10)*
 
 **Parameters:**
 
