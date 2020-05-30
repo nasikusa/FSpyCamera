@@ -1,8 +1,9 @@
 import { Loader, FileLoader, PerspectiveCamera, Vector2, LoadingManager } from 'three';
 
-import FSpyDataManager from 'FSpyDataManager';
-import { FSpyCameraJson, FSpyCameraData } from 'type';
-import { defaultCameraParams } from 'const';
+import FSpyDataManager from './FSpyDataManager';
+import { FSpyCameraJson, FSpyCameraData } from './type';
+import { defaultCameraParams } from './const';
+import AsyncFunction from './AsyncFunction';
 
 export default class FSpyCamerLoader extends Loader {
   /**
@@ -10,6 +11,9 @@ export default class FSpyCamerLoader extends Loader {
    */
   public camera: PerspectiveCamera;
 
+  /**
+   * The size of the target canvas
+   */
   public targetCanvasSize: Vector2;
 
   /**
@@ -27,6 +31,11 @@ export default class FSpyCamerLoader extends Loader {
    */
   private isIE: boolean;
 
+  /**
+   * Resize event flag used internally
+   */
+  private internalIsEnableResizeEvent: boolean;
+
   constructor(manager?: LoadingManager) {
     super();
 
@@ -36,6 +45,28 @@ export default class FSpyCamerLoader extends Loader {
     this.targetCanvasSize = new Vector2();
     this.camera = new PerspectiveCamera();
     this.dataManager = new FSpyDataManager();
+    this.internalIsEnableResizeEvent = false;
+  }
+
+  /**
+   * Gets whether the resize event is set
+   */
+  get isEnableResizeEvent(): boolean {
+    return this.internalIsEnableResizeEvent;
+  }
+
+  /**
+   * Enable / disable resize event
+   */
+  set isEnableResizeEvent(resizeEventBoolean: boolean) {
+    if (this.internalIsEnableResizeEvent !== resizeEventBoolean) {
+      this.internalIsEnableResizeEvent = resizeEventBoolean;
+      if (this.internalIsEnableResizeEvent) {
+        window.addEventListener('resize', this.onResize.bind(this));
+      } else {
+        window.removeEventListener('resize', this.onResize.bind(this));
+      }
+    }
   }
 
   /**
@@ -44,6 +75,7 @@ export default class FSpyCamerLoader extends Loader {
    * @param onLoad Function after loading
    * @param onProgress Function being loaded. Probably not needed due to the small data size.
    * @param onError Function when the error occurred
+   * TODO: IE
    */
   public load(
     url: string,
@@ -104,14 +136,14 @@ export default class FSpyCamerLoader extends Loader {
    * Enables the ability to change the camera data according to the size of the canvas to render.
    */
   public setResizeUpdate(): void {
-    window.addEventListener('resize', this.onResize.bind(this));
+    this.isEnableResizeEvent = true;
   }
 
   /**
    * Disables the ability to change camera data to fit the size of the canvas to render.
    */
   public removeResizeupdate(): void {
-    window.removeEventListener('resize', this.onResize.bind(this));
+    this.isEnableResizeEvent = false;
   }
 
   /**
@@ -120,18 +152,26 @@ export default class FSpyCamerLoader extends Loader {
    */
   protected createCamera(): PerspectiveCamera {
     if (this.dataManager.isSetData) {
+      // set fov
       this.camera.fov = this.dataManager.cameraFov;
+
+      // set aspect
       if (this.targetCanvasSize != null) {
         this.camera.aspect = this.targetCanvasSize.x / this.targetCanvasSize.y;
       } else {
         this.camera.aspect = this.dataManager.imageRatio;
       }
+
+      // set position
       this.camera.position.set(
         this.dataManager.cameraPosition.x,
         this.dataManager.cameraPosition.y,
         this.dataManager.cameraPosition.z
       );
+
+      // set rotation
       this.camera.setRotationFromMatrix(this.dataManager.rotationMatrix);
+
       this.onResize();
     }
     return this.camera;
@@ -174,6 +214,7 @@ export default class FSpyCamerLoader extends Loader {
 
   /**
    * Get unprocessed internal camera data
+   * @return json data output from fSpy
    */
   public getData(): FSpyCameraJson | null {
     return this.dataManager.getData();
@@ -181,6 +222,7 @@ export default class FSpyCamerLoader extends Loader {
 
   /**
    * Get camera data processed for three.js
+   * @return json data from fSpy converted to data for three.js
    */
   public getComputedData(): FSpyCameraData | null {
     return this.dataManager.getComputedData();
