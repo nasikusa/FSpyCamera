@@ -22,10 +22,16 @@ export default class FSpyCamerLoader extends Loader {
    */
   public dataManager: FSpyDataManager;
 
+  /**
+   * Flag whether the browser is IE
+   */
+  private isIE: boolean;
+
   constructor(manager?: LoadingManager) {
     super();
 
     Loader.call(this, manager);
+    this.isIE = FSpyCamerLoader.getIsUseIE();
     this.targetCanvas = null;
     this.targetCanvasSize = new Vector2();
     this.camera = new PerspectiveCamera();
@@ -45,6 +51,14 @@ export default class FSpyCamerLoader extends Loader {
     onProgress: () => void,
     onError: () => void
   ): void {
+    if (this.isIE) {
+      const loader = new AsyncFunction();
+      loader.load(url, (resultJson) => {
+        if (onLoad != null) {
+          onLoad(this.parse((resultJson as unknown) as FSpyCameraJson));
+        }
+      });
+    } else {
     const loader = new FileLoader(this.manager);
     loader.setPath(this.path);
     loader.setResponseType('json');
@@ -118,6 +132,18 @@ export default class FSpyCamerLoader extends Loader {
       this.onResize();
     }
     return this.camera;
+  }
+
+  /**
+   * Get if browser is IE
+   * @return IE bool
+   */
+  private static getIsUseIE(): boolean {
+    const ua: string = window.navigator.userAgent.toLowerCase();
+    if (ua.indexOf('trident') >= 0) {
+      return true;
+    }
+    return false;
   }
 
   /**
