@@ -11,18 +11,18 @@
 }(this, (function (three) { 'use strict';
 
 	/*! *****************************************************************************
-	Copyright (c) Microsoft Corporation. All rights reserved.
-	Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-	this file except in compliance with the License. You may obtain a copy of the
-	License at http://www.apache.org/licenses/LICENSE-2.0
+	Copyright (c) Microsoft Corporation.
 
-	THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-	KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-	WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-	MERCHANTABLITY OR NON-INFRINGEMENT.
+	Permission to use, copy, modify, and/or distribute this software for any
+	purpose with or without fee is hereby granted.
 
-	See the Apache Version 2.0 License for specific language governing permissions
-	and limitations under the License.
+	THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+	REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+	AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+	INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+	LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+	OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+	PERFORMANCE OF THIS SOFTWARE.
 	***************************************************************************** */
 	/* global Reflect, Promise */
 
@@ -111,7 +111,7 @@
 	            this.internalCameraFov = FSpyDataManager.getVFovDegFromRad(this.rawData.verticalFieldOfView);
 	            this.setTransformMatrix(this.rawData.cameraTransform.rows, this.internalCameraTransformMatrix);
 	            this.setTransformMatrix(this.rawData.viewTransform.rows, this.internalViewTransformMatrix);
-	            this.setCameraPosition();
+	            this.setCameraPosition(this.internalCameraTransformMatrix);
 	            this.setComputedData();
 	        }
 	    };
@@ -149,83 +149,93 @@
 	        }
 	        return new three.Matrix4();
 	    };
-	    FSpyDataManager.prototype.setCameraPosition = function () {
+	    FSpyDataManager.prototype.setCameraPosition = function (cameraMatrix) {
 	        if (this.rawData != null) {
-	            var mtxArray = this.rawData.cameraTransform.rows;
-	            this.internalCameraPosition = new three.Vector3(mtxArray[0][3], mtxArray[1][3], mtxArray[2][3]);
+	            var matrixElements = cameraMatrix.elements;
+	            this.internalCameraPosition = new three.Vector3(matrixElements[12], matrixElements[13], matrixElements[14]);
 	        }
+	        return this.internalCameraPosition;
 	    };
 	    Object.defineProperty(FSpyDataManager.prototype, "imageRatio", {
 	        get: function () {
 	            return this.internalImageRatio;
 	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(FSpyDataManager.prototype, "rotationMatrix", {
-	        get: function () {
-	            return this.cameraMatrix;
-	        },
-	        enumerable: true,
+	        enumerable: false,
 	        configurable: true
 	    });
 	    Object.defineProperty(FSpyDataManager.prototype, "cameraMatrix", {
 	        get: function () {
 	            return this.internalCameraTransformMatrix;
 	        },
-	        enumerable: true,
+	        enumerable: false,
 	        configurable: true
 	    });
 	    Object.defineProperty(FSpyDataManager.prototype, "viewMatrix", {
 	        get: function () {
 	            return this.internalViewTransformMatrix;
 	        },
-	        enumerable: true,
+	        enumerable: false,
 	        configurable: true
 	    });
 	    Object.defineProperty(FSpyDataManager.prototype, "cameraFov", {
 	        get: function () {
 	            return this.internalCameraFov;
 	        },
-	        enumerable: true,
+	        enumerable: false,
 	        configurable: true
 	    });
 	    Object.defineProperty(FSpyDataManager.prototype, "cameraPosition", {
 	        get: function () {
 	            return this.internalCameraPosition;
 	        },
-	        enumerable: true,
+	        enumerable: false,
 	        configurable: true
 	    });
 	    Object.defineProperty(FSpyDataManager.prototype, "isSetData", {
 	        get: function () {
 	            return this.internalIsSetData;
 	        },
-	        enumerable: true,
+	        enumerable: false,
 	        configurable: true
 	    });
 	    Object.defineProperty(FSpyDataManager.prototype, "imageSize", {
 	        get: function () {
 	            return this.internalOriginalImageSize;
 	        },
-	        enumerable: true,
+	        enumerable: false,
 	        configurable: true
 	    });
 	    Object.defineProperty(FSpyDataManager.prototype, "imageWidth", {
 	        get: function () {
 	            return this.internalOriginalImageSize.width;
 	        },
-	        enumerable: true,
+	        enumerable: false,
 	        configurable: true
 	    });
 	    Object.defineProperty(FSpyDataManager.prototype, "imageHeight", {
 	        get: function () {
 	            return this.internalOriginalImageSize.height;
 	        },
-	        enumerable: true,
+	        enumerable: false,
 	        configurable: true
 	    });
 	    return FSpyDataManager;
+	}());
+
+	var AsyncFunction = (function () {
+	    function AsyncFunction() {
+	        this.xhr = new XMLHttpRequest();
+	    }
+	    AsyncFunction.prototype.load = function (path, onLoad) {
+	        this.xhr.open('GET', path);
+	        this.xhr.responseType = 'json';
+	        this.xhr.addEventListener('load', function () {
+	            var result = JSON.parse(this.response);
+	            onLoad(result);
+	        });
+	        this.xhr.send();
+	    };
+	    return AsyncFunction;
 	}());
 
 	var FSpyCamerLoader = (function (_super) {
@@ -233,20 +243,52 @@
 	    function FSpyCamerLoader(manager) {
 	        var _this = _super.call(this) || this;
 	        three.Loader.call(_this, manager);
+	        _this.isIE = FSpyCamerLoader.getIsUseIE();
 	        _this.targetCanvas = null;
 	        _this.targetCanvasSize = new three.Vector2();
 	        _this.camera = new three.PerspectiveCamera();
 	        _this.dataManager = new FSpyDataManager();
+	        _this.internalIsEnableResizeEvent = false;
 	        return _this;
 	    }
+	    Object.defineProperty(FSpyCamerLoader.prototype, "isEnableResizeEvent", {
+	        get: function () {
+	            return this.internalIsEnableResizeEvent;
+	        },
+	        set: function (resizeEventBoolean) {
+	            if (this.internalIsEnableResizeEvent !== resizeEventBoolean) {
+	                this.internalIsEnableResizeEvent = resizeEventBoolean;
+	                if (this.internalIsEnableResizeEvent) {
+	                    window.addEventListener('resize', this.onResize.bind(this));
+	                }
+	                else {
+	                    window.removeEventListener('resize', this.onResize.bind(this));
+	                }
+	            }
+	        },
+	        enumerable: false,
+	        configurable: true
+	    });
 	    FSpyCamerLoader.prototype.load = function (url, onLoad, onProgress, onError) {
 	        var _this = this;
-	        var loader = new three.FileLoader(this.manager);
-	        loader.setPath(this.path);
-	        loader.setResponseType('json');
-	        loader.load(url, function (resultJson) {
-	            onLoad(_this.parse(resultJson));
-	        }, onProgress, onError);
+	        if (this.isIE) {
+	            var loader = new AsyncFunction();
+	            loader.load(url, function (resultJson) {
+	                if (onLoad != null) {
+	                    onLoad(_this.parse(resultJson));
+	                }
+	            });
+	        }
+	        else {
+	            var loader = new three.FileLoader(this.manager);
+	            loader.setPath(this.path);
+	            loader.setResponseType('json');
+	            loader.load(url, function (resultJson) {
+	                if (onLoad != null) {
+	                    onLoad(_this.parse(resultJson));
+	                }
+	            }, onProgress, onError);
+	        }
 	    };
 	    FSpyCamerLoader.prototype.parse = function (fSpyJson) {
 	        this.dataManager.setData(fSpyJson);
@@ -259,10 +301,10 @@
 	        this.targetCanvas = null;
 	    };
 	    FSpyCamerLoader.prototype.setResizeUpdate = function () {
-	        window.addEventListener('resize', this.onResize.bind(this));
+	        this.isEnableResizeEvent = true;
 	    };
 	    FSpyCamerLoader.prototype.removeResizeupdate = function () {
-	        window.removeEventListener('resize', this.onResize.bind(this));
+	        this.isEnableResizeEvent = false;
 	    };
 	    FSpyCamerLoader.prototype.createCamera = function () {
 	        if (this.dataManager.isSetData) {
@@ -278,6 +320,13 @@
 	            this.onResize();
 	        }
 	        return this.camera;
+	    };
+	    FSpyCamerLoader.getIsUseIE = function () {
+	        var ua = window.navigator.userAgent.toLowerCase();
+	        if (ua.indexOf('trident') >= 0) {
+	            return true;
+	        }
+	        return false;
 	    };
 	    FSpyCamerLoader.prototype.onResize = function () {
 	        if (this.targetCanvas != null) {
@@ -295,6 +344,12 @@
 	            }
 	            this.camera.updateProjectionMatrix();
 	        }
+	    };
+	    FSpyCamerLoader.prototype.getData = function () {
+	        return this.dataManager.getData();
+	    };
+	    FSpyCamerLoader.prototype.getComputedData = function () {
+	        return this.dataManager.getComputedData();
 	    };
 	    return FSpyCamerLoader;
 	}(three.Loader));

@@ -1,18 +1,25 @@
 import { Loader, PerspectiveCamera, Vector2, LoadingManager } from 'three';
-import FSpyDataManager from 'FSpyDataManager';
-import { FSpyCameraJson } from 'type';
+import FSpyDataManager from './FSpyDataManager';
+import { FSpyCameraJson, FSpyCameraData } from './type';
 export default class FSpyCamerLoader extends Loader {
     camera: PerspectiveCamera;
     targetCanvasSize: Vector2;
     targetCanvas: HTMLCanvasElement | null;
-    protected dataManager: FSpyDataManager;
+    dataManager: FSpyDataManager;
+    private isIE;
+    private internalIsEnableResizeEvent;
     constructor(manager?: LoadingManager);
-    load(url: string, onLoad: (camera: PerspectiveCamera) => void, onProgress: () => void, onError: () => void): void;
+    get isEnableResizeEvent(): boolean;
+    set isEnableResizeEvent(resizeEventBoolean: boolean);
+    load(url: string, onLoad?: (camera: PerspectiveCamera) => void, onProgress?: (xhr: object) => void, onError?: (error: ErrorEvent) => void): void;
     parse(fSpyJson: FSpyCameraJson): PerspectiveCamera;
     setCanvas(canvas: HTMLCanvasElement): void;
     removeCanvas(): void;
     setResizeUpdate(): void;
     removeResizeupdate(): void;
     protected createCamera(): PerspectiveCamera;
+    private static getIsUseIE;
     onResize(): void;
+    getData(): FSpyCameraJson | null;
+    getComputedData(): FSpyCameraData | null;
 }
