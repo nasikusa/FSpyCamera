@@ -134,7 +134,7 @@ When using with three.js, it is recommended that the Y-axis be up.
 
 ##  constructor
 
-\+ **new FSpyCamerLoader**(`manager?`: LoadingManager): *[FSpyCamerLoader](_fspycameraloader_.fspycamerloader.md)*
+\+ **new FSpyCamerLoader**(`manager?`: LoadingManager): *[FSpyCamerLoader](https://github.com/nasikusa/three-fspy-camera-loader/blob/master/docs/classes/_fspycameraloader_.fspycamerloader.md)*
 
 *Overrides void*
 
@@ -146,7 +146,7 @@ When using with three.js, it is recommended that the Y-axis be up.
 | ---------- | -------------- |
 | `manager?` | LoadingManager |
 
-**Returns:** *[FSpyCamerLoader](_fspycameraloader_.fspycamerloader.md)*
+**Returns:** *[FSpyCamerLoader](https://github.com/nasikusa/three-fspy-camera-loader/blob/master/docs/classes/_fspycameraloader_.fspycamerloader.md)*
 
 
 
@@ -188,8 +188,6 @@ ___
 
 ▸ **loadAsync**(`url`: string, `onProgress?`: undefined | function): *Promise‹any›*
 
-*Inherited from [FSpyCamerLoader](_fspycameraloader_.fspycamerloader.md).[loadAsync](_fspycameraloader_.fspycamerloader.md#loadasync)*
-
 Defined in node_modules/three/src/loaders/Loader.d.ts:20
 
 **Parameters:**
@@ -205,7 +203,7 @@ ___
 
 ###  parse
 
-▸ **parse**(`fSpyJson`: [FSpyCameraJson](../interfaces/_type_.fspycamerajson.md)): *PerspectiveCamera*
+▸ **parse**(`fSpyJson`: [FSpyCameraJson](https://github.com/nasikusa/three-fspy-camera-loader/blob/master/docs/interfaces/_type_.fspycamerajson.md)): *PerspectiveCamera*
 
 *Defined in [src/FSpyCameraLoader.ts:115](https://github.com/nasikusa/THREE.FSpyCamera/blob/9e3dc6a/src/FSpyCameraLoader.ts#L115)*
 
@@ -213,9 +211,9 @@ Parses fSpy json data. This function is also called after the load function.
 
 **Parameters:**
 
-| Name       | Type                                                     | Description                                                  |
-| ---------- | -------------------------------------------------------- | ------------------------------------------------------------ |
-| `fSpyJson` | [FSpyCameraJson](../interfaces/_type_.fspycamerajson.md) | json data from fSpy. Please put the parsed one, such as JSON.parse (json) ;. |
+| Name       | Type                                                         | Description                                                  |
+| ---------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `fSpyJson` | [FSpyCameraJson](https://github.com/nasikusa/three-fspy-camera-loader/blob/master/docs/interfaces/_type_.fspycamerajson.md) | json data from fSpy. Please put the parsed one, such as JSON.parse (json) ;. |
 
 **Returns:** *PerspectiveCamera*
 
@@ -225,13 +223,13 @@ Camera using fSpy camera data
 
 ###  getComputedData
 
-▸ **getComputedData**(): *[FSpyCameraData](../interfaces/_type_.fspycameradata.md) | null*
+▸ **getComputedData**(): *[FSpyCameraData](https://github.com/nasikusa/three-fspy-camera-loader/blob/master/docs/interfaces/_type_.fspycameradata.md) | null*
 
 *Defined in [src/FSpyCameraLoader.ts:227](https://github.com/nasikusa/THREE.FSpyCamera/blob/9e3dc6a/src/FSpyCameraLoader.ts#L227)*
 
 Get camera data processed for three.js
 
-**Returns:** *[FSpyCameraData](../interfaces/_type_.fspycameradata.md) | null*
+**Returns:** *[FSpyCameraData](https://github.com/nasikusa/three-fspy-camera-loader/blob/master/docs/interfaces/_type_.fspycameradata.md) | null*
 
 json data from fSpy converted to data for three.js
 
@@ -239,13 +237,13 @@ ___
 
 ###  getData
 
-▸ **getData**(): *[FSpyCameraJson](../interfaces/_type_.fspycamerajson.md) | null*
+▸ **getData**(): *[FSpyCameraJson](https://github.com/nasikusa/three-fspy-camera-loader/blob/master/docs/interfaces/_type_.fspycamerajson.md) | null*
 
 *Defined in [src/FSpyCameraLoader.ts:219](https://github.com/nasikusa/THREE.FSpyCamera/blob/9e3dc6a/src/FSpyCameraLoader.ts#L219)*
 
 Get unprocessed internal camera data
 
-**Returns:** *[FSpyCameraJson](../interfaces/_type_.fspycamerajson.md) | null*
+**Returns:** *[FSpyCameraJson](https://github.com/nasikusa/three-fspy-camera-loader/blob/master/docs/interfaces/_type_.fspycamerajson.md) | null*
 
 json data output from fSpy
 
