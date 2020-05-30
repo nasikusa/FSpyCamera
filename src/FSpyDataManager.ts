@@ -1,4 +1,4 @@
-import { Matrix4, Vector3, MathUtils, Vector2 } from 'three';
+import { Vector2, Vector3, Matrix4, MathUtils } from 'three';
 import { FSpyCameraJson, DataManager, FSpyJsonTransformRows, FSpyCameraData } from './type';
 import { defaultCameraParams } from './const';
 
@@ -137,7 +137,7 @@ export default class FSpyDataManager implements DataManager {
       this.internalCameraFov = FSpyDataManager.getVFovDegFromRad(this.rawData.verticalFieldOfView);
       this.setTransformMatrix(this.rawData.cameraTransform.rows, this.internalCameraTransformMatrix);
       this.setTransformMatrix(this.rawData.viewTransform.rows, this.internalViewTransformMatrix);
-      this.setCameraPosition();
+      this.setCameraPosition(this.internalCameraTransformMatrix);
       this.setComputedData();
     }
   }
@@ -213,12 +213,15 @@ export default class FSpyDataManager implements DataManager {
 
   /**
    * Set the camera position
+   * @return camera position vector3
    */
-  private setCameraPosition(): void {
+  private setCameraPosition(cameraMatrix: Matrix4): Vector3 {
     if (this.rawData != null) {
-      const mtxArray = this.rawData.cameraTransform.rows;
-      this.internalCameraPosition = new Vector3(mtxArray[0][3], mtxArray[1][3], mtxArray[2][3]);
+      const matrixElements: number[] = cameraMatrix.elements;
+      // see : https://threejs.org/docs/#api/en/math/Matrix4
+      this.internalCameraPosition = new Vector3(matrixElements[12], matrixElements[13], matrixElements[14]);
     }
+    return this.internalCameraPosition;
   }
 
   /**
