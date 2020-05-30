@@ -2,7 +2,7 @@ var options = {
   canvasElement: document.querySelector('#myCanvas'),
   canvasImage: '../assets/img/stair.jpg',
   fSpyJsonPath: '../assets/json/stair.json',
-  buttons: document.querySelectorAll('.js-button'),
+  buttons: [].slice.call(document.querySelectorAll('.js-button')),
 };
 
 var camera, controls;
@@ -22,11 +22,10 @@ renderer.shadowMap.enabled = true;
 var box = createDefaultModel();
 var shadowModel;
 createShadowModel();
-var grid = new THREE.GridHelper( 10 , 20 , 0xff0000 , 0xff0000 );
-
+// var grid = new THREE.GridHelper( 10 , 50 , 0xff0000 , 0xff0000 );
 var scene = new THREE.Scene();
 scene.add(box);
-scene.add(grid);
+// scene.add(grid);
 
 var light = new THREE.DirectionalLight(0xffffff, 0.5);
 light.position.set(0, 5, 0);
@@ -42,15 +41,10 @@ window.addEventListener('resize', onResize);
 function renderLoop() {
   requestAnimationFrame(renderLoop);
   renderer.render(scene, camera);
-  // box.position.z = box.position.z + 0.01;
-  // camera.rotation.z += 0.01;
 }
 
 function onLoad(result) {
   camera = result;
-  console.log(camera);
-  // control = new THREE.OrbitControls( camera , renderer.domElement );
-  // console.log(control.target);
   control = new THREE.TransformControls(camera, renderer.domElement);
   control.attach(box);
   if (window.innerWidth < 768) {
@@ -78,7 +72,7 @@ function onResize() {
 }
 
 function createDefaultModel() {
-  var geometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
+  var geometry = new THREE.BoxGeometry(0.5,0.5,0.5);
   var material = new THREE.MeshNormalMaterial();
   var box = new THREE.Mesh(geometry, material);
   box.castShadow = true;
@@ -94,12 +88,6 @@ function createShadowModel() {
     material.opacity = 0.3;
     var mesh = result.children[0];
     mesh.material = material;
-
-    // temp
-    // mesh.position.x = 1.75;
-    // temp
-    // mesh.rotation.y = -3;
-
     mesh.receiveShadow = true;
     shadowModel = mesh;
     scene.add(mesh);
