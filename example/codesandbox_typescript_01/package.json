@@ -1,0 +1,18 @@
+{
+  "name": "three-fspy-camera-loader-examplets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html"
+  },
+  "dependencies": {
+    "three": "0.117.1",
+    "three-fspy-camera-loader": "2.4.0"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.6.1"
+  },
+  "keywords": []
+}

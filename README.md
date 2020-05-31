@@ -25,6 +25,14 @@ I'm Japanese so I'm not good at English. So I'm sorry if I used the wrong Englis
 
 `$ npm install --save three-fspy-camera-loader`
 
+## Examples
+
+[codesandbox(TypeScript)](https://codesandbox.io/s/typescript-demo-basic-orylt?file=/src/FSpyCameraLoaderExample.ts)
+
+If it doesn't work, reload.
+
+Other examples are in preparation.
+
 ## Link Collection
 
 [fSpy official website](https://fspy.io/)
