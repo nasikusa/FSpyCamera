@@ -1,4 +1,11 @@
-import { Scene, BoxGeometry, WebGLRenderer, MeshNormalMaterial, Mesh, PerspectiveCamera } from 'three';
+import {
+  Scene,
+  BoxGeometry,
+  WebGLRenderer,
+  MeshNormalMaterial,
+  Mesh,
+  PerspectiveCamera,
+} from 'three';
 
 import FSpyCameraLoader from 'three-fspy-camera-loader';
 import { FSpyCameraJson } from 'three-fspy-camera-loader/dist/type';
@@ -29,7 +36,9 @@ export default class FSpyCameraLoaderExample {
     window.addEventListener('resize', this.onResize.bind(this));
   }
 
-  setFullWindowRenderSize(sizeObject?: renderSizeInterface): renderSizeInterface {
+  setFullWindowRenderSize(
+    sizeObject?: renderSizeInterface
+  ): renderSizeInterface {
     const x = window.innerWidth;
     const y = window.innerHeight;
     if (sizeObject == null) {

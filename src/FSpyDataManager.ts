@@ -1,5 +1,10 @@
 import { Vector2, Vector3, Matrix4, MathUtils } from 'three';
-import { FSpyCameraJson, DataManager, FSpyJsonTransformRows, FSpyCameraData } from './type';
+import {
+  FSpyCameraJson,
+  DataManager,
+  FSpyJsonTransformRows,
+  FSpyCameraData,
+} from './type';
 import { defaultCameraParams } from './const';
 
 /**
@@ -102,15 +107,27 @@ export default class FSpyDataManager implements DataManager {
   private setComputedData(): void {
     if (this.rawData != null) {
       this.data = ({} as unknown) as FSpyCameraData;
-      this.data.principalPoint = new Vector2(this.rawData.principalPoint.x, this.rawData.principalPoint.y);
+      this.data.principalPoint = new Vector2(
+        this.rawData.principalPoint.x,
+        this.rawData.principalPoint.y
+      );
       this.data.viewTransform = this.internalViewTransformMatrix;
       this.data.cameraTransform = this.internalCameraTransformMatrix;
       this.data.horizontalFieldOfView = this.rawData.horizontalFieldOfView;
       this.data.verticalFieldOfView = this.rawData.verticalFieldOfView;
       this.data.vanishingPoints = [
-        new Vector2(this.rawData.vanishingPoints[0].x, this.rawData.vanishingPoints[0].y),
-        new Vector2(this.rawData.vanishingPoints[1].x, this.rawData.vanishingPoints[1].y),
-        new Vector2(this.rawData.vanishingPoints[2].x, this.rawData.vanishingPoints[2].y),
+        new Vector2(
+          this.rawData.vanishingPoints[0].x,
+          this.rawData.vanishingPoints[0].y
+        ),
+        new Vector2(
+          this.rawData.vanishingPoints[1].x,
+          this.rawData.vanishingPoints[1].y
+        ),
+        new Vector2(
+          this.rawData.vanishingPoints[2].x,
+          this.rawData.vanishingPoints[2].y
+        ),
       ];
       this.data.vanishingPointAxes = [
         this.rawData.vanishingPointAxes[0],
@@ -133,10 +150,21 @@ export default class FSpyDataManager implements DataManager {
   private onSetData(): void {
     this.internalImageRatio = this.calcImageRatio();
     if (this.rawData != null) {
-      this.internalOriginalImageSize = new Vector2(this.rawData.imageWidth, this.rawData.imageHeight);
-      this.internalCameraFov = FSpyDataManager.getVFovDegFromRad(this.rawData.verticalFieldOfView);
-      this.setTransformMatrix(this.rawData.cameraTransform.rows, this.internalCameraTransformMatrix);
-      this.setTransformMatrix(this.rawData.viewTransform.rows, this.internalViewTransformMatrix);
+      this.internalOriginalImageSize = new Vector2(
+        this.rawData.imageWidth,
+        this.rawData.imageHeight
+      );
+      this.internalCameraFov = FSpyDataManager.getVFovDegFromRad(
+        this.rawData.verticalFieldOfView
+      );
+      this.setTransformMatrix(
+        this.rawData.cameraTransform.rows,
+        this.internalCameraTransformMatrix
+      );
+      this.setTransformMatrix(
+        this.rawData.viewTransform.rows,
+        this.internalViewTransformMatrix
+      );
       this.setCameraPosition(this.internalCameraTransformMatrix);
       this.setComputedData();
     }
@@ -178,15 +206,21 @@ export default class FSpyDataManager implements DataManager {
    * @param matrix Matrix data object to be set
    * @return Returns the matrix object passed as the second argument. If it fails for any reason, it returns empty matrix data.
    */
-  private setTransformMatrix(transformArray: FSpyJsonTransformRows, matrix: Matrix4): Matrix4 {
+  private setTransformMatrix(
+    transformArray: FSpyJsonTransformRows,
+    matrix: Matrix4
+  ): Matrix4 {
     if (this.rawData != null) {
       const matrixData: Matrix4 = matrix;
       const mtxArray: FSpyJsonTransformRows = transformArray;
       const preArray: number[] = [];
-      const matrixArray = mtxArray.reduce((pre: number[], curernt: number[]) => {
-        pre.push(...curernt);
-        return pre;
-      }, preArray);
+      const matrixArray = mtxArray.reduce(
+        (pre: number[], curernt: number[]) => {
+          pre.push(...curernt);
+          return pre;
+        },
+        preArray
+      );
       matrixData.set(
         matrixArray[0],
         matrixArray[1],
@@ -219,7 +253,11 @@ export default class FSpyDataManager implements DataManager {
     if (this.rawData != null) {
       const matrixElements: number[] = cameraMatrix.elements;
       // see : https://threejs.org/docs/#api/en/math/Matrix4
-      this.internalCameraPosition = new Vector3(matrixElements[12], matrixElements[13], matrixElements[14]);
+      this.internalCameraPosition = new Vector3(
+        matrixElements[12],
+        matrixElements[13],
+        matrixElements[14]
+      );
     }
     return this.internalCameraPosition;
   }

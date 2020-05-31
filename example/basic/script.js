@@ -72,11 +72,11 @@ function onResize() {
 }
 
 function createDefaultModel() {
-  var geometry = new THREE.BoxGeometry(0.5,0.5,0.5);
+  var geometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
   var material = new THREE.MeshNormalMaterial();
   var box = new THREE.Mesh(geometry, material);
   box.castShadow = true;
-  box.position.set(0,0,0);
+  box.position.set(0, 0, 0);
   box.rotation.y = 0.0;
   return box;
 }

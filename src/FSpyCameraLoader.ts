@@ -1,4 +1,10 @@
-import { Loader, FileLoader, PerspectiveCamera, Vector2, LoadingManager } from 'three';
+import {
+  Loader,
+  FileLoader,
+  PerspectiveCamera,
+  Vector2,
+  LoadingManager,
+} from 'three';
 
 import FSpyDataManager from './FSpyDataManager';
 import { FSpyCameraJson, FSpyCameraData } from './type';
@@ -205,7 +211,8 @@ export default class FSpyCamerLoader extends Loader {
         this.camera.zoom = defaultCameraParams.zoom;
       } else {
         this.camera.aspect = this.targetCanvasSize.x / this.targetCanvasSize.y;
-        this.camera.zoom = this.targetCanvasSize.x / this.targetCanvasSize.y / fSpyImageRatio;
+        this.camera.zoom =
+          this.targetCanvasSize.x / this.targetCanvasSize.y / fSpyImageRatio;
       }
 
       this.camera.updateProjectionMatrix();

@@ -46,7 +46,11 @@ export interface FSpyCameraJson {
       y: number;
     }
   ];
-  vanishingPointAxes: [vanishingPointAxesStrings, vanishingPointAxesStrings, vanishingPointAxesStrings];
+  vanishingPointAxes: [
+    vanishingPointAxesStrings,
+    vanishingPointAxesStrings,
+    vanishingPointAxesStrings
+  ];
   relativeFocalLength: number;
   imageWidth: number;
   imageHeight: number;
@@ -65,7 +69,11 @@ export interface FSpyCameraData {
   horizontalFieldOfView: number;
   verticalFieldOfView: number;
   vanishingPoints: [Vector2, Vector2, Vector2];
-  vanishingPointAxes: [vanishingPointAxesStrings, vanishingPointAxesStrings, vanishingPointAxesStrings];
+  vanishingPointAxes: [
+    vanishingPointAxesStrings,
+    vanishingPointAxesStrings,
+    vanishingPointAxesStrings
+  ];
   relativeFocalLength: number;
   imageWidth: number;
   imageHeight: number;
