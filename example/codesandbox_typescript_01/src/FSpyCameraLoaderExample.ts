@@ -1,15 +1,8 @@
-import {
-  Scene,
-  BoxGeometry,
-  WebGLRenderer,
-  MeshNormalMaterial,
-  Mesh,
-  PerspectiveCamera
-} from "three";
+import { Scene, BoxGeometry, WebGLRenderer, MeshNormalMaterial, Mesh, PerspectiveCamera } from 'three';
 
-import FSpyCameraLoader from "three-fspy-camera-loader";
-import { FSpyCameraJson } from "three-fspy-camera-loader/dist/type";
-import { renderSizeInterface } from "./type";
+import FSpyCameraLoader from 'three-fspy-camera-loader';
+import { FSpyCameraJson } from 'three-fspy-camera-loader/dist/type';
+import { renderSizeInterface } from './type';
 
 export default class FSpyCameraLoaderExample {
   private renderer: WebGLRenderer;
@@ -33,18 +26,16 @@ export default class FSpyCameraLoaderExample {
     console.log(this.camera);
 
     this.setUpScene();
-    window.addEventListener("resize", this.onResize.bind(this));
+    window.addEventListener('resize', this.onResize.bind(this));
   }
 
-  setFullWindowRenderSize(
-    sizeObject?: renderSizeInterface
-  ): renderSizeInterface {
+  setFullWindowRenderSize(sizeObject?: renderSizeInterface): renderSizeInterface {
     const x = window.innerWidth;
     const y = window.innerHeight;
     if (sizeObject == null) {
       sizeObject = {
         x: 0,
-        y: 0
+        y: 0,
       };
     }
     sizeObject.x = x;
@@ -57,7 +48,7 @@ export default class FSpyCameraLoaderExample {
       renderer = new WebGLRenderer({
         alpha: true,
         antialias: true,
-        canvas: this.targetCanvas
+        canvas: this.targetCanvas,
       });
     }
     renderer.setPixelRatio(window.devicePixelRatio);
