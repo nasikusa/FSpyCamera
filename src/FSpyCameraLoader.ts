@@ -17,7 +17,7 @@ export default class FSpyCamerLoader extends Loader {
   public targetCanvasSize: Vector2;
 
   /**
-   * Canvas that is the target for drawing WebGL
+   * Canvas that is the target for drawing WebGL. It is mainly used for updating the camera according to the resize.
    */
   public targetCanvas: HTMLCanvasElement | null;
 
