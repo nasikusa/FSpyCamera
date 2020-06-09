@@ -1,8 +1,5 @@
-codesandbox デモ
 メインデモ作成
 ライブラリ用のサイト制作
-プロパティ、メソッド解説を追加
 three react fiber
 いろいろなファイルで試す（テスト）
-テスト導入
-
+node.js＋typedocを使用して、readme.md用のapiを抽出
