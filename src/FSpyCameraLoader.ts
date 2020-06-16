@@ -15,43 +15,36 @@ export default class FSpyCamerLoader extends Loader {
   /**
    * PerspectiveCamera of three.js. The final result is stored on this camera.
    */
-  public camera: PerspectiveCamera;
+  public camera: PerspectiveCamera = new PerspectiveCamera();
 
   /**
    * The size of the target canvas
    */
-  public targetCanvasSize: Vector2;
+  public targetCanvasSize: Vector2 = new Vector2();
 
   /**
    * Canvas that is the target for drawing WebGL. It is mainly used for updating the camera according to the resize.
    */
-  public targetCanvas: HTMLCanvasElement | null;
+  public targetCanvas: HTMLCanvasElement | null = null;
 
   /**
    * Class that manages camera data of fSpy
    */
-  public dataManager: FSpyDataManager;
+  public dataManager: FSpyDataManager = new FSpyDataManager();
 
   /**
    * Flag whether the browser is IE
    */
-  private isIE: boolean;
+  private isIE: boolean = FSpyCamerLoader.getIsUseIE();
 
   /**
    * Resize event flag used internally
    */
-  private internalIsEnableResizeEvent: boolean;
+  private internalIsEnableResizeEvent = false;
 
   constructor(manager?: LoadingManager) {
     super();
-
     Loader.call(this, manager);
-    this.isIE = FSpyCamerLoader.getIsUseIE();
-    this.targetCanvas = null;
-    this.targetCanvasSize = new Vector2();
-    this.camera = new PerspectiveCamera();
-    this.dataManager = new FSpyDataManager();
-    this.internalIsEnableResizeEvent = false;
   }
 
   /**

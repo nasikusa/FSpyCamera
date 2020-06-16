@@ -14,59 +14,47 @@ export default class FSpyDataManager implements DataManager {
   /**
    * json data output from fSpy
    */
-  private rawData: FSpyCameraJson | null;
+  private rawData: FSpyCameraJson | null = null;
 
   /**
    * json data from fSpy converted to data for three.js
    */
-  private data: FSpyCameraData | null;
+  private data: FSpyCameraData | null = null;
 
   /**
    * Image ratio
    */
-  private internalImageRatio: number;
+  private internalImageRatio: number = defaultCameraParams.aspect;
 
   /**
    * Camera viewing angle
    */
-  private internalCameraFov: number;
+  private internalCameraFov: number = defaultCameraParams.fov;
 
   /**
    * Image size
    */
-  private internalOriginalImageSize: Vector2;
+  private internalOriginalImageSize: Vector2 = new Vector2();
 
   /**
    * Camera matrix
    */
-  private internalCameraTransformMatrix: Matrix4;
+  private internalCameraTransformMatrix: Matrix4 = new Matrix4();
 
   /**
    * View matrix
    */
-  private internalViewTransformMatrix: Matrix4;
+  private internalViewTransformMatrix: Matrix4 = new Matrix4();
 
   /**
    * Camera position
    */
-  private internalCameraPosition: Vector3;
+  private internalCameraPosition: Vector3 = new Vector3();
 
   /**
    * bool value indicating whether fSpy data was stored
    */
-  private internalIsSetData: boolean;
-
-  constructor() {
-    this.rawData = null;
-    this.data = null;
-    this.internalImageRatio = defaultCameraParams.aspect;
-    this.internalCameraFov = defaultCameraParams.fov;
-    this.internalOriginalImageSize = new Vector2();
-    this.internalCameraTransformMatrix = new Matrix4();
-    this.internalViewTransformMatrix = new Matrix4();
-    this.internalCameraPosition = new Vector3();
-    this.internalIsSetData = false;
-  }
+  private internalIsSetData = false;
 
   /**
    * Set json data from fSpy
