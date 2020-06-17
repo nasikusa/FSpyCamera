@@ -1,9 +1,9 @@
 import {
-  Loader,
   FileLoader,
+  Loader,
+  LoadingManager,
   PerspectiveCamera,
   Vector2,
-  LoadingManager,
 } from 'three';
 
 import FSpyDataManager from './FSpyDataManager';

@@ -10,7 +10,6 @@ export default class FSpyDataManager implements DataManager {
     private internalViewTransformMatrix;
     private internalCameraPosition;
     private internalIsSetData;
-    constructor();
     setData(rawData: FSpyCameraJson): void;
     removeData(): void;
     getData(): FSpyCameraJson | null;

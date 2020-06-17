@@ -4,7 +4,7 @@
  * (c) 2020 @nasikusa
  * Released under the MIT License.
  */
-import { Vector2, Matrix4, Vector3, MathUtils, FileLoader, Loader, PerspectiveCamera } from 'three';
+import { Vector2, Matrix4, Vector3, MathUtils, FileLoader, PerspectiveCamera, Loader } from 'three';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -238,13 +238,13 @@ var FSpyCamerLoader = (function (_super) {
     __extends(FSpyCamerLoader, _super);
     function FSpyCamerLoader(manager) {
         var _this = _super.call(this) || this;
-        Loader.call(_this, manager);
-        _this.isIE = FSpyCamerLoader.getIsUseIE();
-        _this.targetCanvas = null;
-        _this.targetCanvasSize = new Vector2();
         _this.camera = new PerspectiveCamera();
+        _this.targetCanvasSize = new Vector2();
+        _this.targetCanvas = null;
         _this.dataManager = new FSpyDataManager();
+        _this.isIE = FSpyCamerLoader.getIsUseIE();
         _this.internalIsEnableResizeEvent = false;
+        Loader.call(_this, manager);
         return _this;
     }
     Object.defineProperty(FSpyCamerLoader.prototype, "isEnableResizeEvent", {
@@ -336,7 +336,8 @@ var FSpyCamerLoader = (function (_super) {
             }
             else {
                 this.camera.aspect = this.targetCanvasSize.x / this.targetCanvasSize.y;
-                this.camera.zoom = this.targetCanvasSize.x / this.targetCanvasSize.y / fSpyImageRatio;
+                this.camera.zoom =
+                    this.targetCanvasSize.x / this.targetCanvasSize.y / fSpyImageRatio;
             }
             this.camera.updateProjectionMatrix();
         }

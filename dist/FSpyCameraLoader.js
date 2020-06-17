@@ -242,13 +242,13 @@
 	    __extends(FSpyCamerLoader, _super);
 	    function FSpyCamerLoader(manager) {
 	        var _this = _super.call(this) || this;
-	        three.Loader.call(_this, manager);
-	        _this.isIE = FSpyCamerLoader.getIsUseIE();
-	        _this.targetCanvas = null;
-	        _this.targetCanvasSize = new three.Vector2();
 	        _this.camera = new three.PerspectiveCamera();
+	        _this.targetCanvasSize = new three.Vector2();
+	        _this.targetCanvas = null;
 	        _this.dataManager = new FSpyDataManager();
+	        _this.isIE = FSpyCamerLoader.getIsUseIE();
 	        _this.internalIsEnableResizeEvent = false;
+	        three.Loader.call(_this, manager);
 	        return _this;
 	    }
 	    Object.defineProperty(FSpyCamerLoader.prototype, "isEnableResizeEvent", {
@@ -340,7 +340,8 @@
 	            }
 	            else {
 	                this.camera.aspect = this.targetCanvasSize.x / this.targetCanvasSize.y;
-	                this.camera.zoom = this.targetCanvasSize.x / this.targetCanvasSize.y / fSpyImageRatio;
+	                this.camera.zoom =
+	                    this.targetCanvasSize.x / this.targetCanvasSize.y / fSpyImageRatio;
 	            }
 	            this.camera.updateProjectionMatrix();
 	        }
