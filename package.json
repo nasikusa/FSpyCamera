@@ -33,9 +33,11 @@
     "develop": "rollup --config --watch",
     "clean": "prettier src/**/*.ts --write",
     "clean-example": "prettier ./example/**/*.js --write",
+    "clean-test": "prettier ./test/**/*.ts --write",
     "gendoc": "typedoc --out ./docs/ ./src/ --plugin typedoc-plugin-markdown --readme none",
     "lint": "eslint ./src/**/*.ts",
-    "test": "jest"
+    "test": "jest",
+    "coverage": "npm test -- --coverage"
   },
   "repository": {
     "type": "git",
