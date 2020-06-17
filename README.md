@@ -2,6 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/three-fspy-camera-loader)](https://www.npmjs.com/package/three-fspy-camera-loader)
 [![NPM](https://img.shields.io/npm/l/three-fspy-camera-loader)](https://github.com/nasikusa/three-fspy-camera-loader/blob/master/LICENSE)
+[![Build Status](https://travis-ci.org/nasikusa/three-fspy-camera-loader.svg?branch=master)](https://travis-ci.org/nasikusa/three-fspy-camera-loader)
 
 ![demo](./resources/demo.gif)
 
