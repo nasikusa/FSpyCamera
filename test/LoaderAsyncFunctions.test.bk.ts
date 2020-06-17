@@ -10,8 +10,9 @@ describe('loader async functions test', (): void => {
     expect.assertions(0);
     loader = new FSpyCameraLoader();
     loader.loadAsync(jsonPath);
-    return loader.loadAsync(jsonPath).then(res => {  // (2)
-      expect(res.data.id).toBe(3)
-    })
+    return loader.loadAsync(jsonPath).then((res) => {
+      // (2)
+      expect(res.data.id).toBe(3);
+    });
   });
 });

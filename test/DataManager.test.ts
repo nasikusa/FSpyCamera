@@ -15,5 +15,4 @@ describe('data manager test', (): void => {
     manager.removeData();
     expect(manager.getComputedData()).toBeNull();
   });
-
 });
