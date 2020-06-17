@@ -87,7 +87,7 @@ export const exampleJsonString01: string = `
 }
 `;
 
-export const  exampleJsonString02: string = `
+export const exampleJsonString02: string = `
 {
   "principalPoint": {
     "x": 0,
