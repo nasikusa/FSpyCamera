@@ -6,7 +6,7 @@
   "mainMin": "dist/FSpyCameraLoader.min.js",
   "module": "dist/FSpyCameraLoader.module.js",
   "dependencies": {
-    "three": "^0.118.3"
+    "three": "^0.124.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.0",
