@@ -22,7 +22,7 @@
     "prettier": "^2.0.5",
     "rollup": "^2.7.2",
     "rollup-plugin-terser": "^6.1.0",
-    "rollup-plugin-typescript2": "^0.27.0",
+    "rollup-plugin-typescript2": "^0.30.0",
     "ts-jest": "^26.1.0",
     "typedoc": "^0.17.6",
     "typedoc-plugin-markdown": "^2.2.17",
